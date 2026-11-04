@@ -1,9 +1,6 @@
-# caderno_python
-Listas, exercícios e simulados para estudar Python. Todas as listas da Fatec feitas e resolvidas + um site para simular as provas do Massanori com base no que ele deu em aula 
-
-
-
 **[Abrir o Caderno Python](https://gabrielherzer.github.io/caderno_python/python-em-pratica/)**
+
+
 Caderno Python
 
 Um espaço para resolver as listas do professor Massanori e revisar para a prova de Python.
@@ -23,3 +20,9 @@ Simulado — resolva 7 questões: 4 fixas, 2 testes de mesa sorteados e 1 exerc�
 Meu histórico — consulte seus acertos, erros e notas dos simulados. Você pode exportar ou importar um backup do seu progresso.
 
 Listas e fontes — consulte a origem dos exercícios e o que já foi conferido nas referências do ENADE.
+
+
+
+
+# caderno_python
+Listas, exercícios e simulados para estudar Python. Todas as listas da Fatec feitas e resolvidas + um site para simular as provas do Massanori com base no que ele deu em aula 
