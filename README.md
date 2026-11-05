@@ -1,4 +1,4 @@
-**[Abrir o Caderno Python](https://gabrielherzer.github.io/caderno_python/python-em-pratica/)**
+**[Abrir o Caderno Python](https://gabrielherzer.github.io/caderno_python/)**
 
 
 Caderno Python
