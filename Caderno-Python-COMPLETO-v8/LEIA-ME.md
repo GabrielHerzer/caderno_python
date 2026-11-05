@@ -36,19 +36,13 @@ O editor começa em branco. Código e entradas são salvos automaticamente. Use 
 
 Dicas e solução completa exigem uma tentativa anterior e clique explícito. Consultá-las marca ajuda. **Parar** cancela sem registrar nova nota. Depois de carregar Python, cada envio tem limite de cinco segundos. Laços intermináveis são interrompidos.
 
-## Simulado Massanori — sete respostas em Python
+## Simulado Massanori — oito questões fixas
 
-Cada rodada contém exatamente:
+Toda nova rodada contém, nesta ordem: arroz 4×4 (ENADE 2011 Q5), alturas (ENADE 2021 Q3), count_code (10-G), fixa_primeiro (11-C), busca (11-F), zf (12-J), sort_last (13-C) e anagrama (14-H).
 
-- Quatro prioridades: `fixa_primeiro`, verificar anagramas, arroz no tabuleiro e análise de alturas.
-- Dois testes de mesa sorteados entre laços, listas/referências e matrizes, com dados variáveis.
-- Uma questão de programação sorteada dos 31 exercícios elegíveis das listas 10–14 recebidas (excluindo fixa_primeiro e anagrama, já presentes nas quatro prioridades), sem duplicação e sem virar um terceiro teste de mesa.
+Escreva as oito funções e envie para receber a nota de 0 a 8. Cada questão vale um acerto quando passa em todos os testes. As respostas são salvas automaticamente. Reiniciar simulado descarta as respostas após confirmação e começa novamente com as mesmas oito questões. Soluções completas exigem pedido explícito após a correção.
 
-Nas cinco questões de programação, escreva a função pedida. Nos dois testes de mesa, acompanhe o algoritmo e escreva `def resposta():` retornando a tabela/lista encontrada. Observe o ponto exato solicitado: fim de cada volta ou depois de cada atribuição. Não há alternativas.
-
-As respostas são salvas enquanto você escreve e podem ser retomadas depois de fechar ou recarregar. A correção ocorre somente ao finalizar as sete questões. Não há dicas ou gabarito durante a rodada. Cada questão vale um acerto se todos os testes passarem; o resultado é de 0 a 7. O relatório também mostra os casos individuais e os erros.
-
-Se Python não carregar, a correção é cancelada sem nota e as respostas são preservadas. Você pode tentar novamente. Erros de sintaxe, execução, retorno incorreto ou tempo de execução excedido contam como erro na questão. Resultados concluídos são registrados uma única vez. Código de referência aparece somente por pedido explícito.
+Simulados antigos de sete questões continuam acessíveis no histórico e podem ser retomados se já estavam pendentes. Ao reiniciar, passa a valer a composição de oito questões. Os testes de mesa seguem disponíveis no catálogo e na revisão.
 
 ## Histórico e backup
 
@@ -91,14 +85,7 @@ Na soma invertida, o corretor detecta chamadas int/pow/eval/exec e potências ou
 
 Inteiros grandes e tuplas dos testes são preservados por uma representação que evita arredondamento no JavaScript. Em particular, o teste de zf com 90000000000000000010 chega ao Python como inteiro exato.
 
-## Destaques da postagem Dicas P2
 
-Os quatro novos destaques recebem estrela: lista 10-G count_code, 11-F busca, 12-J zf e 13-C sort_last. A imagem os indica como importantes, sem garantir presença na prova. As quatro questões fixas continuam as mesmas.
+## Arroz em lista simples
 
-Em novos simulados, a questão extra escolhe primeiro o grupo: 50% para esses quatro destaques e 50% para os outros 27 exercícios elegíveis. Depois sorteia uniformemente dentro do grupo. Todos os 33 exercícios continuam podendo aparecer: dois são fixos e 31 participam do sorteio. Simulados já iniciados preservam suas questões. A probabilidade não significa alternância obrigatória nem divisão exata em poucas rodadas.
-
-## Reiniciar a rodada
-
-Durante o simulado, use **Sortear outro simulado** para recomeçar sem corrigir. Se houver respostas, o site pede confirmação antes de descartá-las. Nenhuma nota é registrada e o histórico concluído permanece intacto. O novo sorteio mantém quatro fixas, dois testes de mesa e a divisão 50/50 da questão extra; questões aleatórias podem se repetir por acaso. O botão fica indisponível durante a correção.
-
-As quatro prioridades agora exibem “Alta probabilidade de cair na prova” e “Massanori gostou muito dessa questão”, como expectativa relatada pelo aluno, sem confirmação da prova. Selos repetidos “Material recebido” foram removidos.
+Nesta versão, arroz(n) retorna somente uma lista com n * n quantidades em ordem, sem matriz nem total separado. Exemplo: arroz(2) retorna [1, 2, 4, 8]. No tabuleiro 4 × 4 são 16 valores.
