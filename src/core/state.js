@@ -107,7 +107,13 @@ function validateState(s) {
     throw Error("Simulados inválidos");
 }
 
+// Grava no navegador e avisa a sincronização com a conta (src/core/cloud.js), se houver.
 function save() {
+  saveLocal();
+  if (typeof cloudSaved === "function") cloudSaved();
+}
+
+function saveLocal() {
   try {
     localStorage.setItem(KEY, JSON.stringify(state));
     storageOK = true;
@@ -115,6 +121,15 @@ function save() {
     storageOK = false;
     toast("Não foi possível salvar. Exporte um backup do histórico.");
   }
+}
+
+// Estado vazio de "Apagar histórico" e base de "Importar backup". baseAt marca a troca, para a
+// mesclagem com a nuvem não trazer de volta o que foi apagado; owner diz de qual conta é a cópia.
+function freshState(from = { version: 1, attempts: [], cycles: 0, exams: [] }) {
+  const s = { ...from, baseAt: Date.now() };
+  if (state.owner) s.owner = state.owner;
+  else delete s.owner;
+  return s;
 }
 
 const attempts = (id) => state.attempts.filter((a) => a.id === id);

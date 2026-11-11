@@ -21,7 +21,7 @@ function bind() {
       active.selected = Number(chosen.value);
       active.scratch = $("#scratch").value;
       const a = record(active, active.selected, cycle ? "ciclo" : "pratica", active.scratch);
-      active.recordIndex = state.attempts.length - 1;
+      active.record = a;
       active.correct = a.correct;
       active.submitted = true;
       render();
@@ -151,10 +151,10 @@ function action(name) {
       }
       if (
         confirm(
-          "Apagar todas as tentativas, ciclos e simulados? Exporte um backup antes se quiser preservá-los.",
+          `Apagar todas as tentativas, ciclos e simulados${cloudUser ? " neste navegador e na sua conta" : ""}? Exporte um backup antes se quiser preservá-los.`,
         )
       ) {
-        state = { version: 1, attempts: [], cycles: 0, exams: [] };
+        state = freshState();
         resetCodingSession();
         active = cycle = exam = null;
         save();
@@ -178,3 +178,4 @@ window.addEventListener("beforeunload", (ev) => {
 });
 
 render();
+initCloud();

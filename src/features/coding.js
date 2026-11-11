@@ -25,8 +25,9 @@ function caseCount(s) {
 }
 
 // Interrompe a execução e esquece o resultado e a ajuda da oficina. Usado ao trocar de
-// exercício e sempre que o histórico é substituído: codeRecord aponta para um índice de
-// state.attempts, e dica/solução só podem voltar depois de uma nova tentativa.
+// exercício e sempre que o histórico é substituído: codeRecord aponta para uma tentativa de
+// state.attempts (o objeto, não o índice, porque a sincronização pode reordenar o histórico), e
+// dica/solução só podem voltar depois de uma nova tentativa.
 function resetCodingSession() {
   stopCode(false);
   codeResult = null;
@@ -64,7 +65,7 @@ function codingPage() {
             .map((h) => `<p class="notice">${esc(h)}</p>`)
             .join("")}${codeSolution ? `<pre>${esc(s.solution)}</pre>` : ""}`
         : ""
-    }</section><section><div class="panel"><div class="row"><h2>Seu código</h2><small>Salvo automaticamente · Tab = 4 espaços</small></div><label class="sr" for="python-editor">Código Python</label><textarea id="python-editor" class="python-editor" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="${s.program ? "# Escreva seu programa aqui, com input() e print()." : "# Escreva sua função aqui. Você pode começar do zero."}" ${codeBusy ? "readonly" : ""}>${esc(d.code)}</textarea><label class="margin" style="display:block">Entradas para input() · uma por linha<textarea id="python-input" rows="2" placeholder="Opcional, usado em Executar livremente" ${codeBusy ? "readonly" : ""}>${esc(d.stdin)}</textarea></label><div class="actions"><button class="primary" id="check-code" ${codeBusy ? "disabled" : ""}>Verificar meu código</button><button id="run-code" ${codeBusy ? "disabled" : ""}>Executar livremente</button><button id="stop-code" ${codeBusy ? "" : "disabled"}>Parar</button></div><small>${s.program ? "Na verificação, cada caso roda seu programa do zero com as próprias entradas; o campo acima vale só para Executar livremente." : "Na verificação, os testes chamam sua função com argumentos. Use input() somente na execução livre. Cada envio começa em um ambiente Python novo."}</small></div><div id="code-status" class="panel margin" aria-live="polite">${codingResults()}</div></section></div>`
+    }</section><section><div class="panel"><div class="row"><h2>Seu código</h2><small>Salvo automaticamente · Tab = 4 espaços · Ctrl+Espaço sugere</small></div><label class="sr" for="python-editor">Código Python</label><textarea id="python-editor" class="python-editor" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="${s.program ? "# Escreva seu programa aqui, com input() e print()." : "# Escreva sua função aqui. Você pode começar do zero."}" ${codeBusy ? "readonly" : ""}>${esc(d.code)}</textarea><label class="margin" style="display:block">Entradas para input() · uma por linha<textarea id="python-input" rows="2" placeholder="Opcional, usado em Executar livremente" ${codeBusy ? "readonly" : ""}>${esc(d.stdin)}</textarea></label><div class="actions"><button class="primary" id="check-code" ${codeBusy ? "disabled" : ""}>Verificar meu código</button><button id="run-code" ${codeBusy ? "disabled" : ""}>Executar livremente</button><button id="stop-code" ${codeBusy ? "" : "disabled"}>Parar</button></div><small>${s.program ? "Na verificação, cada caso roda seu programa do zero com as próprias entradas; o campo acima vale só para Executar livremente." : "Na verificação, os testes chamam sua função com argumentos. Use input() somente na execução livre. Cada envio começa em um ambiente Python novo."}</small></div><div id="code-status" class="panel margin" aria-live="polite">${codingResults()}</div></section></div>`
   );
 }
 
@@ -91,6 +92,7 @@ function bindCoding() {
       persist();
     }
   };
+  enhanceEditor($("#python-editor"), { complete: true });
   $("#check-code").onclick = () => runCode(true);
   $("#run-code").onclick = () => runCode(false);
   $("#stop-code").onclick = () => stopCode(true);
@@ -109,8 +111,8 @@ function bindCoding() {
 }
 
 function markCodeHelp() {
-  if (codeRecord !== null && state.attempts[codeRecord]) {
-    state.attempts[codeRecord].assisted = true;
+  if (codeRecord && state.attempts.includes(codeRecord)) {
+    codeRecord.assisted = true;
     save();
   }
 }
@@ -158,7 +160,7 @@ function runCode(check) {
       codeAttempted = true;
       const correct =
         !!result.rows && result.rows.length === caseCount(s) && result.rows.every((r) => r.ok);
-      state.attempts.push({
+      codeRecord = {
         id,
         variant: 0,
         answer: result.rows
@@ -169,8 +171,8 @@ function runCode(check) {
         time: Date.now(),
         mode: "codigo",
         scratch: d.code,
-      });
-      codeRecord = state.attempts.length - 1;
+      };
+      state.attempts.push(codeRecord);
       save();
     }
     render();

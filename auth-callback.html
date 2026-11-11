@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Entrando… · Python Para Zumbis</title>
+    <link rel="icon" href="assets/favicon/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16.png" />
+    <link rel="apple-touch-icon" href="assets/favicon/favicon-180.png" />
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #f6f7f2;
+        color: #182f2b;
+        font:
+          15px/1.6 "Segoe UI",
+          Arial,
+          sans-serif;
+        padding: 16px;
+      }
+      a {
+        color: #205c48;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Volta do login do GitHub (src/core/cloud.js). Troca o código PKCE pela sessão, que fica no
+         localStorage desta origem, e fecha a janela; sem popup, volta para a página do site. -->
+    <p id="msg">Entrando com o GitHub…</p>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.js"
+      integrity="sha384-uteMfOloLDGt042uDz+xHGF3ym63/WQ6rFq7murQRG8Ih7QrXGEGNtWd8688sb4O"
+      crossorigin="anonymous"
+    ></script>
+    <script src="src/core/supabase-config.js?v=20"></script>
+    <script>
+      "use strict";
+      (async () => {
+        const msg = document.getElementById("msg");
+        const params = new URLSearchParams(location.search);
+        const back = () => {
+          let hash = "";
+          try {
+            hash = localStorage.getItem("massanori-python-v1-login-volta") || "";
+            localStorage.removeItem("massanori-python-v1-login-volta");
+          } catch {}
+          location.replace("./" + hash);
+        };
+        const fail = (text) => {
+          msg.innerHTML = "";
+          msg.append(text + " ");
+          const link = document.createElement("a");
+          link.href = "./";
+          link.textContent = "Voltar ao site";
+          msg.append(link);
+        };
+        if (params.get("error"))
+          return fail(
+            "O GitHub não concluiu o login (" +
+              (params.get("error_description") || params.get("error")) +
+              ").",
+          );
+        if (!window.supabase?.createClient) return fail("Não foi possível carregar o Supabase.");
+        const client = supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.key, {
+          auth: { flowType: "pkce", detectSessionInUrl: true, persistSession: true },
+        });
+        const { data, error } = await client.auth.getSession();
+        if (error || !data.session) return fail("O login não foi concluído.");
+        if (window.opener && !window.opener.closed) {
+          window.opener.postMessage({ type: "caderno-login" }, location.origin);
+          msg.textContent = "Pronto! Pode fechar esta janela.";
+          window.close();
+        } else back();
+      })();
+    </script>
+  </body>
+</html>

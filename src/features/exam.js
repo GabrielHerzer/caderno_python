@@ -444,6 +444,8 @@ function bindExam() {
         el.oninput();
       }
     };
+    // Sem sugestões no simulado: a prova é sem consulta.
+    enhanceEditor(el);
   }
   if ($("#cancel-exam-grade")) $("#cancel-exam-grade").onclick = () => examCancel?.();
   document.querySelectorAll("[data-exam-index]").forEach(

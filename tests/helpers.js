@@ -38,14 +38,106 @@ function fakeWorker(window, { delay = 0 } = {}) {
   };
 }
 
-async function boot({ storage, workerDelay = 0, hash = "", lucide = true } = {}) {
+// Supabase falso (o index.html carrega o verdadeiro do CDN). `server` guarda as linhas da tabela
+// progress, a sessão atual e quem está na lista de autorizados, como o banco faria com o RLS.
+function fakeSupabase(server) {
+  server.rows ??= {};
+  server.allowed ??= [];
+  server.calls ??= [];
+  return {
+    createClient(url, key, options) {
+      server.options = options;
+      const listeners = [];
+      const emit = (event) => listeners.forEach((cb) => cb(event, server.session || null));
+      server.emit = emit;
+      const fail = () => (server.offline ? { message: "Failed to fetch" } : null);
+      return {
+        auth: {
+          onAuthStateChange(cb) {
+            listeners.push(cb);
+            setTimeout(() => cb("INITIAL_SESSION", server.session || null), 0);
+            return { data: { subscription: { unsubscribe() {} } } };
+          },
+          async getSession() {
+            return { data: { session: server.session || null }, error: null };
+          },
+          async signInWithOAuth(args) {
+            server.calls.push(["signInWithOAuth", args]);
+            return { data: { url: "https://github.test/login" }, error: null };
+          },
+          async signOut() {
+            server.session = null;
+            emit("SIGNED_OUT");
+            return { error: null };
+          },
+        },
+        from(table) {
+          const uid = () => server.session?.user.id;
+          return {
+            select: () => ({
+              eq: (col, value) => ({
+                async maybeSingle() {
+                  server.calls.push(["select", table, value]);
+                  if (fail()) return { data: null, error: fail() };
+                  const ok = uid() === value && server.allowed.includes(value);
+                  const row = ok ? server.rows[value] : undefined;
+                  return { data: row ? { state: structuredClone(row) } : null, error: null };
+                },
+              }),
+            }),
+            async upsert(row) {
+              server.calls.push(["upsert", table, row.user_id]);
+              if (fail()) return { error: fail() };
+              if (row.user_id !== uid() || !server.allowed.includes(uid()))
+                return { error: { code: "42501", message: "row-level security" } };
+              server.rows[row.user_id] = structuredClone(row.state);
+              return { error: null };
+            },
+          };
+        },
+      };
+    },
+  };
+}
+
+const CODEMIRROR_FILES = [
+  "lib/codemirror.js",
+  "mode/python/python.js",
+  "addon/edit/matchbrackets.js",
+  "addon/edit/closebrackets.js",
+  "addon/display/placeholder.js",
+  "addon/hint/show-hint.js",
+];
+
+const githubSession = (id, login) => ({
+  user: {
+    id,
+    user_metadata: {
+      user_name: login,
+      avatar_url: `https://avatars.githubusercontent.com/u/${id}`,
+    },
+  },
+});
+
+async function boot({
+  storage,
+  workerDelay = 0,
+  hash = "",
+  lucide = true,
+  supabase,
+  codemirror = false,
+  url = "http://127.0.0.1:8765/",
+  before,
+} = {}) {
   const html = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
   const scripts = [...html.matchAll(/<script src="([^"?]+)[^"]*"><\/script>/g)].map((m) => m[1]);
   const dom = new JSDOM(html.replace(/<script[\s\S]*?<\/script>/g, ""), {
     runScripts: "dangerously",
-    url: "http://127.0.0.1:8765/" + (hash ? "#" + hash : ""),
+    url: url + (hash ? "#" + hash : ""),
   });
   const w = dom.window;
+  if (supabase) w.supabase = fakeSupabase(supabase);
+  before?.(w);
   w.confirm = () => true;
   w.scrollTo = () => {};
   w.HTMLElement.prototype.scrollIntoView = () => {};
@@ -61,6 +153,22 @@ async function boot({ storage, workerDelay = 0, hash = "", lucide = true } = {})
     const el = w.document.createElement("script");
     el.textContent = fs.readFileSync(require.resolve("lucide/dist/umd/lucide.js"), "utf8");
     w.document.body.appendChild(el);
+  }
+  // O index.html carrega o CodeMirror do CDN; codemirror: true usa os mesmos arquivos do npm.
+  if (codemirror) {
+    // O jsdom não mede texto; o CodeMirror só precisa que essas funções existam.
+    const rect = { left: 0, right: 0, top: 0, bottom: 0, width: 0, height: 0 };
+    w.document.createRange = () => ({
+      setStart() {},
+      setEnd() {},
+      getBoundingClientRect: () => rect,
+      getClientRects: () => ({ length: 0, item: () => null }),
+    });
+    for (const file of CODEMIRROR_FILES) {
+      const el = w.document.createElement("script");
+      el.textContent = fs.readFileSync(require.resolve(`codemirror/${file}`), "utf8");
+      w.document.body.appendChild(el);
+    }
   }
   for (const src of scripts) {
     const el = w.document.createElement("script");
@@ -112,4 +220,16 @@ async function checkCode(w, id) {
   await tick(20);
 }
 
-module.exports = { KEY, tick, boot, global, stored, go, type, backupFile, attempt, checkCode };
+module.exports = {
+  KEY,
+  tick,
+  boot,
+  global,
+  stored,
+  go,
+  type,
+  backupFile,
+  attempt,
+  checkCode,
+  githubSession,
+};

@@ -118,8 +118,9 @@ function nextCycle() {
 }
 
 function markAssisted() {
-  const a = state.attempts[active.recordIndex];
-  if (a) {
+  // Referência ao objeto, não ao índice: a sincronização com a nuvem pode reordenar o histórico.
+  const a = active.record;
+  if (a && state.attempts.includes(a)) {
     a.assisted = true;
     save();
   }

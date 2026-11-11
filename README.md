@@ -32,6 +32,7 @@ Para atualizar, exporte um backup pelo histórico, substitua os arquivos na mesm
 
 ```
 index.html              página única; carrega os scripts na ordem certa
+auth-callback.html      volta do login do GitHub (janela popup)
 INICIAR.cmd             atalho do Windows para o servidor local
 assets/style.css
 src/
@@ -47,7 +48,12 @@ src/
   core/                 base compartilhada
     utils.js            $, esc, byId, toast, shuffle
     icons.js            ícones do Lucide (icon("nome")), carregados do CDN
+    editor.js           editor de código (CodeMirror do CDN) e sugestões no editor
+    completion-worker.js  Web Worker com Pyodide + Jedi que calcula as sugestões
     state.js            estado salvo no localStorage e estatísticas de progresso
+    sync.js             mescla o progresso do navegador com o da conta (funções puras)
+    supabase-config.js  URL e chave publicável do projeto no Supabase
+    cloud.js            login com GitHub, diálogo, aviso no menu e envio para a conta
     components.js       pedaços de HTML reaproveitados (heading, card…)
     python-worker.js    Web Worker que roda o Python (Pyodide)
     program-grader.js   corretor dos programas das listas 1–5 (Python enviado ao Worker)
@@ -59,6 +65,7 @@ src/
 fontes/                 atribuições, licença Apache-2.0 e lista 10 recebida
 exercicios/             listas 1–14 resolvidas em Markdown (não há lista 8)
 tools/iniciar.py        servidor local usado pelo INICIAR.cmd
+supabase/migrations/    tabelas e regras de acesso (RLS) do banco, na ordem aplicada
 ```
 
 ### Para quem for mexer no código
@@ -69,7 +76,10 @@ tools/iniciar.py        servidor local usado pelo INICIAR.cmd
 - **Testes:** `npm test` carrega o site no jsdom (`tests/helpers.js`), com um Worker falso no lugar do Pyodide. As soluções de referência e o corretor de programas também rodam em Python de verdade (`tests/check_solutions.py` e `tests/check_programs.py`); para um caso novo na lista 1–5, acrescente em `tests/programas.test.js` um programa errado que ele precisa reprovar. Ao corrigir um bug, escreva primeiro um teste que falhe.
 - **Ícones:** use `icon("nome")` com qualquer nome do [Lucide](https://lucide.dev/icons) (`src/core/icons.js`); no HTML fixo, `<i data-icon="nome" class="icon" aria-hidden="true"></i>`. Não use emoji ou símbolos Unicode como ícone. O Lucide vem do jsdelivr, fixo na versão 0.469.0 e com `integrity`; para atualizar, mude a versão no `package.json` e no `index.html` e recalcule o hash (o teste `tests/icones.test.js` confere os dois). Sem internet, o site funciona sem os ícones.
 - **Nova tela:** crie `src/features/<tela>.js` com uma função que devolve o HTML, registre a rota em `render()` (`src/core/router.js`), ligue os eventos em `bind()`/`action()` (`src/main.js`) e adicione o `<script>` antes do `main.js`.
+- **Editor de código:** os `<textarea class="python-editor">` viram CodeMirror 5 em `src/core/editor.js` (`enhanceEditor`). O textarea continua sendo a fonte da verdade: o editor copia cada mudança para ele e dispara `input`. As sugestões só existem na oficina (no simulado, não): vêm do Jedi rodando no Pyodide, num Worker separado; a primeira leva alguns segundos para carregar, as seguintes cerca de 0,1 s. O CodeMirror vem do jsdelivr com versão e `integrity` fixos (oito arquivos, conferidos com o npm em `tests/editor.test.js`); sem o CDN, fica o textarea simples.
 - **Progresso salvo:** fica no `localStorage`, na chave `massanori-python-v1`. Mudanças no formato precisam continuar aceitando os backups antigos (`validateState` em `src/core/state.js`).
+- **Conta e nuvem (Supabase):** quem entra com o GitHub tem o progresso guardado na tabela `progress` (um documento JSON por usuário, sem rascunhos nem simulado em andamento) e mesclado entre aparelhos por `src/core/sync.js`. Só as contas da tabela `private.allowed_github_users` gravam; para liberar alguém, insira o ID numérico do GitHub (`gh api users/LOGIN --jq .id`) nessa tabela. Mudanças no banco entram como nova migração em `supabase/migrations/`. O supabase-js vem do jsdelivr com versão e `integrity` fixos, como o Lucide (o teste `tests/nuvem.test.js` confere). O projeto está no plano gratuito: depois de cerca de uma semana sem acesso o Supabase o pausa; o site continua salvando no navegador e mostra "Sem conexão" até alguém reativar o projeto no painel do Supabase.
+- **Configuração do login (feita no painel, fora do código):** um OAuth App do GitHub com callback `https://wkoorvthqurqbctgotzk.supabase.co/auth/v1/callback`, com Client ID e Secret em Authentication → Sign In / Providers → GitHub; em Authentication → URL Configuration, Site URL `https://gabrielherzer.github.io/caderno_python/` e Redirect URLs `https://gabrielherzer.github.io/caderno_python/auth-callback.html`, `http://127.0.0.1:8765/auth-callback.html` e a porta local que você usar.
 
 # Guia de uso
 
@@ -115,7 +125,11 @@ Se Python não carregar, a correção é cancelada sem nota e as respostas são 
 
 O histórico mostra as últimas 20 tentativas, com opção de ver todas, códigos/rascunhos enviados e acertos/erros. A seção de simulados mostra data, quantidade de acertos, último resultado, melhor proporção de acertos e acesso à correção de cada rodada em código. Resultados objetivos de versões antigas permanecem identificados.
 
-**Exportar backup** inclui tentativas, códigos, simulados concluídos e simulado pendente. **Importar backup** substitui o histórico atual após confirmação. Tudo fica neste navegador. Limpar seus dados ou usar janela anônima pode apagar o progresso.
+**Exportar backup** inclui tentativas, códigos, simulados concluídos e simulado pendente. **Importar backup** substitui o histórico atual após confirmação. Sem conta, tudo fica neste navegador: limpar seus dados ou usar janela anônima pode apagar o progresso.
+
+## Conta do GitHub
+
+Na primeira vez que uma resposta entra no histórico, o site oferece **Entrar com GitHub**. A resposta já está salva no navegador; entrando, o progresso vai para a sua conta e aparece em qualquer computador. **Continuar sem conta** mantém tudo como antes e o convite não volta; o link **Entrar** fica no menu lateral. O login abre numa janela à parte, então a tela em que você estava continua igual. Por enquanto, só as contas liberadas no banco gravam na nuvem. Aberto direto do arquivo (`file://`), o login não funciona: use o INICIAR ou o site publicado. Apagar o histórico com a conta conectada apaga também na conta.
 
 ## Origem e limites
 

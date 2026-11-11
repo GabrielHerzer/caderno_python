@@ -73,7 +73,7 @@ async function importBackup(ev) {
     validateState(next);
     if (confirm(`Substituir seu histórico por ${next.attempts.length} tentativas deste backup?`)) {
       resetCodingSession();
-      state = next;
+      state = freshState(next);
       active = cycle = exam = null;
       save();
       render();
