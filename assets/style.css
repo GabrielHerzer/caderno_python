@@ -874,4 +874,31 @@ a.video-card:focus-visible {
 }
 .video-card.locked .video-icon {
   background: var(--line);
+  color: var(--muted);
+}
+
+/* Ícones do Lucide (src/core/icons.js): acompanham o tamanho e a cor do texto. */
+.icon {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+  vertical-align: -0.2em;
+}
+nav a .icon {
+  width: 18px;
+  height: 18px;
+}
+.icon.ok {
+  color: var(--green);
+}
+.icon.bad {
+  color: var(--red);
+}
+.icon.star {
+  color: #af9c55;
+  fill: currentColor;
+}
+.video-icon .icon {
+  width: 16px;
+  height: 16px;
 }

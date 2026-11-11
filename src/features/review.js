@@ -26,7 +26,7 @@ function review() {
       })
       .join("")}</div>${
       lesson
-        ? `<article class="panel margin lesson"><span class="kicker">GUIA DE REVISÃO</span><h2>${esc(lesson.title)}</h2><p>${esc(lesson.description)}</p><div class="grid"><section><h3>Sintaxe</h3><pre>${esc(lesson.syntax)}</pre></section><section><h3>Exemplo comentado</h3><pre>${esc(lesson.example)}</pre></section></div><h3>Como raciocinar</h3><ol>${lesson.steps.map((s) => `<li>${esc(s)}</li>`).join("")}</ol><div class="notice"><b>Armadilha comum:</b> ${esc(lesson.pitfall)}</div><p><b>Pense antes de avançar:</b> ${esc(lesson.check)}</p><button class="primary" data-topic-cycle="${esc(lesson.topic)}">Treinar este tema →</button><h3 class="margin">Exercícios relacionados, na sua ordem de revisão</h3><div class="grid">${lesson.ids
+        ? `<article class="panel margin lesson"><span class="kicker">GUIA DE REVISÃO</span><h2>${esc(lesson.title)}</h2><p>${esc(lesson.description)}</p><div class="grid"><section><h3>Sintaxe</h3><pre>${esc(lesson.syntax)}</pre></section><section><h3>Exemplo comentado</h3><pre>${esc(lesson.example)}</pre></section></div><h3>Como raciocinar</h3><ol>${lesson.steps.map((s) => `<li>${esc(s)}</li>`).join("")}</ol><div class="notice"><b>Armadilha comum:</b> ${esc(lesson.pitfall)}</div><p><b>Pense antes de avançar:</b> ${esc(lesson.check)}</p><button class="primary" data-topic-cycle="${esc(lesson.topic)}">Treinar este tema ${icon("arrow-right")}</button><h3 class="margin">Exercícios relacionados, na sua ordem de revisão</h3><div class="grid">${lesson.ids
             .map(byId)
             .sort((a, b) => weakness(b) - weakness(a))
             .map(card)

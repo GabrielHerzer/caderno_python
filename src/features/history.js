@@ -40,7 +40,7 @@ function historyAttempts() {
           .slice(0, historyAll ? undefined : 20)
           .map(
             (a) =>
-              `<tr><td>${new Date(a.time).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" })}</td><td>${esc(byId(a.id).title)}${a.scratch ? `<details><summary>Meu rascunho</summary><pre>${esc(a.scratch)}</pre></details>` : ""}</td><td>${esc(a.answer)}</td><td>${a.correct ? "✓ Acerto" : "↻ Erro"}${a.assisted ? "<br><small>Ajuda consultada após envio</small>" : ""}</td><td>${a.mode === "codigo" ? "Código" : a.mode === "simulado" ? "Simulado" : a.mode === "ciclo" ? "Ciclo" : "Prática"}</td></tr>`,
+              `<tr><td>${new Date(a.time).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" })}</td><td>${esc(byId(a.id).title)}${a.scratch ? `<details><summary>Meu rascunho</summary><pre>${esc(a.scratch)}</pre></details>` : ""}</td><td>${esc(a.answer)}</td><td>${a.correct ? icon("circle-check") + " Acerto" : icon("rotate-ccw") + " Erro"}${a.assisted ? "<br><small>Ajuda consultada após envio</small>" : ""}</td><td>${a.mode === "codigo" ? "Código" : a.mode === "simulado" ? "Simulado" : a.mode === "ciclo" ? "Ciclo" : "Prática"}</td></tr>`,
           )
           .join("")}</tbody></table></div>`
       : '<div class="empty">Seu histórico começa na primeira tentativa. <a href="#catalogo">Escolha um exercício.</a></div>'

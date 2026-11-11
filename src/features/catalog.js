@@ -22,7 +22,7 @@ function catalog() {
     `<div class="notice">Listas recebidas, uma por pasta: ${SUPPLIED_LIST_NUMBERS.join(", ")} (o material não tem lista 8). Os ${LIST_ITEMS.length} exercícios enviados estão disponíveis; nas listas 1 a 5, você escreve programas completos com input() e print(). Ajustes em comentários ou soluções inconsistentes são explicados nos respectivos enunciados. A conferência das referências ENADE continua indicada separadamente.</div><div class="folder-grid" aria-label="Pastas de exercícios">${folders
       .map((f) => {
         const count = EXERCISES.filter((e) => (f === "enade" ? e.enade : e.list === f)).length;
-        return `<button class="folder ${folder === String(f) ? "selected" : ""}" data-folder="${f}" aria-pressed="${folder === String(f)}"><span aria-hidden="true">▰</span><strong>${f === "enade" ? "ENADE" : `Lista ${f}`}</strong><small>${count} exercícios disponíveis${f === "enade" ? " · 6 referências" : ""}</small></button>`;
+        return `<button class="folder ${folder === String(f) ? "selected" : ""}" data-folder="${f}" aria-pressed="${folder === String(f)}"><span aria-hidden="true">${icon("folder")}</span><strong>${f === "enade" ? "ENADE" : `Lista ${f}`}</strong><small>${count} exercícios disponíveis${f === "enade" ? " · 6 referências" : ""}</small></button>`;
       })
       .join("")}</div>${
       folder
@@ -33,7 +33,7 @@ function catalog() {
             .map((t) => `<option ${filters.topic === t ? "selected" : ""}>${esc(t)}</option>`)
             .join(
               "",
-            )}</select></label><button data-action="clear-filters">Limpar busca</button></section><div id="results">${catalogResults()}</div>${folder === "enade" ? `<h2 class="margin">As seis referências indicadas</h2><div class="grid">${REFERENCES.map((r) => `<article class="card"><span class="tag warm">${esc(r.status)}</span><h3>${esc(r.name)}</h3><p>${esc(r.text)}</p>${r.exercise ? `<button data-code="${r.exercise}">Escrever código · adaptação</button>` : "<p>Enunciado pendente: ainda não há exercício completo para responder.</p>"}${r.url ? `<a href="${r.url}" target="_blank" rel="noopener noreferrer">Consultar fonte (pode conter gabarito) ↗</a>` : ""}</article>`).join("")}</div>` : ""}`
+            )}</select></label><button data-action="clear-filters">Limpar busca</button></section><div id="results">${catalogResults()}</div>${folder === "enade" ? `<h2 class="margin">As seis referências indicadas</h2><div class="grid">${REFERENCES.map((r) => `<article class="card"><span class="tag warm">${esc(r.status)}</span><h3>${esc(r.name)}</h3><p>${esc(r.text)}</p>${r.exercise ? `<button data-code="${r.exercise}">Escrever código · adaptação</button>` : "<p>Enunciado pendente: ainda não há exercício completo para responder.</p>"}${r.url ? `<a href="${r.url}" target="_blank" rel="noopener noreferrer">Consultar fonte (pode conter gabarito) ${icon("external-link")}</a>` : ""}</article>`).join("")}</div>` : ""}`
         : '<div class="empty margin">Abra uma pasta acima para encontrar os exercícios.</div>'
     }`
   );
@@ -68,9 +68,9 @@ function listVideos(folder) {
 
 function videoLink(code) {
   const v = VIDEOS[code];
-  return `<a class="video-card" href="https://www.youtube.com/watch?v=${v.youtube}" target="_blank" rel="noopener noreferrer"><span class="video-icon" aria-hidden="true">▶</span><span><b>${code}</b> ${esc(v.title)}</span><span class="sr"> (abre no YouTube)</span></a>`;
+  return `<a class="video-card" href="https://www.youtube.com/watch?v=${v.youtube}" target="_blank" rel="noopener noreferrer"><span class="video-icon" aria-hidden="true">${icon("play")}</span><span><b>${code}</b> ${esc(v.title)}</span><span class="sr"> (abre no YouTube)</span></a>`;
 }
 
 function lockedVideo(code) {
-  return `<div class="video-card locked"><span class="video-icon" aria-hidden="true">🔒</span><span><b>${code}</b> ${esc(VIDEOS[code].title)}</span></div>`;
+  return `<div class="video-card locked"><span class="video-icon" aria-hidden="true">${icon("lock")}</span><span><b>${code}</b> ${esc(VIDEOS[code].title)}</span></div>`;
 }
