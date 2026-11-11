@@ -1,0 +1,12 @@
+{
+  "name": "caderno-python",
+  "private": true,
+  "description": "Caderno Python: listas, exercícios e simulados. Site estático, sem build.",
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "3.6.2"
+  }
+}

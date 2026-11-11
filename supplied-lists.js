@@ -8,112 +8,36 @@ const SUPPLIED_LISTS = [
     "letter": "A",
     "fn": "near_ten",
     "signature": "near_ten(n)",
-    "task": "Para n inteiro não negativo, retorne True quando a distância até um múltiplo de 10 for no máximo 2; caso contrário, False.",
-    "topics": [
-      "lógica",
-      "resto da divisão"
-    ],
+    "task":
+      "Para n inteiro não negativo, retorne True quando a distância até um múltiplo de 10 for no máximo 2; caso contrário, False.",
+    "topics": ["lógica", "resto da divisão"],
     "solution": "def near_ten(n):\n    resto = n % 10\n    return resto <= 2 or resto >= 8",
     "tests": [
-      [
-        [
-          12
-        ],
-        true
-      ],
-      [
-        [
-          17
-        ],
-        false
-      ],
-      [
-        [
-          19
-        ],
-        true
-      ],
-      [
-        [
-          31
-        ],
-        true
-      ],
-      [
-        [
-          6
-        ],
-        false
-      ],
-      [
-        [
-          10
-        ],
-        true
-      ],
-      [
-        [
-          11
-        ],
-        true
-      ],
-      [
-        [
-          21
-        ],
-        true
-      ],
-      [
-        [
-          22
-        ],
-        true
-      ],
-      [
-        [
-          23
-        ],
-        false
-      ],
-      [
-        [
-          54
-        ],
-        false
-      ],
-      [
-        [
-          155
-        ],
-        false
-      ],
-      [
-        [
-          158
-        ],
-        true
-      ],
-      [
-        [
-          3
-        ],
-        false
-      ],
-      [
-        [
-          1
-        ],
-        true
-      ]
+      [[12], true],
+      [[17], false],
+      [[19], true],
+      [[31], true],
+      [[6], false],
+      [[10], true],
+      [[11], true],
+      [[21], true],
+      [[22], true],
+      [[23], false],
+      [[54], false],
+      [[155], false],
+      [[158], true],
+      [[3], false],
+      [[1], true],
     ],
-    "notes": "O texto enviado diz “pelo menos dois”, mas os 15 testes exigem “no máximo dois”. A correção segue os testes.",
+    "notes":
+      "O texto enviado diz “pelo menos dois”, mas os 15 testes exigem “no máximo dois”. A correção segue os testes.",
     "rules": {},
     "steps": [
       "Calcule o resto da divisão por 10.",
       "Confira as distâncias para o múltiplo anterior e para o próximo.",
-      "Aceite distâncias 0, 1 ou 2."
+      "Aceite distâncias 0, 1 ou 2.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "lone_sum",
@@ -122,92 +46,28 @@ const SUPPLIED_LISTS = [
     "fn": "lone_sum",
     "signature": "lone_sum(a, b, c)",
     "task": "Some os três inteiros, mas não inclua valores que aparecem repetidos entre eles.",
-    "topics": [
-      "lógica"
-    ],
-    "solution": "def lone_sum(a, b, c):\n    total = 0\n    if a != b and a != c:\n        total += a\n    if b != a and b != c:\n        total += b\n    if c != a and c != b:\n        total += c\n    return total",
+    "topics": ["lógica"],
+    "solution":
+      "def lone_sum(a, b, c):\n    total = 0\n    if a != b and a != c:\n        total += a\n    if b != a and b != c:\n        total += b\n    if c != a and c != b:\n        total += c\n    return total",
     "tests": [
-      [
-        [
-          1,
-          2,
-          3
-        ],
-        6
-      ],
-      [
-        [
-          3,
-          2,
-          3
-        ],
-        2
-      ],
-      [
-        [
-          3,
-          3,
-          3
-        ],
-        0
-      ],
-      [
-        [
-          9,
-          2,
-          2
-        ],
-        9
-      ],
-      [
-        [
-          2,
-          2,
-          9
-        ],
-        9
-      ],
-      [
-        [
-          2,
-          9,
-          2
-        ],
-        9
-      ],
-      [
-        [
-          2,
-          9,
-          3
-        ],
-        14
-      ],
-      [
-        [
-          4,
-          2,
-          3
-        ],
-        9
-      ],
-      [
-        [
-          1,
-          3,
-          1
-        ],
-        3
-      ]
+      [[1, 2, 3], 6],
+      [[3, 2, 3], 2],
+      [[3, 3, 3], 0],
+      [[9, 2, 2], 9],
+      [[2, 2, 9], 9],
+      [[2, 9, 2], 9],
+      [[2, 9, 3], 14],
+      [[4, 2, 3], 9],
+      [[1, 3, 1], 3],
     ],
     "notes": "",
     "rules": {},
     "steps": [
       "Compare cada valor com os outros dois.",
       "Inclua-o somente se não houver repetição.",
-      "Se os três forem iguais, nenhum conta."
+      "Se os três forem iguais, nenhum conta.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "lucky_sum",
@@ -215,117 +75,34 @@ const SUPPLIED_LISTS = [
     "letter": "C",
     "fn": "lucky_sum",
     "signature": "lucky_sum(a, b, c)",
-    "task": "Some a, b e c. Ao encontrar o primeiro 13, ignore esse valor e todos os que estiverem à direita.",
-    "topics": [
-      "lógica"
-    ],
-    "solution": "def lucky_sum(a, b, c):\n    if a == 13:\n        return 0\n    if b == 13:\n        return a\n    if c == 13:\n        return a + b\n    return a + b + c",
+    "task":
+      "Some a, b e c. Ao encontrar o primeiro 13, ignore esse valor e todos os que estiverem à direita.",
+    "topics": ["lógica"],
+    "solution":
+      "def lucky_sum(a, b, c):\n    if a == 13:\n        return 0\n    if b == 13:\n        return a\n    if c == 13:\n        return a + b\n    return a + b + c",
     "tests": [
-      [
-        [
-          1,
-          2,
-          3
-        ],
-        6
-      ],
-      [
-        [
-          1,
-          2,
-          13
-        ],
-        3
-      ],
-      [
-        [
-          1,
-          13,
-          3
-        ],
-        1
-      ],
-      [
-        [
-          1,
-          13,
-          13
-        ],
-        1
-      ],
-      [
-        [
-          6,
-          5,
-          2
-        ],
-        13
-      ],
-      [
-        [
-          13,
-          2,
-          3
-        ],
-        0
-      ],
-      [
-        [
-          13,
-          2,
-          13
-        ],
-        0
-      ],
-      [
-        [
-          13,
-          13,
-          2
-        ],
-        0
-      ],
-      [
-        [
-          9,
-          4,
-          13
-        ],
-        13
-      ],
-      [
-        [
-          8,
-          13,
-          2
-        ],
-        8
-      ],
-      [
-        [
-          7,
-          2,
-          1
-        ],
-        10
-      ],
-      [
-        [
-          3,
-          3,
-          13
-        ],
-        6
-      ]
+      [[1, 2, 3], 6],
+      [[1, 2, 13], 3],
+      [[1, 13, 3], 1],
+      [[1, 13, 13], 1],
+      [[6, 5, 2], 13],
+      [[13, 2, 3], 0],
+      [[13, 2, 13], 0],
+      [[13, 13, 2], 0],
+      [[9, 4, 13], 13],
+      [[8, 13, 2], 8],
+      [[7, 2, 1], 10],
+      [[3, 3, 13], 6],
     ],
-    "notes": "O cabeçalho diz luck_sum, mas a assinatura e os testes usam lucky_sum; este é o nome aceito.",
+    "notes":
+      "O cabeçalho diz luck_sum, mas a assinatura e os testes usam lucky_sum; este é o nome aceito.",
     "rules": {},
     "steps": [
       "Examine as posições da esquerda para a direita.",
       "O primeiro 13 encerra a parte válida.",
-      "Some só o trecho anterior."
+      "Some só o trecho anterior.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "double_char",
@@ -334,75 +111,27 @@ const SUPPLIED_LISTS = [
     "fn": "double_char",
     "signature": "double_char(s)",
     "task": "Retorne uma string com cada caractere da original duplicado, mantendo a ordem.",
-    "topics": [
-      "strings",
-      "for"
-    ],
+    "topics": ["strings", "for"],
     "solution": "def double_char(s):\n    return ''.join(c * 2 for c in s)",
     "tests": [
-      [
-        [
-          "The"
-        ],
-        "TThhee"
-      ],
-      [
-        [
-          "AAbb"
-        ],
-        "AAAAbbbb"
-      ],
-      [
-        [
-          "Hi-There"
-        ],
-        "HHii--TThheerree"
-      ],
-      [
-        [
-          "Word!"
-        ],
-        "WWoorrdd!!"
-      ],
-      [
-        [
-          "!!"
-        ],
-        "!!!!"
-      ],
-      [
-        [
-          ""
-        ],
-        ""
-      ],
-      [
-        [
-          "a"
-        ],
-        "aa"
-      ],
-      [
-        [
-          "."
-        ],
-        ".."
-      ],
-      [
-        [
-          "aa"
-        ],
-        "aaaa"
-      ]
+      [["The"], "TThhee"],
+      [["AAbb"], "AAAAbbbb"],
+      [["Hi-There"], "HHii--TThheerree"],
+      [["Word!"], "WWoorrdd!!"],
+      [["!!"], "!!!!"],
+      [[""], ""],
+      [["a"], "aa"],
+      [["."], ".."],
+      [["aa"], "aaaa"],
     ],
     "notes": "",
     "rules": {},
     "steps": [
       "Percorra os caracteres.",
       "Duplique cada um, inclusive espaços e pontuação.",
-      "Junte os trechos em uma única string."
+      "Junte os trechos em uma única string.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "count_hi",
@@ -411,75 +140,27 @@ const SUPPLIED_LISTS = [
     "fn": "count_hi",
     "signature": "count_hi(s)",
     "task": "Conte quantas vezes aparece a substring 'hi'. Diferencie maiúsculas e minúsculas.",
-    "topics": [
-      "strings",
-      "count"
-    ],
+    "topics": ["strings", "count"],
     "solution": "def count_hi(s):\n    return s.count('hi')",
     "tests": [
-      [
-        [
-          "abc hi ho"
-        ],
-        1
-      ],
-      [
-        [
-          "ABChi hi"
-        ],
-        2
-      ],
-      [
-        [
-          "hihi"
-        ],
-        2
-      ],
-      [
-        [
-          "hiHIhi"
-        ],
-        2
-      ],
-      [
-        [
-          ""
-        ],
-        0
-      ],
-      [
-        [
-          "h"
-        ],
-        0
-      ],
-      [
-        [
-          "hi"
-        ],
-        1
-      ],
-      [
-        [
-          "Hi is no HI on ahI"
-        ],
-        0
-      ],
-      [
-        [
-          "hiho not HOHIhi"
-        ],
-        2
-      ]
+      [["abc hi ho"], 1],
+      [["ABChi hi"], 2],
+      [["hihi"], 2],
+      [["hiHIhi"], 2],
+      [[""], 0],
+      [["h"], 0],
+      [["hi"], 1],
+      [["Hi is no HI on ahI"], 0],
+      [["hiho not HOHIhi"], 2],
     ],
     "notes": "",
     "rules": {},
     "steps": [
       "Procure o trecho literal hi.",
       "Não normalize o texto: Hi e HI não contam.",
-      "Retorne a quantidade, não um booleano."
+      "Retorne a quantidade, não um booleano.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "cat_dog",
@@ -487,101 +168,29 @@ const SUPPLIED_LISTS = [
     "letter": "F",
     "fn": "cat_dog",
     "signature": "cat_dog(s)",
-    "task": "Retorne True quando 'cat' e 'dog' aparecerem o mesmo número de vezes. Se ambos aparecerem zero vezes, retorne True.",
-    "topics": [
-      "strings",
-      "count",
-      "lógica"
-    ],
+    "task":
+      "Retorne True quando 'cat' e 'dog' aparecerem o mesmo número de vezes. Se ambos aparecerem zero vezes, retorne True.",
+    "topics": ["strings", "count", "lógica"],
     "solution": "def cat_dog(s):\n    return s.count('cat') == s.count('dog')",
     "tests": [
-      [
-        [
-          "catdog"
-        ],
-        true
-      ],
-      [
-        [
-          "catcat"
-        ],
-        false
-      ],
-      [
-        [
-          "1cat1cadodog"
-        ],
-        true
-      ],
-      [
-        [
-          "catxxdogxxxdog"
-        ],
-        false
-      ],
-      [
-        [
-          "catxdogxdogxcat"
-        ],
-        true
-      ],
-      [
-        [
-          "catxdogxdogxca"
-        ],
-        false
-      ],
-      [
-        [
-          "dogdogcat"
-        ],
-        false
-      ],
-      [
-        [
-          "dogogcat"
-        ],
-        true
-      ],
-      [
-        [
-          "dog"
-        ],
-        false
-      ],
-      [
-        [
-          "cat"
-        ],
-        false
-      ],
-      [
-        [
-          "ca"
-        ],
-        true
-      ],
-      [
-        [
-          "c"
-        ],
-        true
-      ],
-      [
-        [
-          ""
-        ],
-        true
-      ]
+      [["catdog"], true],
+      [["catcat"], false],
+      [["1cat1cadodog"], true],
+      [["catxxdogxxxdog"], false],
+      [["catxdogxdogxcat"], true],
+      [["catxdogxdogxca"], false],
+      [["dogdogcat"], false],
+      [["dogogcat"], true],
+      [["dog"], false],
+      [["cat"], false],
+      [["ca"], true],
+      [["c"], true],
+      [[""], true],
     ],
     "notes": "",
     "rules": {},
-    "steps": [
-      "Conte cat.",
-      "Conte dog separadamente.",
-      "Compare as duas quantidades."
-    ],
-    "returnType": null
+    "steps": ["Conte cat.", "Conte dog separadamente.", "Compare as duas quantidades."],
+    "returnType": null,
   },
   {
     "id": "count_code",
@@ -589,107 +198,35 @@ const SUPPLIED_LISTS = [
     "letter": "G",
     "fn": "count_code",
     "signature": "count_code(s)",
-    "task": "Conte trechos com quatro caracteres no padrão co?e: a terceira letra pode ser qualquer caractere. 'code', 'coxe' e 'coze' contam.",
-    "topics": [
-      "strings",
-      "slicing",
-      "for"
-    ],
-    "solution": "def count_code(s):\n    return sum(1 for i in range(len(s) - 3)\n               if s[i:i+2] == 'co' and s[i+3] == 'e')",
+    "task":
+      "Conte trechos com quatro caracteres no padrão co?e: a terceira letra pode ser qualquer caractere. 'code', 'coxe' e 'coze' contam.",
+    "topics": ["strings", "slicing", "for"],
+    "solution":
+      "def count_code(s):\n    return sum(1 for i in range(len(s) - 3)\n               if s[i:i+2] == 'co' and s[i+3] == 'e')",
     "tests": [
-      [
-        [
-          "aaacodebbb"
-        ],
-        1
-      ],
-      [
-        [
-          "codexxcode"
-        ],
-        2
-      ],
-      [
-        [
-          "cozexxcope"
-        ],
-        2
-      ],
-      [
-        [
-          "cozfxxcope"
-        ],
-        1
-      ],
-      [
-        [
-          "xxcozeyycop"
-        ],
-        1
-      ],
-      [
-        [
-          "cozcop"
-        ],
-        0
-      ],
-      [
-        [
-          "abcxyz"
-        ],
-        0
-      ],
-      [
-        [
-          "code"
-        ],
-        1
-      ],
-      [
-        [
-          "ode"
-        ],
-        0
-      ],
-      [
-        [
-          "c"
-        ],
-        0
-      ],
-      [
-        [
-          ""
-        ],
-        0
-      ],
-      [
-        [
-          "AAcodeBBcoleCCccoreDD"
-        ],
-        3
-      ],
-      [
-        [
-          "AAcodeBBcoleCCccorfDD"
-        ],
-        2
-      ],
-      [
-        [
-          "coAcodeBcoleccoreDD"
-        ],
-        3
-      ]
+      [["aaacodebbb"], 1],
+      [["codexxcode"], 2],
+      [["cozexxcope"], 2],
+      [["cozfxxcope"], 1],
+      [["xxcozeyycop"], 1],
+      [["cozcop"], 0],
+      [["abcxyz"], 0],
+      [["code"], 1],
+      [["ode"], 0],
+      [["c"], 0],
+      [[""], 0],
+      [["AAcodeBBcoleCCccoreDD"], 3],
+      [["AAcodeBBcoleCCccorfDD"], 2],
+      [["coAcodeBcoleccoreDD"], 3],
     ],
     "notes": "",
     "rules": {},
     "steps": [
       "Percorra os inícios possíveis de janelas de quatro caracteres.",
       "Confira co nas duas primeiras posições e e na última.",
-      "Ignore a identidade do terceiro caractere."
+      "Ignore a identidade do terceiro caractere.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "end_other",
@@ -698,121 +235,33 @@ const SUPPLIED_LISTS = [
     "fn": "end_other",
     "signature": "end_other(a, b)",
     "task": "Converta as duas strings para minúsculas. Retorne True se uma terminar com a outra.",
-    "topics": [
-      "strings",
-      "endswith",
-      "lower",
-      "lógica"
-    ],
-    "solution": "def end_other(a, b):\n    a, b = a.lower(), b.lower()\n    return a.endswith(b) or b.endswith(a)",
+    "topics": ["strings", "endswith", "lower", "lógica"],
+    "solution":
+      "def end_other(a, b):\n    a, b = a.lower(), b.lower()\n    return a.endswith(b) or b.endswith(a)",
     "tests": [
-      [
-        [
-          "Hiabc",
-          "abc"
-        ],
-        true
-      ],
-      [
-        [
-          "AbC",
-          "HiaBc"
-        ],
-        true
-      ],
-      [
-        [
-          "abc",
-          "abXabc"
-        ],
-        true
-      ],
-      [
-        [
-          "Hiabc",
-          "abcd"
-        ],
-        false
-      ],
-      [
-        [
-          "Hiabc",
-          "bc"
-        ],
-        true
-      ],
-      [
-        [
-          "Hiabcx",
-          "bc"
-        ],
-        false
-      ],
-      [
-        [
-          "abc",
-          "abc"
-        ],
-        true
-      ],
-      [
-        [
-          "xyz",
-          "12xyz"
-        ],
-        true
-      ],
-      [
-        [
-          "yz",
-          "12xz"
-        ],
-        false
-      ],
-      [
-        [
-          "Z",
-          "12xz"
-        ],
-        true
-      ],
-      [
-        [
-          "12",
-          "12"
-        ],
-        true
-      ],
-      [
-        [
-          "abcXYZ",
-          "abcDEF"
-        ],
-        false
-      ],
-      [
-        [
-          "ab",
-          "ab12"
-        ],
-        false
-      ],
-      [
-        [
-          "ab",
-          "12ab"
-        ],
-        true
-      ]
+      [["Hiabc", "abc"], true],
+      [["AbC", "HiaBc"], true],
+      [["abc", "abXabc"], true],
+      [["Hiabc", "abcd"], false],
+      [["Hiabc", "bc"], true],
+      [["Hiabcx", "bc"], false],
+      [["abc", "abc"], true],
+      [["xyz", "12xyz"], true],
+      [["yz", "12xz"], false],
+      [["Z", "12xz"], true],
+      [["12", "12"], true],
+      [["abcXYZ", "abcDEF"], false],
+      [["ab", "ab12"], false],
+      [["ab", "12ab"], true],
     ],
     "notes": "",
     "rules": {},
     "steps": [
       "Normalize as duas strings com lower().",
       "Teste os dois sentidos da relação de sufixo.",
-      "Combine os testes com or."
+      "Combine os testes com or.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "count_evens",
@@ -821,100 +270,26 @@ const SUPPLIED_LISTS = [
     "fn": "count_evens",
     "signature": "count_evens(nums)",
     "task": "Conte quantos números pares existem na lista, incluindo zero e pares negativos.",
-    "topics": [
-      "listas",
-      "for",
-      "resto da divisão"
-    ],
+    "topics": ["listas", "for", "resto da divisão"],
     "solution": "def count_evens(nums):\n    return sum(1 for n in nums if n % 2 == 0)",
     "tests": [
-      [
-        [
-          [
-            2,
-            1,
-            2,
-            3,
-            4
-          ]
-        ],
-        3
-      ],
-      [
-        [
-          [
-            2,
-            2,
-            0
-          ]
-        ],
-        3
-      ],
-      [
-        [
-          [
-            1,
-            3,
-            5
-          ]
-        ],
-        0
-      ],
-      [
-        [
-          []
-        ],
-        0
-      ],
-      [
-        [
-          [
-            11,
-            9,
-            0,
-            1
-          ]
-        ],
-        1
-      ],
-      [
-        [
-          [
-            2,
-            11,
-            9,
-            0
-          ]
-        ],
-        2
-      ],
-      [
-        [
-          [
-            2
-          ]
-        ],
-        1
-      ],
-      [
-        [
-          [
-            2,
-            5,
-            12
-          ]
-        ],
-        2
-      ]
+      [[[2, 1, 2, 3, 4]], 3],
+      [[[2, 2, 0]], 3],
+      [[[1, 3, 5]], 0],
+      [[[]], 0],
+      [[[11, 9, 0, 1]], 1],
+      [[[2, 11, 9, 0]], 2],
+      [[[2]], 1],
+      [[[2, 5, 12]], 2],
     ],
     "notes": "",
     "rules": {},
     "steps": [
       "Percorra os números.",
       "Teste se o resto por 2 é zero.",
-      "Aumente a contagem apenas para os pares."
+      "Aumente a contagem apenas para os pares.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "sum13",
@@ -922,162 +297,36 @@ const SUPPLIED_LISTS = [
     "letter": "J",
     "fn": "sum13",
     "signature": "sum13(nums)",
-    "task": "Some os elementos anteriores ao primeiro 13. Ignore o primeiro 13 e TODOS os elementos à sua direita.",
-    "topics": [
-      "listas",
-      "slicing",
-      "lógica"
-    ],
-    "solution": "def sum13(nums):\n    if 13 in nums:\n        return sum(nums[:nums.index(13)])\n    return sum(nums)",
+    "task":
+      "Some os elementos anteriores ao primeiro 13. Ignore o primeiro 13 e TODOS os elementos à sua direita.",
+    "topics": ["listas", "slicing", "lógica"],
+    "solution":
+      "def sum13(nums):\n    if 13 in nums:\n        return sum(nums[:nums.index(13)])\n    return sum(nums)",
     "tests": [
-      [
-        [
-          [
-            1,
-            2,
-            2,
-            1
-          ]
-        ],
-        6
-      ],
-      [
-        [
-          [
-            1,
-            1
-          ]
-        ],
-        2
-      ],
-      [
-        [
-          [
-            1,
-            2,
-            2,
-            1,
-            13
-          ]
-        ],
-        6
-      ],
-      [
-        [
-          [
-            1,
-            2,
-            13,
-            2,
-            1,
-            13
-          ]
-        ],
-        3
-      ],
-      [
-        [
-          [
-            13,
-            1,
-            2,
-            13,
-            2,
-            1,
-            13
-          ]
-        ],
-        0
-      ],
-      [
-        [
-          []
-        ],
-        0
-      ],
-      [
-        [
-          [
-            13
-          ]
-        ],
-        0
-      ],
-      [
-        [
-          [
-            13,
-            13
-          ]
-        ],
-        0
-      ],
-      [
-        [
-          [
-            13,
-            0,
-            13
-          ]
-        ],
-        0
-      ],
-      [
-        [
-          [
-            13,
-            1,
-            13
-          ]
-        ],
-        0
-      ],
-      [
-        [
-          [
-            5,
-            7,
-            2
-          ]
-        ],
-        14
-      ],
-      [
-        [
-          [
-            5,
-            13,
-            2
-          ]
-        ],
-        5
-      ],
-      [
-        [
-          [
-            0
-          ]
-        ],
-        0
-      ],
-      [
-        [
-          [
-            13,
-            0
-          ]
-        ],
-        0
-      ]
+      [[[1, 2, 2, 1]], 6],
+      [[[1, 1]], 2],
+      [[[1, 2, 2, 1, 13]], 6],
+      [[[1, 2, 13, 2, 1, 13]], 3],
+      [[[13, 1, 2, 13, 2, 1, 13]], 0],
+      [[[]], 0],
+      [[[13]], 0],
+      [[[13, 13]], 0],
+      [[[13, 0, 13]], 0],
+      [[[13, 1, 13]], 0],
+      [[[5, 7, 2]], 14],
+      [[[5, 13, 2]], 5],
+      [[[0]], 0],
+      [[[13, 0]], 0],
     ],
-    "notes": "Esta é a regra específica da lista enviada, não outra variante do exercício sum13 encontrada na internet.",
+    "notes":
+      "Esta é a regra específica da lista enviada, não outra variante do exercício sum13 encontrada na internet.",
     "rules": {},
     "steps": [
       "Verifique se 13 está na lista antes de usar index.",
       "Se estiver, recorte o trecho anterior à primeira ocorrência.",
-      "Some esse trecho; lista vazia soma zero."
+      "Some esse trecho; lista vazia soma zero.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "has22",
@@ -1086,163 +335,33 @@ const SUPPLIED_LISTS = [
     "fn": "has22",
     "signature": "has22(nums)",
     "task": "Retorne True se houver dois números 2 em posições consecutivas.",
-    "topics": [
-      "listas",
-      "for",
-      "lógica"
-    ],
-    "solution": "def has22(nums):\n    return any(nums[i] == nums[i+1] == 2\n               for i in range(len(nums) - 1))",
+    "topics": ["listas", "for", "lógica"],
+    "solution":
+      "def has22(nums):\n    return any(nums[i] == nums[i+1] == 2\n               for i in range(len(nums) - 1))",
     "tests": [
-      [
-        [
-          [
-            1,
-            2,
-            2
-          ]
-        ],
-        true
-      ],
-      [
-        [
-          [
-            1,
-            2,
-            1,
-            2
-          ]
-        ],
-        false
-      ],
-      [
-        [
-          [
-            2,
-            1,
-            2
-          ]
-        ],
-        false
-      ],
-      [
-        [
-          [
-            2,
-            2,
-            1,
-            2
-          ]
-        ],
-        true
-      ],
-      [
-        [
-          [
-            1,
-            3,
-            2
-          ]
-        ],
-        false
-      ],
-      [
-        [
-          [
-            1,
-            3,
-            2,
-            2
-          ]
-        ],
-        true
-      ],
-      [
-        [
-          [
-            2,
-            3,
-            2,
-            2
-          ]
-        ],
-        true
-      ],
-      [
-        [
-          [
-            4,
-            2,
-            4,
-            2,
-            2,
-            5
-          ]
-        ],
-        true
-      ],
-      [
-        [
-          [
-            1,
-            2
-          ]
-        ],
-        false
-      ],
-      [
-        [
-          [
-            2,
-            2
-          ]
-        ],
-        true
-      ],
-      [
-        [
-          [
-            2
-          ]
-        ],
-        false
-      ],
-      [
-        [
-          []
-        ],
-        false
-      ],
-      [
-        [
-          [
-            3,
-            3,
-            2,
-            2
-          ]
-        ],
-        true
-      ],
-      [
-        [
-          [
-            5,
-            2,
-            5,
-            2
-          ]
-        ],
-        false
-      ]
+      [[[1, 2, 2]], true],
+      [[[1, 2, 1, 2]], false],
+      [[[2, 1, 2]], false],
+      [[[2, 2, 1, 2]], true],
+      [[[1, 3, 2]], false],
+      [[[1, 3, 2, 2]], true],
+      [[[2, 3, 2, 2]], true],
+      [[[4, 2, 4, 2, 2, 5]], true],
+      [[[1, 2]], false],
+      [[[2, 2]], true],
+      [[[2]], false],
+      [[[]], false],
+      [[[3, 3, 2, 2]], true],
+      [[[5, 2, 5, 2]], false],
     ],
     "notes": "",
     "rules": {},
     "steps": [
       "Examine pares de posições vizinhas.",
       "Ambos os valores precisam ser 2.",
-      "Evite acessar além do último índice."
+      "Evite acessar além do último índice.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "soma_na_lista",
@@ -1250,107 +369,29 @@ const SUPPLIED_LISTS = [
     "letter": "L",
     "fn": "soma_na_lista",
     "signature": "soma_na_lista(n, lista)",
-    "task": "Retorne True se n for soma de dois VALORES distintos presentes na lista. Duas ocorrências do mesmo valor não valem.",
-    "topics": [
-      "listas",
-      "for",
-      "lógica"
-    ],
-    "solution": "def soma_na_lista(n, lista):\n    for x in lista:\n        for y in lista:\n            if x != y and x + y == n:\n                return True\n    return False",
+    "task":
+      "Retorne True se n for soma de dois VALORES distintos presentes na lista. Duas ocorrências do mesmo valor não valem.",
+    "topics": ["listas", "for", "lógica"],
+    "solution":
+      "def soma_na_lista(n, lista):\n    for x in lista:\n        for y in lista:\n            if x != y and x + y == n:\n                return True\n    return False",
     "tests": [
-      [
-        [
-          5,
-          [
-            1,
-            2,
-            3,
-            4
-          ]
-        ],
-        true
-      ],
-      [
-        [
-          9,
-          [
-            1,
-            2,
-            3,
-            4
-          ]
-        ],
-        false
-      ],
-      [
-        [
-          0,
-          [
-            1,
-            2,
-            3,
-            4
-          ]
-        ],
-        false
-      ],
-      [
-        [
-          8,
-          [
-            1,
-            2,
-            3,
-            4
-          ]
-        ],
-        false
-      ],
-      [
-        [
-          4,
-          [
-            2,
-            2,
-            2,
-            2
-          ]
-        ],
-        false
-      ],
-      [
-        [
-          4,
-          [
-            2,
-            2,
-            1,
-            3
-          ]
-        ],
-        true
-      ],
-      [
-        [
-          42,
-          [
-            40,
-            2,
-            3,
-            39
-          ]
-        ],
-        true
-      ]
+      [[5, [1, 2, 3, 4]], true],
+      [[9, [1, 2, 3, 4]], false],
+      [[0, [1, 2, 3, 4]], false],
+      [[8, [1, 2, 3, 4]], false],
+      [[4, [2, 2, 2, 2]], false],
+      [[4, [2, 2, 1, 3]], true],
+      [[42, [40, 2, 3, 39]], true],
     ],
-    "notes": "Os testes deixam claro que “distintos” significa valores diferentes: 2 + 2 não vale, mesmo com vários 2 na lista.",
+    "notes":
+      "Os testes deixam claro que “distintos” significa valores diferentes: 2 + 2 não vale, mesmo com vários 2 na lista.",
     "rules": {},
     "steps": [
       "Escolha dois valores da lista.",
       "Exija que sejam diferentes entre si.",
-      "Verifique a soma; retorne False se nenhum par servir."
+      "Verifique a soma; retorne False se nenhum par servir.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "fila_tijolos",
@@ -1358,184 +399,43 @@ const SUPPLIED_LISTS = [
     "letter": "M",
     "fn": "fila_tijolos",
     "signature": "fila_tijolos(n_peq, n_gra, meta)",
-    "task": "Há tijolos pequenos de tamanho 1 e grandes de tamanho 5. Retorne True se é possível atingir exatamente meta usando até as quantidades disponíveis. Não use for, while ou compreensões. As entradas são inteiros não negativos.",
-    "topics": [
-      "lógica",
-      "resto da divisão"
-    ],
-    "solution": "def fila_tijolos(n_peq, n_gra, meta):\n    grandes = min(n_gra, meta // 5)\n    return meta - grandes * 5 <= n_peq",
+    "task":
+      "Há tijolos pequenos de tamanho 1 e grandes de tamanho 5. Retorne True se é possível atingir exatamente meta usando até as quantidades disponíveis. Não use for, while ou compreensões. As entradas são inteiros não negativos.",
+    "topics": ["lógica", "resto da divisão"],
+    "solution":
+      "def fila_tijolos(n_peq, n_gra, meta):\n    grandes = min(n_gra, meta // 5)\n    return meta - grandes * 5 <= n_peq",
     "tests": [
-      [
-        [
-          3,
-          1,
-          8
-        ],
-        true
-      ],
-      [
-        [
-          3,
-          1,
-          9
-        ],
-        false
-      ],
-      [
-        [
-          3,
-          2,
-          10
-        ],
-        true
-      ],
-      [
-        [
-          3,
-          2,
-          8
-        ],
-        true
-      ],
-      [
-        [
-          3,
-          2,
-          9
-        ],
-        false
-      ],
-      [
-        [
-          6,
-          1,
-          11
-        ],
-        true
-      ],
-      [
-        [
-          6,
-          0,
-          11
-        ],
-        false
-      ],
-      [
-        [
-          3,
-          1,
-          7
-        ],
-        true
-      ],
-      [
-        [
-          1,
-          1,
-          7
-        ],
-        false
-      ],
-      [
-        [
-          2,
-          1,
-          7
-        ],
-        true
-      ],
-      [
-        [
-          7,
-          1,
-          11
-        ],
-        true
-      ],
-      [
-        [
-          7,
-          1,
-          8
-        ],
-        true
-      ],
-      [
-        [
-          7,
-          1,
-          13
-        ],
-        false
-      ],
-      [
-        [
-          43,
-          1,
-          46
-        ],
-        true
-      ],
-      [
-        [
-          40,
-          1,
-          46
-        ],
-        false
-      ],
-      [
-        [
-          22,
-          2,
-          33
-        ],
-        false
-      ],
-      [
-        [
-          0,
-          2,
-          10
-        ],
-        true
-      ],
-      [
-        [
-          1000000,
-          1000,
-          1000100
-        ],
-        true
-      ],
-      [
-        [
-          2,
-          1000000,
-          100003
-        ],
-        false
-      ],
-      [
-        [
-          12,
-          2,
-          21
-        ],
-        true
-      ]
+      [[3, 1, 8], true],
+      [[3, 1, 9], false],
+      [[3, 2, 10], true],
+      [[3, 2, 8], true],
+      [[3, 2, 9], false],
+      [[6, 1, 11], true],
+      [[6, 0, 11], false],
+      [[3, 1, 7], true],
+      [[1, 1, 7], false],
+      [[2, 1, 7], true],
+      [[7, 1, 11], true],
+      [[7, 1, 8], true],
+      [[7, 1, 13], false],
+      [[43, 1, 46], true],
+      [[40, 1, 46], false],
+      [[22, 2, 33], false],
+      [[0, 2, 10], true],
+      [[1000000, 1000, 1000100], true],
+      [[2, 1000000, 100003], false],
+      [[12, 2, 21], true],
     ],
     "notes": "",
     "rules": {
-      "noLoops": true
+      "noLoops": true,
     },
     "steps": [
       "Use no máximo tantos grandes quanto cabem na meta.",
       "Respeite a quantidade de grandes disponíveis.",
-      "Verifique se os pequenos cobrem exatamente o que falta."
+      "Verifique se os pequenos cobrem exatamente o que falta.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "donuts",
@@ -1543,46 +443,25 @@ const SUPPLIED_LISTS = [
     "letter": "A",
     "fn": "donuts",
     "signature": "donuts(n)",
-    "task": "Retorne 'Número de donuts: <n>'. Se n for pelo menos 10, use 'muitos' no lugar do número.",
-    "topics": [
-      "strings",
-      "lógica"
-    ],
-    "solution": "def donuts(n):\n    valor = 'muitos' if n >= 10 else str(n)\n    return 'Número de donuts: ' + valor",
+    "task":
+      "Retorne 'Número de donuts: <n>'. Se n for pelo menos 10, use 'muitos' no lugar do número.",
+    "topics": ["strings", "lógica"],
+    "solution":
+      "def donuts(n):\n    valor = 'muitos' if n >= 10 else str(n)\n    return 'Número de donuts: ' + valor",
     "tests": [
-      [
-        [
-          4
-        ],
-        "Número de donuts: 4"
-      ],
-      [
-        [
-          9
-        ],
-        "Número de donuts: 9"
-      ],
-      [
-        [
-          10
-        ],
-        "Número de donuts: muitos"
-      ],
-      [
-        [
-          99
-        ],
-        "Número de donuts: muitos"
-      ]
+      [[4], "Número de donuts: 4"],
+      [[9], "Número de donuts: 9"],
+      [[10], "Número de donuts: muitos"],
+      [[99], "Número de donuts: muitos"],
     ],
     "notes": "",
     "rules": {},
     "steps": [
       "Compare n com 10.",
       "Escolha o número convertido para texto ou muitos.",
-      "Preserve exatamente o prefixo, acento e espaço."
+      "Preserve exatamente o prefixo, acento e espaço.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "pontas",
@@ -1590,58 +469,26 @@ const SUPPLIED_LISTS = [
     "letter": "B",
     "fn": "pontas",
     "signature": "pontas(s)",
-    "task": "Retorne as duas primeiras e as duas últimas letras de s. Se s tiver menos de duas letras, retorne string vazia.",
-    "topics": [
-      "strings",
-      "slicing"
-    ],
+    "task":
+      "Retorne as duas primeiras e as duas últimas letras de s. Se s tiver menos de duas letras, retorne string vazia.",
+    "topics": ["strings", "slicing"],
     "solution": "def pontas(s):\n    if len(s) < 2:\n        return ''\n    return s[:2] + s[-2:]",
     "tests": [
-      [
-        [
-          "palmeiras"
-        ],
-        "paas"
-      ],
-      [
-        [
-          "algoritmos"
-        ],
-        "alos"
-      ],
-      [
-        [
-          "a"
-        ],
-        ""
-      ],
-      [
-        [
-          "xyz"
-        ],
-        "xyyz"
-      ],
-      [
-        [
-          "ab"
-        ],
-        "abab"
-      ],
-      [
-        [
-          ""
-        ],
-        ""
-      ]
+      [["palmeiras"], "paas"],
+      [["algoritmos"], "alos"],
+      [["a"], ""],
+      [["xyz"], "xyyz"],
+      [["ab"], "abab"],
+      [[""], ""],
     ],
     "notes": "",
     "rules": {},
     "steps": [
       "Trate o tamanho menor que 2.",
       "Recorte os dois primeiros e os dois últimos caracteres.",
-      "Concatene os trechos; eles podem se sobrepor."
+      "Concatene os trechos; eles podem se sobrepor.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "fixa",
@@ -1649,65 +496,28 @@ const SUPPLIED_LISTS = [
     "letter": "C",
     "fn": "fixa_primeiro",
     "signature": "fixa_primeiro(s)",
-    "task": "Troque por * todas as ocorrências do primeiro caractere, exceto a própria primeira posição. Para string vazia, retorne string vazia.",
-    "topics": [
-      "strings",
-      "replace",
-      "slicing"
-    ],
-    "solution": "def fixa_primeiro(s):\n    if not s:\n        return ''\n    return s[0] + s[1:].replace(s[0], '*')",
+    "task":
+      "Troque por * todas as ocorrências do primeiro caractere, exceto a própria primeira posição. Para string vazia, retorne string vazia.",
+    "topics": ["strings", "replace", "slicing"],
+    "solution":
+      "def fixa_primeiro(s):\n    if not s:\n        return ''\n    return s[0] + s[1:].replace(s[0], '*')",
     "tests": [
-      [
-        [
-          "babble"
-        ],
-        "ba**le"
-      ],
-      [
-        [
-          "aardvark"
-        ],
-        "a*rdv*rk"
-      ],
-      [
-        [
-          "google"
-        ],
-        "goo*le"
-      ],
-      [
-        [
-          "donut"
-        ],
-        "donut"
-      ],
-      [
-        [
-          "abacate"
-        ],
-        "ab*c*te"
-      ],
-      [
-        [
-          ""
-        ],
-        ""
-      ],
-      [
-        [
-          "AaA"
-        ],
-        "Aa*"
-      ]
+      [["babble"], "ba**le"],
+      [["aardvark"], "a*rdv*rk"],
+      [["google"], "goo*le"],
+      [["donut"], "donut"],
+      [["abacate"], "ab*c*te"],
+      [[""], ""],
+      [["AaA"], "Aa*"],
     ],
     "notes": "",
     "rules": {},
     "steps": [
       "Preserve o primeiro caractere.",
       "Faça a substituição apenas no restante.",
-      "Junte as partes; maiúsculas e minúsculas são diferentes."
+      "Junte as partes; maiúsculas e minúsculas são diferentes.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "mistura2",
@@ -1715,50 +525,24 @@ const SUPPLIED_LISTS = [
     "letter": "D",
     "fn": "mistura2",
     "signature": "mistura2(a, b)",
-    "task": "Troque as duas primeiras letras de a com as de b. Retorne as duas strings modificadas, separadas por um espaço.",
-    "topics": [
-      "strings",
-      "slicing"
-    ],
+    "task":
+      "Troque as duas primeiras letras de a com as de b. Retorne as duas strings modificadas, separadas por um espaço.",
+    "topics": ["strings", "slicing"],
     "solution": "def mistura2(a, b):\n    return b[:2] + a[2:] + ' ' + a[:2] + b[2:]",
     "tests": [
-      [
-        [
-          "mix",
-          "pod"
-        ],
-        "pox mid"
-      ],
-      [
-        [
-          "dog",
-          "dinner"
-        ],
-        "dig donner"
-      ],
-      [
-        [
-          "gnash",
-          "sport"
-        ],
-        "spash gnort"
-      ],
-      [
-        [
-          "pezzy",
-          "firm"
-        ],
-        "fizzy perm"
-      ]
+      [["mix", "pod"], "pox mid"],
+      [["dog", "dinner"], "dig donner"],
+      [["gnash", "sport"], "spash gnort"],
+      [["pezzy", "firm"], "fizzy perm"],
     ],
     "notes": "",
     "rules": {},
     "steps": [
       "Separe prefixo de duas letras e restante de cada string.",
       "Combine o prefixo de b com o restante de a e vice-versa.",
-      "Coloque um espaço entre os resultados."
+      "Coloque um espaço entre os resultados.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "palindrome",
@@ -1766,52 +550,25 @@ const SUPPLIED_LISTS = [
     "letter": "E",
     "fn": "palindrome",
     "signature": "palindrome(s)",
-    "task": "Retorne True se a string for igual quando lida de trás para frente. Não remova espaços, acentos ou diferenças de maiúsculas.",
-    "topics": [
-      "strings",
-      "slicing"
-    ],
+    "task":
+      "Retorne True se a string for igual quando lida de trás para frente. Não remova espaços, acentos ou diferenças de maiúsculas.",
+    "topics": ["strings", "slicing"],
     "solution": "def palindrome(s):\n    return s == s[::-1]",
     "tests": [
-      [
-        [
-          "asa"
-        ],
-        true
-      ],
-      [
-        [
-          "casa"
-        ],
-        false
-      ],
-      [
-        [
-          ""
-        ],
-        true
-      ],
-      [
-        [
-          "a"
-        ],
-        true
-      ],
-      [
-        [
-          "Ana"
-        ],
-        false
-      ]
+      [["asa"], true],
+      [["casa"], false],
+      [[""], true],
+      [["a"], true],
+      [["Ana"], false],
     ],
     "notes": "",
     "rules": {},
     "steps": [
       "Inverta a sequência de caracteres.",
       "Compare com a sequência original.",
-      "Não normalize sem que o enunciado peça."
+      "Não normalize sem que o enunciado peça.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "busca",
@@ -1819,52 +576,26 @@ const SUPPLIED_LISTS = [
     "letter": "F",
     "fn": "busca",
     "signature": "busca(frase, palavra)",
-    "task": "Conte as ocorrências de palavra como substring em frase, incluindo ocorrências SOBREPOSTAS. Neste exercício, palavra é não vazia.",
-    "topics": [
-      "strings",
-      "find",
-      "for",
-      "slicing"
-    ],
-    "solution": "def busca(frase, palavra):\n    return sum(1 for i in range(len(frase) - len(palavra) + 1)\n               if frase[i:i+len(palavra)] == palavra)",
+    "task":
+      "Conte as ocorrências de palavra como substring em frase, incluindo ocorrências SOBREPOSTAS. Neste exercício, palavra é não vazia.",
+    "topics": ["strings", "find", "for", "slicing"],
+    "solution":
+      "def busca(frase, palavra):\n    return sum(1 for i in range(len(frase) - len(palavra) + 1)\n               if frase[i:i+len(palavra)] == palavra)",
     "tests": [
-      [
-        [
-          "ana e mariana gostam de banana",
-          "ana"
-        ],
-        4
-      ],
-      [
-        [
-          "uma arara ou duas araras",
-          "ara"
-        ],
-        4
-      ],
-      [
-        [
-          "aaaa",
-          "aa"
-        ],
-        3
-      ],
-      [
-        [
-          "abc",
-          "xy"
-        ],
-        0
-      ]
+      [["ana e mariana gostam de banana", "ana"], 4],
+      [["uma arara ou duas araras", "ara"], 4],
+      [["aaaa", "aa"], 3],
+      [["abc", "xy"], 0],
     ],
-    "notes": "Os dois testes originais exigem sobreposição. str.count sozinho não atende: em banana, ana ocorre duas vezes.",
+    "notes":
+      "Os dois testes originais exigem sobreposição. str.count sozinho não atende: em banana, ana ocorre duas vezes.",
     "rules": {},
     "steps": [
       "Visite cada início possível.",
       "Compare uma janela do tamanho da palavra.",
-      "Avance só uma posição, para não perder sobreposições."
+      "Avance só uma posição, para não perder sobreposições.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "verbing",
@@ -1872,53 +603,26 @@ const SUPPLIED_LISTS = [
     "letter": "G",
     "fn": "verbing",
     "signature": "verbing(s)",
-    "task": "Se a string tiver pelo menos três caracteres, acrescente 'ing'; se já terminar em 'ing', acrescente 'ly'. Com menos de três caracteres, devolva a string intacta.",
-    "topics": [
-      "strings",
-      "endswith",
-      "lógica"
-    ],
-    "solution": "def verbing(s):\n    if len(s) < 3:\n        return s\n    return s + ('ly' if s.endswith('ing') else 'ing')",
+    "task":
+      "Se a string tiver pelo menos três caracteres, acrescente 'ing'; se já terminar em 'ing', acrescente 'ly'. Com menos de três caracteres, devolva a string intacta.",
+    "topics": ["strings", "endswith", "lógica"],
+    "solution":
+      "def verbing(s):\n    if len(s) < 3:\n        return s\n    return s + ('ly' if s.endswith('ing') else 'ing')",
     "tests": [
-      [
-        [
-          "hail"
-        ],
-        "hailing"
-      ],
-      [
-        [
-          "swiming"
-        ],
-        "swimingly"
-      ],
-      [
-        [
-          "do"
-        ],
-        "do"
-      ],
-      [
-        [
-          ""
-        ],
-        ""
-      ],
-      [
-        [
-          "ing"
-        ],
-        "ingly"
-      ]
+      [["hail"], "hailing"],
+      [["swiming"], "swimingly"],
+      [["do"], "do"],
+      [[""], ""],
+      [["ing"], "ingly"],
     ],
     "notes": "",
     "rules": {},
     "steps": [
       "Verifique primeiro o tamanho mínimo.",
       "Depois verifique o sufixo ing.",
-      "Concatene o sufixo adequado."
+      "Concatene o sufixo adequado.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "not_bad",
@@ -1926,53 +630,26 @@ const SUPPLIED_LISTS = [
     "letter": "H",
     "fn": "not_bad",
     "signature": "not_bad(s)",
-    "task": "Procure a primeira ocorrência de 'not' e a primeira de 'bad'. Se bad estiver depois de not, substitua o trecho de not até o fim de bad por good. Caso contrário, preserve s.",
-    "topics": [
-      "strings",
-      "find",
-      "slicing"
-    ],
-    "solution": "def not_bad(s):\n    a, b = s.find('not'), s.find('bad')\n    if a != -1 and b > a:\n        return s[:a] + 'good' + s[b+3:]\n    return s",
+    "task":
+      "Procure a primeira ocorrência de 'not' e a primeira de 'bad'. Se bad estiver depois de not, substitua o trecho de not até o fim de bad por good. Caso contrário, preserve s.",
+    "topics": ["strings", "find", "slicing"],
+    "solution":
+      "def not_bad(s):\n    a, b = s.find('not'), s.find('bad')\n    if a != -1 and b > a:\n        return s[:a] + 'good' + s[b+3:]\n    return s",
     "tests": [
-      [
-        [
-          "This movie is not so bad"
-        ],
-        "This movie is good"
-      ],
-      [
-        [
-          "This dinner is not that bad!"
-        ],
-        "This dinner is good!"
-      ],
-      [
-        [
-          "This tea is not hot"
-        ],
-        "This tea is not hot"
-      ],
-      [
-        [
-          "It's bad yet not"
-        ],
-        "It's bad yet not"
-      ],
-      [
-        [
-          "bad not bad"
-        ],
-        "bad not bad"
-      ]
+      [["This movie is not so bad"], "This movie is good"],
+      [["This dinner is not that bad!"], "This dinner is good!"],
+      [["This tea is not hot"], "This tea is not hot"],
+      [["It's bad yet not"], "It's bad yet not"],
+      [["bad not bad"], "bad not bad"],
     ],
     "notes": "",
     "rules": {},
     "steps": [
       "Use find para as primeiras ocorrências.",
       "Confira a presença de not e a ordem das posições.",
-      "Preserve o prefixo e tudo após bad."
+      "Preserve o prefixo e tudo após bad.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "inicio_final",
@@ -1980,50 +657,25 @@ const SUPPLIED_LISTS = [
     "letter": "I",
     "fn": "inicio_final",
     "signature": "inicio_final(a, b)",
-    "task": "Divida cada string em duas metades; em comprimento ímpar, a primeira metade fica com um caractere a mais. Retorne a_inicio + b_inicio + a_final + b_final.",
-    "topics": [
-      "strings",
-      "slicing"
-    ],
-    "solution": "def inicio_final(a, b):\n    i, j = (len(a) + 1) // 2, (len(b) + 1) // 2\n    return a[:i] + b[:j] + a[i:] + b[j:]",
+    "task":
+      "Divida cada string em duas metades; em comprimento ímpar, a primeira metade fica com um caractere a mais. Retorne a_inicio + b_inicio + a_final + b_final.",
+    "topics": ["strings", "slicing"],
+    "solution":
+      "def inicio_final(a, b):\n    i, j = (len(a) + 1) // 2, (len(b) + 1) // 2\n    return a[:i] + b[:j] + a[i:] + b[j:]",
     "tests": [
-      [
-        [
-          "abcd",
-          "xy"
-        ],
-        "abxcdy"
-      ],
-      [
-        [
-          "abcde",
-          "xyz"
-        ],
-        "abcxydez"
-      ],
-      [
-        [
-          "Kitten",
-          "Donut"
-        ],
-        "KitDontenut"
-      ],
-      [
-        [
-          "",
-          ""
-        ],
-        ""
-      ]
+      [["abcd", "xy"], "abxcdy"],
+      [["abcde", "xyz"], "abcxydez"],
+      [["Kitten", "Donut"], "KitDontenut"],
+      [["", ""], ""],
     ],
     "notes": "",
     "rules": {},
     "steps": [
       "Calcule a metade arredondada para cima de cada comprimento.",
       "Separe os dois trechos de cada string.",
-      "Concatene na ordem pedida."
+      "Concatene na ordem pedida.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "zf",
@@ -2032,54 +684,31 @@ const SUPPLIED_LISTS = [
     "fn": "zf",
     "signature": "zf(n)",
     "task": "Conte quantos zeros existem no final do inteiro positivo n.",
-    "topics": [
-      "strings",
-      "slicing",
-      "while"
-    ],
-    "solution": "def zf(n):\n    total = 0\n    while n % 10 == 0:\n        total += 1\n        n //= 10\n    return total",
+    "topics": ["strings", "slicing", "while"],
+    "solution":
+      "def zf(n):\n    total = 0\n    while n % 10 == 0:\n        total += 1\n        n //= 10\n    return total",
     "tests": [
-      [
-        [
-          10100100010000
-        ],
-        4
-      ],
+      [[10100100010000], 4],
       [
         [
           {
-            "__int__": "90000000000000000010"
-          }
+            "__int__": "90000000000000000010",
+          },
         ],
-        1
+        1,
       ],
-      [
-        [
-          10010
-        ],
-        1
-      ],
-      [
-        [
-          908007000
-        ],
-        3
-      ],
-      [
-        [
-          7
-        ],
-        0
-      ]
+      [[10010], 1],
+      [[908007000], 3],
+      [[7], 0],
     ],
     "notes": "",
     "rules": {},
     "steps": [
       "Examine o último dígito.",
       "Enquanto for zero, conte e remova esse dígito.",
-      "Pare ao encontrar um dígito diferente."
+      "Pare ao encontrar um dígito diferente.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "conta2",
@@ -2087,53 +716,25 @@ const SUPPLIED_LISTS = [
     "letter": "K",
     "fn": "conta2",
     "signature": "conta2(n)",
-    "task": "Conte quantas vezes o dígito 2 aparece na escrita dos inteiros de 0 até n-1. n é inteiro não negativo.",
-    "topics": [
-      "strings",
-      "count",
-      "for"
-    ],
+    "task":
+      "Conte quantas vezes o dígito 2 aparece na escrita dos inteiros de 0 até n-1. n é inteiro não negativo.",
+    "topics": ["strings", "count", "for"],
     "solution": "def conta2(n):\n    return sum(str(i).count('2') for i in range(n))",
     "tests": [
-      [
-        [
-          20
-        ],
-        2
-      ],
-      [
-        [
-          999
-        ],
-        300
-      ],
-      [
-        [
-          555
-        ],
-        216
-      ],
-      [
-        [
-          0
-        ],
-        0
-      ],
-      [
-        [
-          23
-        ],
-        6
-      ]
+      [[20], 2],
+      [[999], 300],
+      [[555], 216],
+      [[0], 0],
+      [[23], 6],
     ],
     "notes": "",
     "rules": {},
     "steps": [
       "Percorra range(n), excluindo n.",
       "Conte cada dígito 2 em cada número.",
-      "Some ocorrências, não apenas quantos números contêm 2."
+      "Some ocorrências, não apenas quantos números contêm 2.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "inip2",
@@ -2141,53 +742,27 @@ const SUPPLIED_LISTS = [
     "letter": "L",
     "fn": "inip2",
     "signature": "inip2(n)",
-    "task": "Para n inteiro positivo, retorne o menor expoente inteiro não negativo k tal que a escrita decimal de 2**k comece com a escrita de n. Retorne o expoente, não a potência.",
-    "topics": [
-      "strings",
-      "startswith",
-      "while"
-    ],
-    "solution": "def inip2(n):\n    k, potencia = 0, 1\n    while not str(potencia).startswith(str(n)):\n        k += 1\n        potencia *= 2\n    return k",
+    "task":
+      "Para n inteiro positivo, retorne o menor expoente inteiro não negativo k tal que a escrita decimal de 2**k comece com a escrita de n. Retorne o expoente, não a potência.",
+    "topics": ["strings", "startswith", "while"],
+    "solution":
+      "def inip2(n):\n    k, potencia = 0, 1\n    while not str(potencia).startswith(str(n)):\n        k += 1\n        potencia *= 2\n    return k",
     "tests": [
-      [
-        [
-          7
-        ],
-        46
-      ],
-      [
-        [
-          133
-        ],
-        316
-      ],
-      [
-        [
-          1024
-        ],
-        10
-      ],
-      [
-        [
-          65
-        ],
-        16
-      ],
-      [
-        [
-          1
-        ],
-        0
-      ]
+      [[7], 46],
+      [[133], 316],
+      [[1024], 10],
+      [[65], 16],
+      [[1], 0],
     ],
-    "notes": "A dica enviada contém .starswith; o método correto é .startswith. Para n=1, adotamos 2**0 como a primeira potência.",
+    "notes":
+      "A dica enviada contém .starswith; o método correto é .startswith. Para n=1, adotamos 2**0 como a primeira potência.",
     "rules": {},
     "steps": [
       "Comece com expoente 0 e potência 1.",
       "Compare o início do texto da potência com str(n).",
-      "Dobre a potência e incremente o expoente até coincidir."
+      "Dobre a potência e incremente o expoente até coincidir.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "fim_igual",
@@ -2195,58 +770,24 @@ const SUPPLIED_LISTS = [
     "letter": "A",
     "fn": "fim_igual",
     "signature": "fim_igual(words)",
-    "task": "Conte as strings de tamanho pelo menos 2 cujo primeiro e último caracteres sejam iguais.",
-    "topics": [
-      "listas",
-      "strings",
-      "for"
-    ],
-    "solution": "def fim_igual(words):\n    return sum(1 for w in words if len(w) >= 2 and w[0] == w[-1])",
+    "task":
+      "Conte as strings de tamanho pelo menos 2 cujo primeiro e último caracteres sejam iguais.",
+    "topics": ["listas", "strings", "for"],
+    "solution":
+      "def fim_igual(words):\n    return sum(1 for w in words if len(w) >= 2 and w[0] == w[-1])",
     "tests": [
-      [
-        [
-          [
-            "aba",
-            "xyz",
-            "aa",
-            "x",
-            "bbb"
-          ]
-        ],
-        3
-      ],
-      [
-        [
-          [
-            "",
-            "x",
-            "xy",
-            "xyx",
-            "xx"
-          ]
-        ],
-        2
-      ],
-      [
-        [
-          [
-            "aaa",
-            "be",
-            "abc",
-            "hello"
-          ]
-        ],
-        1
-      ]
+      [[["aba", "xyz", "aa", "x", "bbb"]], 3],
+      [[["", "x", "xy", "xyx", "xx"]], 2],
+      [[["aaa", "be", "abc", "hello"]], 1],
     ],
     "notes": "",
     "rules": {},
     "steps": [
       "Verifique o comprimento antes de acessar as pontas.",
       "Compare primeiro e último caractere.",
-      "Some uma unidade para cada string que cumprir ambas as condições."
+      "Some uma unidade para cada string que cumprir ambas as condições.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "x_antes",
@@ -2254,92 +795,28 @@ const SUPPLIED_LISTS = [
     "letter": "B",
     "fn": "x_antes",
     "signature": "x_antes(words)",
-    "task": "Ordene alfabeticamente as strings que começam com x minúsculo e depois as demais, também ordenadas. Retorne a concatenação dos dois grupos.",
-    "topics": [
-      "listas",
-      "strings",
-      "startswith",
-      "ordenação"
-    ],
-    "solution": "def x_antes(words):\n    com_x = [w for w in words if w.startswith('x')]\n    outras = [w for w in words if not w.startswith('x')]\n    return sorted(com_x) + sorted(outras)",
+    "task":
+      "Ordene alfabeticamente as strings que começam com x minúsculo e depois as demais, também ordenadas. Retorne a concatenação dos dois grupos.",
+    "topics": ["listas", "strings", "startswith", "ordenação"],
+    "solution":
+      "def x_antes(words):\n    com_x = [w for w in words if w.startswith('x')]\n    outras = [w for w in words if not w.startswith('x')]\n    return sorted(com_x) + sorted(outras)",
     "tests": [
+      [[["bbb", "ccc", "axx", "xzz", "xaa"]], ["xaa", "xzz", "axx", "bbb", "ccc"]],
+      [[["ccc", "bbb", "aaa", "xcc", "xaa"]], ["xaa", "xcc", "aaa", "bbb", "ccc"]],
       [
-        [
-          [
-            "bbb",
-            "ccc",
-            "axx",
-            "xzz",
-            "xaa"
-          ]
-        ],
-        [
-          "xaa",
-          "xzz",
-          "axx",
-          "bbb",
-          "ccc"
-        ]
+        [["mix", "xyz", "apple", "xanadu", "aardvark"]],
+        ["xanadu", "xyz", "aardvark", "apple", "mix"],
       ],
-      [
-        [
-          [
-            "ccc",
-            "bbb",
-            "aaa",
-            "xcc",
-            "xaa"
-          ]
-        ],
-        [
-          "xaa",
-          "xcc",
-          "aaa",
-          "bbb",
-          "ccc"
-        ]
-      ],
-      [
-        [
-          [
-            "mix",
-            "xyz",
-            "apple",
-            "xanadu",
-            "aardvark"
-          ]
-        ],
-        [
-          "xanadu",
-          "xyz",
-          "aardvark",
-          "apple",
-          "mix"
-        ]
-      ],
-      [
-        [
-          [
-            "",
-            "x",
-            "a"
-          ]
-        ],
-        [
-          "x",
-          "",
-          "a"
-        ]
-      ]
+      [[["", "x", "a"]], ["x", "", "a"]],
     ],
     "notes": "",
     "rules": {},
     "steps": [
       "Separe as strings pelo prefixo x.",
       "Ordene cada grupo separadamente.",
-      "Coloque o grupo x primeiro."
+      "Coloque o grupo x primeiro.",
     ],
-    "returnType": "list"
+    "returnType": "list",
   },
   {
     "id": "sort_last",
@@ -2347,200 +824,125 @@ const SUPPLIED_LISTS = [
     "letter": "C",
     "fn": "sort_last",
     "signature": "sort_last(tuples)",
-    "task": "Receba uma lista de tuplas não vazias e retorne uma LISTA ordenada pelo último elemento de cada tupla. Preserve a ordem original em empates.",
-    "topics": [
-      "listas",
-      "ordenação"
-    ],
+    "task":
+      "Receba uma lista de tuplas não vazias e retorne uma LISTA ordenada pelo último elemento de cada tupla. Preserve a ordem original em empates.",
+    "topics": ["listas", "ordenação"],
     "solution": "def sort_last(tuples):\n    return sorted(tuples, key=lambda t: t[-1])",
     "tests": [
       [
         [
           [
             {
-              "__tuple__": [
-                1,
-                3
-              ]
+              "__tuple__": [1, 3],
             },
             {
-              "__tuple__": [
-                3,
-                2
-              ]
+              "__tuple__": [3, 2],
             },
             {
-              "__tuple__": [
-                2,
-                1
-              ]
-            }
-          ]
+              "__tuple__": [2, 1],
+            },
+          ],
         ],
         [
           {
-            "__tuple__": [
-              2,
-              1
-            ]
+            "__tuple__": [2, 1],
           },
           {
-            "__tuple__": [
-              3,
-              2
-            ]
+            "__tuple__": [3, 2],
           },
           {
-            "__tuple__": [
-              1,
-              3
-            ]
-          }
-        ]
+            "__tuple__": [1, 3],
+          },
+        ],
       ],
       [
         [
           [
             {
-              "__tuple__": [
-                2,
-                3
-              ]
+              "__tuple__": [2, 3],
             },
             {
-              "__tuple__": [
-                1,
-                2
-              ]
+              "__tuple__": [1, 2],
             },
             {
-              "__tuple__": [
-                3,
-                1
-              ]
-            }
-          ]
+              "__tuple__": [3, 1],
+            },
+          ],
         ],
         [
           {
-            "__tuple__": [
-              3,
-              1
-            ]
+            "__tuple__": [3, 1],
           },
           {
-            "__tuple__": [
-              1,
-              2
-            ]
+            "__tuple__": [1, 2],
           },
           {
-            "__tuple__": [
-              2,
-              3
-            ]
-          }
-        ]
+            "__tuple__": [2, 3],
+          },
+        ],
       ],
       [
         [
           [
             {
-              "__tuple__": [
-                1,
-                7
-              ]
+              "__tuple__": [1, 7],
             },
             {
-              "__tuple__": [
-                1,
-                3
-              ]
+              "__tuple__": [1, 3],
             },
             {
-              "__tuple__": [
-                3,
-                4,
-                5
-              ]
+              "__tuple__": [3, 4, 5],
             },
             {
-              "__tuple__": [
-                2,
-                2
-              ]
-            }
-          ]
+              "__tuple__": [2, 2],
+            },
+          ],
         ],
         [
           {
-            "__tuple__": [
-              2,
-              2
-            ]
+            "__tuple__": [2, 2],
           },
           {
-            "__tuple__": [
-              1,
-              3
-            ]
+            "__tuple__": [1, 3],
           },
           {
-            "__tuple__": [
-              3,
-              4,
-              5
-            ]
+            "__tuple__": [3, 4, 5],
           },
           {
-            "__tuple__": [
-              1,
-              7
-            ]
-          }
-        ]
+            "__tuple__": [1, 7],
+          },
+        ],
       ],
       [
         [
           [
             {
-              "__tuple__": [
-                2,
-                1
-              ]
+              "__tuple__": [2, 1],
             },
             {
-              "__tuple__": [
-                1,
-                1
-              ]
-            }
-          ]
+              "__tuple__": [1, 1],
+            },
+          ],
         ],
         [
           {
-            "__tuple__": [
-              2,
-              1
-            ]
+            "__tuple__": [2, 1],
           },
           {
-            "__tuple__": [
-              1,
-              1
-            ]
-          }
-        ]
-      ]
+            "__tuple__": [1, 1],
+          },
+        ],
+      ],
     ],
-    "notes": "O comentário diz “retorna uma tupla”, mas o exemplo, os testes e sorted retornam uma lista de tuplas. Seguimos esse formato.",
+    "notes":
+      "O comentário diz “retorna uma tupla”, mas o exemplo, os testes e sorted retornam uma lista de tuplas. Seguimos esse formato.",
     "rules": {},
     "steps": [
       "Defina uma chave que retorne t[-1].",
       "Ordene com sorted e key.",
-      "Retorne a lista mantendo os elementos como tuplas."
+      "Retorne a lista mantendo os elementos como tuplas.",
     ],
-    "returnType": "list"
+    "returnType": "list",
   },
   {
     "id": "remove_iguais",
@@ -2548,74 +950,25 @@ const SUPPLIED_LISTS = [
     "letter": "D",
     "fn": "remove_iguais",
     "signature": "remove_iguais(nums)",
-    "task": "Retorne uma lista sem elementos repetidos. Para reproduzir a comparação exata dos testes enviados, use ordem crescente.",
-    "topics": [
-      "listas",
-      "remoção de repetidos",
-      "ordenação"
-    ],
+    "task":
+      "Retorne uma lista sem elementos repetidos. Para reproduzir a comparação exata dos testes enviados, use ordem crescente.",
+    "topics": ["listas", "remoção de repetidos", "ordenação"],
     "solution": "def remove_iguais(nums):\n    return sorted(set(nums))",
     "tests": [
-      [
-        [
-          [
-            2,
-            2,
-            1,
-            3
-          ]
-        ],
-        [
-          1,
-          2,
-          3
-        ]
-      ],
-      [
-        [
-          [
-            2,
-            2,
-            3,
-            2,
-            3
-          ]
-        ],
-        [
-          2,
-          3
-        ]
-      ],
-      [
-        [
-          []
-        ],
-        []
-      ],
-      [
-        [
-          [
-            10,
-            -1,
-            10,
-            2
-          ]
-        ],
-        [
-          -1,
-          2,
-          10
-        ]
-      ]
+      [[[2, 2, 1, 3]], [1, 2, 3]],
+      [[[2, 2, 3, 2, 3]], [2, 3]],
+      [[[]], []],
+      [[[10, -1, 10, 2]], [-1, 2, 10]],
     ],
-    "notes": "A solução enviada usa list(set(nums)), que não garante ordenação. Adotamos ordem crescente para tornar a saída determinística e compatível com os testes. É diferente do treino extra que preserva a primeira ocorrência.",
+    "notes":
+      "A solução enviada usa list(set(nums)), que não garante ordenação. Adotamos ordem crescente para tornar a saída determinística e compatível com os testes. É diferente do treino extra que preserva a primeira ocorrência.",
     "rules": {},
     "steps": [
       "Elimine repetições.",
       "Ordene os valores únicos para atender ao formato adotado nos testes.",
-      "Retorne uma lista."
+      "Retorne uma lista.",
     ],
-    "returnType": "list"
+    "returnType": "list",
   },
   {
     "id": "cripto",
@@ -2623,48 +976,25 @@ const SUPPLIED_LISTS = [
     "letter": "E",
     "fn": "cripto",
     "signature": "cripto(frase)",
-    "task": "Para cada palavra da frase, retire caracteres repetidos e ordene os restantes. Junte as palavras transformadas com um espaço. A ordenação distingue maiúsculas e acentos.",
-    "topics": [
-      "strings",
-      "listas",
-      "split e join",
-      "ordenação"
-    ],
-    "solution": "def cripto(frase):\n    return ' '.join(''.join(sorted(set(p))) for p in frase.split())",
+    "task":
+      "Para cada palavra da frase, retire caracteres repetidos e ordene os restantes. Junte as palavras transformadas com um espaço. A ordenação distingue maiúsculas e acentos.",
+    "topics": ["strings", "listas", "split e join", "ordenação"],
+    "solution":
+      "def cripto(frase):\n    return ' '.join(''.join(sorted(set(p))) for p in frase.split())",
     "tests": [
-      [
-        [
-          "ana e mariana gostam de banana"
-        ],
-        "an e aimnr agmost de abn"
-      ],
-      [
-        [
-          "Batatinha quando nasce esparrama pelo chão"
-        ],
-        "Bahint adnoqu acens aemprs elop choã"
-      ],
-      [
-        [
-          "  aa   bba "
-        ],
-        "a ab"
-      ],
-      [
-        [
-          ""
-        ],
-        ""
-      ]
+      [["ana e mariana gostam de banana"], "an e aimnr agmost de abn"],
+      [["Batatinha quando nasce esparrama pelo chão"], "Bahint adnoqu acens aemprs elop choã"],
+      [["  aa   bba "], "a ab"],
+      [[""], ""],
     ],
     "notes": "",
     "rules": {},
     "steps": [
       "Divida a frase em palavras com split().",
       "Para cada palavra, elimine repetições e ordene caracteres.",
-      "Junte as letras e depois as palavras, usando join."
+      "Junte as letras e depois as palavras, usando join.",
     ],
-    "returnType": null
+    "returnType": null,
   },
   {
     "id": "derivada",
@@ -2672,82 +1002,27 @@ const SUPPLIED_LISTS = [
     "letter": "F",
     "fn": "derivada",
     "signature": "derivada(coef)",
-    "task": "Os coeficientes estão em ordem crescente de grau. Retorne os coeficientes da derivada, descartando a constante. Nesta representação, uma constante ou lista vazia produz [].",
-    "topics": [
-      "listas",
-      "derivada",
-      "for"
-    ],
-    "solution": "def derivada(coef):\n    return [grau * coef[grau] for grau in range(1, len(coef))]",
+    "task":
+      "Os coeficientes estão em ordem crescente de grau. Retorne os coeficientes da derivada, descartando a constante. Nesta representação, uma constante ou lista vazia produz [].",
+    "topics": ["listas", "derivada", "for"],
+    "solution":
+      "def derivada(coef):\n    return [grau * coef[grau] for grau in range(1, len(coef))]",
     "tests": [
-      [
-        [
-          [
-            3,
-            0,
-            4,
-            3,
-            5
-          ]
-        ],
-        [
-          0,
-          8,
-          9,
-          20
-        ]
-      ],
-      [
-        [
-          [
-            4,
-            16,
-            1
-          ]
-        ],
-        [
-          16,
-          2
-        ]
-      ],
-      [
-        [
-          [
-            3,
-            2,
-            5,
-            2
-          ]
-        ],
-        [
-          2,
-          10,
-          6
-        ]
-      ],
-      [
-        [
-          [
-            8
-          ]
-        ],
-        []
-      ],
-      [
-        [
-          []
-        ],
-        []
-      ]
+      [[[3, 0, 4, 3, 5]], [0, 8, 9, 20]],
+      [[[4, 16, 1]], [16, 2]],
+      [[[3, 2, 5, 2]], [2, 10, 6]],
+      [[[8]], []],
+      [[[]], []],
     ],
-    "notes": "A versão anterior do site usava [0] para constantes. Agora seguimos a representação da solução enviada: lista vazia após descartar a constante.",
+    "notes":
+      "A versão anterior do site usava [0] para constantes. Agora seguimos a representação da solução enviada: lista vazia após descartar a constante.",
     "rules": {},
     "steps": [
       "O índice é o grau original.",
       "Multiplique cada coeficiente pelo grau.",
-      "Descarte o coeficiente constante; não acrescente um zero artificial."
+      "Descarte o coeficiente constante; não acrescente um zero artificial.",
     ],
-    "returnType": "list"
+    "returnType": "list",
   },
   {
     "id": "invertida",
@@ -2755,115 +1030,54 @@ const SUPPLIED_LISTS = [
     "letter": "G",
     "fn": "soma",
     "signature": "soma(n1, n2)",
-    "task": "Some números representados por listas de dígitos invertidos (unidades primeiro). As duas listas têm o mesmo tamanho. Não converta a lista inteira em número para somar diretamente. Retorne os dígitos invertidos da soma, incluindo o transporte final se existir.",
-    "topics": [
-      "listas",
-      "soma de listas invertidas",
-      "for"
-    ],
-    "solution": "def soma(n1, n2):\n    resultado = []\n    vai_um = 0\n    for x, y in zip(n1, n2):\n        total = x + y + vai_um\n        resultado.append(total % 10)\n        vai_um = total // 10\n    if vai_um:\n        resultado.append(vai_um)\n    return resultado",
+    "task":
+      "Some números representados por listas de dígitos invertidos (unidades primeiro). As duas listas têm o mesmo tamanho. Não converta a lista inteira em número para somar diretamente. Retorne os dígitos invertidos da soma, incluindo o transporte final se existir.",
+    "topics": ["listas", "soma de listas invertidas", "for"],
+    "solution":
+      "def soma(n1, n2):\n    resultado = []\n    vai_um = 0\n    for x, y in zip(n1, n2):\n        total = x + y + vai_um\n        resultado.append(total % 10)\n        vai_um = total // 10\n    if vai_um:\n        resultado.append(vai_um)\n    return resultado",
     "tests": [
       [
         [
-          [
-            5,
-            2,
-            3,
-            4
-          ],
-          [
-            9,
-            8,
-            7,
-            8
-          ]
+          [5, 2, 3, 4],
+          [9, 8, 7, 8],
         ],
-        [
-          4,
-          1,
-          1,
-          3,
-          1
-        ]
+        [4, 1, 1, 3, 1],
       ],
       [
         [
-          [
-            3,
-            1,
-            5
-          ],
-          [
-            5,
-            9,
-            2
-          ]
+          [3, 1, 5],
+          [5, 9, 2],
         ],
-        [
-          8,
-          0,
-          8
-        ]
+        [8, 0, 8],
       ],
       [
         [
-          [
-            9,
-            9
-          ],
-          [
-            1,
-            0
-          ]
+          [9, 9],
+          [1, 0],
         ],
-        [
-          0,
-          0,
-          1
-        ]
+        [0, 0, 1],
       ],
       [
         [
-          [
-            9,
-            9
-          ],
-          [
-            9,
-            9
-          ]
+          [9, 9],
+          [9, 9],
         ],
-        [
-          8,
-          9,
-          1
-        ]
+        [8, 9, 1],
       ],
-      [
-        [
-          [
-            0
-          ],
-          [
-            0
-          ]
-        ],
-        [
-          0
-        ]
-      ]
+      [[[0], [0]], [0]],
     ],
-    "notes": "O código enviado calcula o transporte antes de incluir o vai-um anterior, falhando em cascatas. A referência foi corrigida. O corretor detecta formas comuns de reconstrução numérica, mas essa análise didática não é uma prova contra todas as alternativas.",
+    "notes":
+      "O código enviado calcula o transporte antes de incluir o vai-um anterior, falhando em cascatas. A referência foi corrigida. O corretor detecta formas comuns de reconstrução numérica, mas essa análise didática não é uma prova contra todas as alternativas.",
     "rules": {
-      "digitArithmetic": true
+      "digitArithmetic": true,
     },
     "steps": [
       "Some os dois dígitos e o transporte anterior.",
       "Use o resto por 10 como o dígito da posição.",
       "Use a divisão inteira por 10 como o novo transporte.",
-      "Ao final, acrescente o transporte restante."
+      "Ao final, acrescente o transporte restante.",
     ],
-    "returnType": "list"
+    "returnType": "list",
   },
   {
     "id": "anagrama",
@@ -2871,101 +1085,32 @@ const SUPPLIED_LISTS = [
     "letter": "H",
     "fn": "anagrama",
     "signature": "anagrama(s1, s2)",
-    "task": "Verifique se as duas palavras têm as mesmas letras nas mesmas quantidades. Retorne True ou False. Não use while, for ou compreensões com for. Não normalize maiúsculas, espaços ou acentos.",
-    "topics": [
-      "strings",
-      "anagramas",
-      "ordenação"
-    ],
+    "task":
+      "Verifique se as duas palavras têm as mesmas letras nas mesmas quantidades. Retorne True ou False. Não use while, for ou compreensões com for. Não normalize maiúsculas, espaços ou acentos.",
+    "topics": ["strings", "anagramas", "ordenação"],
     "solution": "def anagrama(s1, s2):\n    return sorted(s1) == sorted(s2)",
     "tests": [
-      [
-        [
-          "sim",
-          "siiimmmmm"
-        ],
-        false
-      ],
-      [
-        [
-          "iracema",
-          "america"
-        ],
-        true
-      ],
-      [
-        [
-          "ator",
-          "rota"
-        ],
-        true
-      ],
-      [
-        [
-          "aberto",
-          "rebato"
-        ],
-        true
-      ],
-      [
-        [
-          "amor",
-          "roma"
-        ],
-        true
-      ],
-      [
-        [
-          "ramo",
-          "amor"
-        ],
-        true
-      ],
-      [
-        [
-          "baba",
-          "aba"
-        ],
-        false
-      ],
-      [
-        [
-          "casa",
-          "cassa"
-        ],
-        false
-      ],
-      [
-        [
-          "palmeiras",
-          "abacate"
-        ],
-        false
-      ],
-      [
-        [
-          "aab",
-          "abb"
-        ],
-        false
-      ],
-      [
-        [
-          "",
-          ""
-        ],
-        true
-      ]
+      [["sim", "siiimmmmm"], false],
+      [["iracema", "america"], true],
+      [["ator", "rota"], true],
+      [["aberto", "rebato"], true],
+      [["amor", "roma"], true],
+      [["ramo", "amor"], true],
+      [["baba", "aba"], false],
+      [["casa", "cassa"], false],
+      [["palmeiras", "abacate"], false],
+      [["aab", "abb"], false],
+      [["", ""], true],
     ],
     "notes": "",
     "rules": {
-      "noLoops": true
+      "noLoops": true,
     },
     "steps": [
       "Compare as letras preservando suas multiplicidades.",
       "Use operações prontas para evitar for e while explícitos.",
-      "Retorne um booleano; não conte permutações."
+      "Retorne um booleano; não conte permutações.",
     ],
-    "returnType": null
-  }
+    "returnType": null,
+  },
 ];
