@@ -17,7 +17,7 @@ Principais divergências: near_ten segue distância máxima de 2 conforme testes
 
 ## Ícones
 
-Os ícones da interface (`src/core/icons.js`) são do [Lucide](https://lucide.dev), versão 0.469.0, copiados do pacote `lucide-static`.
+Os ícones da interface (`src/core/icons.js`) são do [Lucide](https://lucide.dev), versão 0.469.0, carregados do CDN jsdelivr.
 
 ISC License. Copyright (c) for portions of Lucide are held by Cole Bemis 2013-2022 as part of Feather (MIT). All other copyright (c) for Lucide are held by Lucide Contributors 2022.
 

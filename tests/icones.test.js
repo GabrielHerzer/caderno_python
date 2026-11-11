@@ -2,6 +2,8 @@
 // Ícones do Lucide (src/core/icons.js) no lugar de símbolos Unicode e emoji.
 const test = require("node:test");
 const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
 const { tick, boot, go, attempt } = require("./helpers");
 
 const GLYPHS = /[◈▦↻⌨◷▤↗✓✗★▰▶🔒←→]/u;
@@ -55,4 +57,28 @@ test("nenhuma tela mostra os símbolos antigos em botões, links, etiquetas ou r
   w.document.querySelector("[data-practice]").click();
   await tick();
   assert.ok(check("prática").querySelector("svg.icon"), "prática sem ícones");
+});
+
+test("o Lucide vem do CDN numa versão fixa, com integridade conferida, igual à do npm", () => {
+  const html = fs.readFileSync(path.join(__dirname, "..", "index.html"), "utf8");
+  const tag = html.match(
+    /<script\s+src="(https:\/\/cdn[^"]+lucide[^"]+)"\s+integrity="([^"]+)"\s+crossorigin="anonymous"/,
+  );
+  assert.ok(tag, "script do Lucide com integrity e crossorigin");
+  const pkg = require("lucide/package.json");
+  assert.equal(tag[1], `https://cdn.jsdelivr.net/npm/lucide@${pkg.version}/dist/umd/lucide.min.js`);
+  const file = fs.readFileSync(require.resolve("lucide/dist/umd/lucide.min.js"));
+  const hash =
+    "sha384-" + require("node:crypto").createHash("sha384").update(file).digest("base64");
+  assert.equal(tag[2], hash);
+});
+
+test("sem o CDN do Lucide, o site funciona sem ícones", async () => {
+  const w = await boot({ lucide: false });
+  for (const route of ["inicio", "catalogo", "codigo"]) {
+    await go(w, route);
+    assert.ok(w.document.querySelector("#app h1, #app h2"), route);
+  }
+  assert.deepEqual(w.__errors, []);
+  assert.equal(w.document.querySelector("svg.icon"), null);
 });

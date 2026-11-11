@@ -877,8 +877,10 @@ a.video-card:focus-visible {
   color: var(--muted);
 }
 
-/* Ícones do Lucide (src/core/icons.js): acompanham o tamanho e a cor do texto. */
+/* Ícones do Lucide (src/core/icons.js): acompanham o tamanho e a cor do texto. O <i> reserva o
+espaço até o SVG chegar do CDN. */
 .icon {
+  display: inline-block;
   width: 1.15em;
   height: 1.15em;
   flex: none;

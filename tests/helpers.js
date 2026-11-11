@@ -38,7 +38,7 @@ function fakeWorker(window, { delay = 0 } = {}) {
   };
 }
 
-async function boot({ storage, workerDelay = 0, hash = "" } = {}) {
+async function boot({ storage, workerDelay = 0, hash = "", lucide = true } = {}) {
   const html = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
   const scripts = [...html.matchAll(/<script src="([^"?]+)[^"]*"><\/script>/g)].map((m) => m[1]);
   const dom = new JSDOM(html.replace(/<script[\s\S]*?<\/script>/g, ""), {
@@ -55,6 +55,13 @@ async function boot({ storage, workerDelay = 0, hash = "" } = {}) {
   w.__errors = [];
   w.addEventListener("error", (e) => w.__errors.push(e.error || e.message));
   if (storage !== undefined) w.localStorage.setItem(KEY, storage);
+  // O index.html carrega o Lucide do CDN (fora da lista acima); nos testes, a mesma versão vem do npm.
+  // lucide: false imita o CDN fora do ar.
+  if (lucide) {
+    const el = w.document.createElement("script");
+    el.textContent = fs.readFileSync(require.resolve("lucide/dist/umd/lucide.js"), "utf8");
+    w.document.body.appendChild(el);
+  }
   for (const src of scripts) {
     const el = w.document.createElement("script");
     el.textContent = fs.readFileSync(path.join(ROOT, src), "utf8");

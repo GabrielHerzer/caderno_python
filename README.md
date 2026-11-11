@@ -46,7 +46,7 @@ src/
     videos.js           aulas do Python para Zumbis no YouTube, por lista (antes/depois)
   core/                 base compartilhada
     utils.js            $, esc, byId, toast, shuffle
-    icons.js            ícones do Lucide (icon("nome")), copiados para funcionar offline
+    icons.js            ícones do Lucide (icon("nome")), carregados do CDN
     state.js            estado salvo no localStorage e estatísticas de progresso
     components.js       pedaços de HTML reaproveitados (heading, card…)
     python-worker.js    Web Worker que roda o Python (Pyodide)
@@ -67,7 +67,7 @@ tools/iniciar.py        servidor local usado pelo INICIAR.cmd
 - **Cache:** ao alterar qualquer arquivo, aumente o `?v=` de todos os `<script>` e do CSS no `index.html`.
 - **Formatação:** `npm install` e depois `npm run format` (Prettier). `npm run format:check` só confere.
 - **Testes:** `npm test` carrega o site no jsdom (`tests/helpers.js`), com um Worker falso no lugar do Pyodide. As soluções de referência e o corretor de programas também rodam em Python de verdade (`tests/check_solutions.py` e `tests/check_programs.py`); para um caso novo na lista 1–5, acrescente em `tests/programas.test.js` um programa errado que ele precisa reprovar. Ao corrigir um bug, escreva primeiro um teste que falhe.
-- **Ícones:** use `icon("nome")` (`src/core/icons.js`); no HTML fixo, `<span data-icon="nome"></span>`. Para um ícone novo, copie o SVG do [Lucide](https://lucide.dev) 0.469.0 para `ICONS`, sem usar emoji ou símbolos Unicode.
+- **Ícones:** use `icon("nome")` com qualquer nome do [Lucide](https://lucide.dev/icons) (`src/core/icons.js`); no HTML fixo, `<i data-icon="nome" class="icon" aria-hidden="true"></i>`. Não use emoji ou símbolos Unicode como ícone. O Lucide vem do jsdelivr, fixo na versão 0.469.0 e com `integrity`; para atualizar, mude a versão no `package.json` e no `index.html` e recalcule o hash (o teste `tests/icones.test.js` confere os dois). Sem internet, o site funciona sem os ícones.
 - **Nova tela:** crie `src/features/<tela>.js` com uma função que devolve o HTML, registre a rota em `render()` (`src/core/router.js`), ligue os eventos em `bind()`/`action()` (`src/main.js`) e adicione o `<script>` antes do `main.js`.
 - **Progresso salvo:** fica no `localStorage`, na chave `massanori-python-v1`. Mudanças no formato precisam continuar aceitando os backups antigos (`validateState` em `src/core/state.js`).
 
