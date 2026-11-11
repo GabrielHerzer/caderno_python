@@ -96,6 +96,8 @@ def main():
     signal.signal(signal.SIGALRM, on_alarm)
     specs = json.load(sys.stdin)
     failed = 0
+    # Os programas das listas 1-5 têm corretor próprio (tests/check_programs.py).
+    specs = {k: v for k, v in specs.items() if not v.get('program')}
     for spec_id, spec in specs.items():
         problems = check(spec_id, spec)
         if problems:

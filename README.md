@@ -7,7 +7,7 @@ Listas, exercícios e simulados para estudar Python. Todas as listas da Fatec fe
 ## O que tem no site
 
 - **Meu painel**: acompanhe seu progresso e comece um ciclo de revisão.
-- **Catálogo**: encontre os 62 exercícios das listas 6, 7, 9 e 10 a 14 e os treinos do ENADE. Filtre por tema e veja os exercícios destacados pelo professor. Cada lista mostra as aulas do professor no YouTube (Python para Zumbis) para assistir antes; os vídeos de dicas e resolução liberam depois da sua primeira tentativa na lista.
+- **Catálogo**: encontre os 95 exercícios das listas 1 a 7 e 9 a 14 e os treinos do ENADE. Filtre por tema e veja os exercícios destacados pelo professor. Cada lista mostra as aulas do professor no YouTube (Python para Zumbis) para assistir antes; os vídeos de dicas e resolução liberam depois da sua primeira tentativa na lista.
 - **Prática**: responda a questões objetivas ou escreva seu próprio código Python. Envie sua tentativa para ver a correção e os casos de teste. A solução completa só aparece quando você pede.
 - **Revisão adaptativa**: reveja os temas em que mais errou, com explicações de sintaxe, exemplos e exercícios para praticar.
 - **Simulado**: escreva as funções pedidas e receba a nota quando finalizar. Você pode retomar a rodada ou recomeçar antes de finalizar.
@@ -40,7 +40,8 @@ src/
     exercises.js        treinos autorais e ENADE (EXERCISES)
     lessons.js          guias de revisão por tema (LESSONS)
     code-specs.js       contratos de função e casos de teste (CODE_SPECS)
-    supplied-lists.js   listas 6–14 recebidas (SUPPLIED_LISTS)
+    supplied-lists.js   listas 6–14 recebidas, com funções (SUPPLIED_LISTS)
+    program-lists.js    listas 1–5 recebidas, programas com input()/print() (PROGRAM_LISTS)
     merge-lists.js      junta as listas recebidas ao catálogo, lições e contratos
     videos.js           aulas do Python para Zumbis no YouTube, por lista (antes/depois)
   core/                 base compartilhada
@@ -48,6 +49,7 @@ src/
     state.js            estado salvo no localStorage e estatísticas de progresso
     components.js       pedaços de HTML reaproveitados (heading, card…)
     python-worker.js    Web Worker que roda o Python (Pyodide)
+    program-grader.js   corretor dos programas das listas 1–5 (Python enviado ao Worker)
     router.js           go() e render(): cada rota do hash é uma tela
   features/             uma tela por arquivo
     dashboard.js  catalog.js  review.js  practice.js
@@ -63,7 +65,7 @@ tools/iniciar.py        servidor local usado pelo INICIAR.cmd
 - **Sem build e sem módulos ES.** Os scripts são clássicos e compartilham o escopo global, para o site continuar abrindo com dois cliques no `index.html` (o navegador bloqueia `import`/`export` em `file://`). Por isso, a ordem dos `<script>` no `index.html` importa: dados → core → telas → `main.js`.
 - **Cache:** ao alterar qualquer arquivo, aumente o `?v=` de todos os `<script>` e do CSS no `index.html`.
 - **Formatação:** `npm install` e depois `npm run format` (Prettier). `npm run format:check` só confere.
-- **Testes:** `npm test` carrega o site no jsdom (`tests/helpers.js`), com um Worker falso no lugar do Pyodide. Ao corrigir um bug, escreva primeiro um teste que falhe.
+- **Testes:** `npm test` carrega o site no jsdom (`tests/helpers.js`), com um Worker falso no lugar do Pyodide. As soluções de referência e o corretor de programas também rodam em Python de verdade (`tests/check_solutions.py` e `tests/check_programs.py`); para um caso novo na lista 1–5, acrescente em `tests/programas.test.js` um programa errado que ele precisa reprovar. Ao corrigir um bug, escreva primeiro um teste que falhe.
 - **Nova tela:** crie `src/features/<tela>.js` com uma função que devolve o HTML, registre a rota em `render()` (`src/core/router.js`), ligue os eventos em `bind()`/`action()` (`src/main.js`) e adicione o `<script>` antes do `main.js`.
 - **Progresso salvo:** fica no `localStorage`, na chave `massanori-python-v1`. Mudanças no formato precisam continuar aceitando os backups antigos (`validateState` em `src/core/state.js`).
 
@@ -71,9 +73,9 @@ tools/iniciar.py        servidor local usado pelo INICIAR.cmd
 
 ## Catálogo em pastas
 
-As pastas são as listas 6, 7, 9, 10, 11, 12, 13, 14 e ENADE (o material recebido não tem lista 8). Todos os 62 exercícios recebidos estão liberados, com escrita de código e questões objetivas: lista 6 (9), lista 7 (10), lista 9 (10), lista 10 (13), lista 11 (6), lista 12 (6), lista 13 (3), lista 14 (5). Dentro de uma pasta, filtre por tema ou busque por texto.
+As pastas são as listas 1 a 7, 9 a 14 e ENADE (o material recebido não tem lista 8). Todos os 95 exercícios recebidos estão liberados, com escrita de código e questões objetivas: lista 1 (11), lista 2 (7), lista 3 (5), lista 4 (5), lista 5 (5), lista 6 (9), lista 7 (10), lista 9 (10), lista 10 (13), lista 11 (6), lista 12 (6), lista 13 (3), lista 14 (5). Dentro de uma pasta, filtre por tema ou busque por texto.
 
-As listas 6, 7, 9 e 10 vêm do CodingBat e as listas 11 a 14, da Google’s Python Class. As pastas contêm somente exercícios desses materiais. Os 12 treinos anteriores de ENADE/preparação e complementos continuam disponíveis no painel e na revisão, totalizando 74 contratos de programação. Os conteúdos ENADE mantêm seus estados próprios de verificação; receber as listas não valida seus enunciados pendentes.
+As listas 1 a 5 vêm dos PDFs do Python para Zumbis (a lista 5 é a prova do Google Developer Day 2010), as listas 6, 7, 9 e 10, do CodingBat e as listas 11 a 14, da Google’s Python Class. As pastas contêm somente exercícios desses materiais. Os 12 treinos anteriores de ENADE/preparação e complementos continuam disponíveis no painel e na revisão, totalizando 107 contratos de programação. Os conteúdos ENADE mantêm seus estados próprios de verificação; receber as listas não valida seus enunciados pendentes.
 
 Atribuições dos originais e licença estão na pasta `fontes`. Ajustes editoriais ficam visíveis em cada exercício e em **Listas e fontes**. Os testes originais foram preservados e complementados com casos de borda.
 
@@ -85,9 +87,11 @@ Abra um tema e clique em **Treinar este tema** para um ciclo focado. O ciclo ger
 
 ## Programar e verificar
 
-Abra **Escrever código**, escolha o exercício e siga a assinatura. Escreva sua tentativa e clique em **Verificar meu código**. O site executa casos de teste e mostra entrada, resultado esperado, recebido e erros. São 556 casos nos 74 contratos de programação: 510 casos pertencem aos 62 exercícios recebidos, incluindo os testes fornecidos e casos adicionais.
+Abra **Escrever código**, escolha o exercício e siga a assinatura. Escreva sua tentativa e clique em **Verificar meu código**. O site executa casos de teste e mostra entrada, resultado esperado, recebido e erros. São 644 casos nos 107 contratos de programação: 556 casos de funções (510 deles nos 62 exercícios recebidos das listas 6–14) e 88 casos de programas nas listas 1–5.
 
-O editor começa em branco. Código e entradas são salvos automaticamente. Use `return` para entregar o resultado; `print` sozinho não substitui o retorno. Para testar `input()` e `print()`, use **Executar livremente** e preencha as entradas, uma por linha. A execução livre não recebe nota.
+Nas listas 1 a 5, você escreve um programa completo, com `input()` e `print()`, em vez de uma função. O corretor roda o programa uma vez por caso, digitando as entradas por você, e procura na saída os números e palavras esperados; o texto em volta é livre e o texto dos `input()` não conta. Números aceitam ponto ou vírgula decimal e diferença de até 0,01. Quando o enunciado pede um rótulo (por exemplo, `Maior: 9`), o número precisa estar na mesma linha da palavra. O programa precisa ler exatamente as entradas do caso: ler de menos ou pedir de mais reprova. Na lista 4, o corretor controla os sorteios de `random.randint`, `randrange` e `choice` para conhecer a resposta de cada caso. O formato dos casos está no cabeçalho de `src/core/program-grader.js`.
+
+O editor começa em branco, exceto quando o exercício traz dados prontos (o texto da lista 4 e os telefones da lista 5). Código e entradas são salvos automaticamente. Use `return` para entregar o resultado; `print` sozinho não substitui o retorno. Para testar `input()` e `print()`, use **Executar livremente** e preencha as entradas, uma por linha. A execução livre não recebe nota.
 
 Dicas e solução completa exigem uma tentativa anterior e clique explícito. Consultá-las marca ajuda. **Parar** cancela sem registrar nova nota. Depois de carregar Python, cada envio tem limite de cinco segundos. Laços intermináveis são interrompidos.
 

@@ -128,6 +128,84 @@ SUPPLIED_LISTS.forEach((s) => {
     returnType: s.returnType,
   };
 });
+// Listas 1–5: programas com input()/print() (program-lists.js), corrigidos pela saída.
+function formatNumber(n) {
+  return String(Math.round(n * 100) / 100);
+}
+
+function joinPt(items) {
+  return items.length > 1 ? `${items.slice(0, -1).join(", ")} e ${items.at(-1)}` : items.join("");
+}
+
+// Questão objetiva a partir do primeiro caso que espera um número: "que número o programa mostra?".
+// Exercícios sem número na saída (palavras, listas) trazem questões escritas à mão em quiz.
+function programQuiz(p) {
+  if (p.quiz) return p.quiz;
+  const numeric = (x) => typeof x === "number" || typeof x?.value === "number";
+  const value = (x) => (typeof x === "number" ? x : x.value);
+  for (const c of p.cases) {
+    const expect = c.expect || c.expectAny[0];
+    const item = expect.find(numeric);
+    if (item === undefined) continue;
+    const given = c.random
+      ? `se os sorteios forem ${c.random.join(", ")}, `
+      : c.stdin?.length
+        ? `com as entradas ${joinPt(c.stdin)}, `
+        : "";
+    const label = typeof item === "number" ? "" : ` como ${item.label.split("|")[0]}`;
+    const e = value(item);
+    const others = expect.filter(numeric).map(value);
+    const inputs = [...(c.stdin || []), ...(c.random || [])].map(Number).filter(Number.isFinite);
+    const choices = [];
+    for (const v of [e, ...others, e + 1, e - 1, ...inputs, e * 2, e + 10]) {
+      const text = formatNumber(v);
+      if (!choices.includes(text)) choices.push(text);
+      if (choices.length === 4) break;
+    }
+    return [
+      {
+        q: `Pelo enunciado, ${given}qual número o programa deve mostrar${label}?`,
+        choices,
+        answer: 0,
+        explain: `O valor esperado é ${choices[0]}. ${p.steps[0]}`,
+      },
+    ];
+  }
+  return [];
+}
+
+PROGRAM_LISTS.forEach((p) => {
+  EXERCISES.push({
+    id: p.id,
+    title: p.title,
+    list: p.list,
+    letter: p.letter,
+    supplied: true,
+    program: true,
+    extra: false,
+    enade: false,
+    ref: `Lista ${p.list} · ${p.letter} · material enviado`,
+    sourceNote: `Lista ${p.list} · ${p.letter} · material enviado`,
+    topics: p.topics,
+    summary: p.task,
+    notes: p.notes,
+    priority: false,
+    hint: p.steps.slice(0, 2),
+    steps: p.steps,
+    solution: p.solution,
+    variants: programQuiz(p),
+  });
+  CODE_SPECS[p.id] = {
+    program: true,
+    task: p.task,
+    cases: p.cases,
+    solution: p.solution,
+    notes: p.notes,
+    rules: p.rules || {},
+    starter: p.starter || "",
+  };
+});
+
 // Preserve old objective variants for saved attempt compatibility, but repair outdated guidance.
 const sumExercise = EXERCISES.find((e) => e.id === "invertida");
 sumExercise.variants[0] = {
@@ -250,6 +328,58 @@ const addLessons = [
     pitfall: "Na soma invertida, inclua o transporte anterior antes de calcular resto e quociente.",
     check: "Por que o novo transporte deve depender também do transporte recebido?",
   },
+  {
+    topic: "entrada e saída",
+    title: "input e print · conversar com o usuário",
+    description:
+      "input() mostra uma mensagem e devolve o que a pessoa digitou, sempre como texto. Converta com int() ou float() antes de fazer contas. print() mostra valores separados por espaço.",
+    syntax:
+      "texto = input('Mensagem: ')\nnumero = int(input('Idade: '))\nprint('Resultado:', numero)",
+    example:
+      "a = int(input('Primeiro: '))   # digite 3\nb = int(input('Segundo: '))    # digite 4\nprint('Soma:', a + b)          # Soma: 7",
+    steps: [
+      "Leia cada valor com input(), na ordem pedida.",
+      "Converta: int() para inteiros, float() quando pode haver casas decimais.",
+      "Calcule e mostre o resultado com print().",
+    ],
+    pitfall:
+      "Sem conversão, '3' + '4' dá '34': input() devolve texto. E int('1.5') dá erro; use float().",
+    check: "Por que int(input()) falha quando a pessoa digita 2.5?",
+  },
+  {
+    topic: "operadores",
+    title: "Operadores aritméticos · / , //, % e **",
+    description:
+      "/ é a divisão real (sempre float), // é a divisão inteira, % é o resto e ** é a potência. Percentuais viram multiplicação: 11% de x é x * 0.11.",
+    syntax: "x / y\nx // y\nx % y\nx ** y",
+    example:
+      "print(7 / 2)    # 3.5\nprint(7 // 2)   # 3\nprint(7 % 2)    # 1\nprint(2 ** 10)  # 1024",
+    steps: [
+      "Escreva a fórmula do enunciado em Python, com parênteses onde a ordem importa.",
+      "Use / quando o resultado pode ter casas decimais.",
+      "Confira com um exemplo feito à mão.",
+    ],
+    pitfall:
+      "(f - 32) * 5 / 9 não é o mesmo que f - 32 * 5 / 9: multiplicação vem antes da subtração.",
+    check: "Quanto vale 150 / 100 e quanto vale 150 // 100?",
+  },
+  {
+    topic: "random",
+    title: "random · sortear números",
+    description:
+      "randint(a, b) sorteia um inteiro de a até b, incluindo os dois extremos. Cada chamada faz um sorteio novo.",
+    syntax: "from random import randint\nn = randint(1, 100)",
+    example:
+      "from random import randint\nnumeros = []\nfor _ in range(5):\n    numeros.append(randint(1, 100))\nprint(numeros)",
+    steps: [
+      "Importe randint do módulo random.",
+      "Chame randint uma vez por número que precisa sortear.",
+      "Guarde os sorteios numa lista para usar depois.",
+    ],
+    pitfall:
+      "Na oficina, o corretor controla os sorteios de randint para conferir a saída; random.sample sorteia sem passar por ele.",
+    check: "randint(1, 100) pode devolver 100?",
+  },
 ];
 LESSONS.push(...addLessons);
 for (const l of LESSONS) {
@@ -291,6 +421,12 @@ LESSONS.find((l) => l.topic === "anagramas").pitfall =
 const TEACHER_LIKED_IDS = ["count_code", "busca", "zf", "sort_last"];
 for (const e of EXERCISES) e.teacherLiked = TEACHER_LIKED_IDS.includes(e.id);
 
+// Todos os exercícios das listas recebidas, com o nome mostrado nas tabelas.
+const LIST_ITEMS = [
+  ...PROGRAM_LISTS.map((p) => ({ ...p, name: p.title })),
+  ...SUPPLIED_LISTS.map((s) => ({ ...s, name: s.fn })),
+];
+
 // Números das listas recebidas, em ordem (as pastas do catálogo). Não há lista 8 no material.
-const SUPPLIED_LIST_NUMBERS = [...new Set(SUPPLIED_LISTS.map((s) => s.list))].sort((a, b) => a - b);
+const SUPPLIED_LIST_NUMBERS = [...new Set(LIST_ITEMS.map((s) => s.list))].sort((a, b) => a - b);
 const SUPPLIED_LIST_RANGE = `${SUPPLIED_LIST_NUMBERS[0]}–${SUPPLIED_LIST_NUMBERS.at(-1)}`;

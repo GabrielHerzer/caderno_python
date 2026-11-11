@@ -56,6 +56,14 @@ const VIDEOS = {
 
 // Por lista: aulas para assistir antes de tentar e dicas/resolução, liberadas depois da tentativa.
 const LIST_VIDEOS = {
+  1: { antes: ["TWP020", "TWP030", "TWP060"], depois: ["TWP070"] },
+  2: { antes: ["TWP040", "TWP100", "TWP110", "TWP125", "TWP130"], depois: ["TWP135", "TWP140"] },
+  3: { antes: ["TWP150", "TWP160", "TWP165", "TWP170", "TWP175", "TWP180"], depois: ["TWP185"] },
+  4: {
+    antes: ["TWP200", "TWP210", "TWP220", "TWP230", "TWP250", "TWP265"],
+    depois: ["TWP270", "TWP280"],
+  },
+  5: { antes: ["TWP165", "TWP220", "TWP250"], depois: ["TWP270", "TWP280"] },
   6: { antes: ["TWP040", "TWP100", "TWP110", "TWP220", "TWP230", "TWP255"], depois: ["TWP410"] },
   7: { antes: ["TWP200", "TWP220", "TWP230", "TWP250", "TWP255"], depois: ["TWP420"] },
   9: { antes: ["TWP100", "TWP110", "TWP130", "TWP200", "TWP255"], depois: ["TWP430"] },

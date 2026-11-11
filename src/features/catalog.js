@@ -19,7 +19,7 @@ function catalog() {
       title,
       "Escolha uma pasta. Todos os treinos disponíveis ficam liberados, sem ordem obrigatória.",
     ) +
-    `<div class="notice">Listas recebidas, uma por pasta: ${SUPPLIED_LIST_NUMBERS.join(", ")} (o material não tem lista 8). Os ${SUPPLIED_LISTS.length} exercícios enviados estão disponíveis. Ajustes em comentários ou soluções inconsistentes são explicados nos respectivos enunciados. A conferência das referências ENADE continua indicada separadamente.</div><div class="folder-grid" aria-label="Pastas de exercícios">${folders
+    `<div class="notice">Listas recebidas, uma por pasta: ${SUPPLIED_LIST_NUMBERS.join(", ")} (o material não tem lista 8). Os ${LIST_ITEMS.length} exercícios enviados estão disponíveis; nas listas 1 a 5, você escreve programas completos com input() e print(). Ajustes em comentários ou soluções inconsistentes são explicados nos respectivos enunciados. A conferência das referências ENADE continua indicada separadamente.</div><div class="folder-grid" aria-label="Pastas de exercícios">${folders
       .map((f) => {
         const count = EXERCISES.filter((e) => (f === "enade" ? e.enade : e.list === f)).length;
         return `<button class="folder ${folder === String(f) ? "selected" : ""}" data-folder="${f}" aria-pressed="${folder === String(f)}"><span aria-hidden="true">▰</span><strong>${f === "enade" ? "ENADE" : `Lista ${f}`}</strong><small>${count} exercícios disponíveis${f === "enade" ? " · 6 referências" : ""}</small></button>`;
@@ -48,7 +48,7 @@ function catalogResults() {
         (e.title + " " + e.summary + " " + e.topics.join(" "))
           .toLocaleLowerCase("pt-BR")
           .includes(filters.search.toLocaleLowerCase("pt-BR"))),
-  ).sort((a, b) => (a.letter || "").localeCompare(b.letter || ""));
+  ).sort((a, b) => (a.letter || "").localeCompare(b.letter || "", "pt-BR", { numeric: true }));
   return `<p class="muted">${items.length} exercícios disponíveis · todos liberados</p><div class="grid three">${items.map(card).join("")}</div>${items.length ? "" : '<div class="empty">Nenhum exercício com esses filtros. Limpe a busca ou escolha outro tema.</div>'}`;
 }
 

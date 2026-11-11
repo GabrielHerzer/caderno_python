@@ -17,11 +17,12 @@ function fakeWorker(window, { delay = 0 } = {}) {
       window.__workers++;
     }
     postMessage(data) {
+      window.__workerData = data;
       setTimeout(() => {
         this.onmessage?.({ data: { type: "ready" } });
         setTimeout(() => {
           const rows = data.check
-            ? data.tests.map(() => ({
+            ? (data.cases || data.tests).map(() => ({
                 ok: true,
                 input: "x",
                 expected: "y",

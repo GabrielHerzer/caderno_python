@@ -47,11 +47,26 @@ async function openFolder(w, folder) {
   await tick();
 }
 
-test("o catálogo mostra as pastas das listas 6, 7 e 9 antes da 10", async () => {
+test("o catálogo mostra as pastas das listas em ordem, sem a 8", async () => {
   const w = await boot();
   await go(w, "catalogo");
   const folders = [...w.document.querySelectorAll("[data-folder]")].map((b) => b.dataset.folder);
-  assert.deepEqual(folders, ["6", "7", "9", "10", "11", "12", "13", "14", "enade"]);
+  assert.deepEqual(folders, [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "enade",
+  ]);
 });
 
 for (const [list, ids] of Object.entries(NEW_LISTS)) {
@@ -101,7 +116,7 @@ test("a página Listas e fontes inclui as listas 6, 7 e 9 e o total atualizado",
   const w = await boot();
   await go(w, "fontes");
   const text = w.document.querySelector("#app").textContent;
-  assert.match(text, /62 exercícios das listas 6–14/);
+  assert.match(text, /95 exercícios das listas 1–14/);
   for (const list of [6, 7, 9])
     assert.match(text, new RegExp(`Lista ${list}\\d*${NEW_LISTS[list].length}`));
   assert.doesNotMatch(text, /lista 9 (não|está fora)/i);

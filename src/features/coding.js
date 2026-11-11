@@ -17,7 +17,11 @@ function drafts() {
 }
 
 function codeDraft() {
-  return drafts()[codingId] || { code: "", stdin: "" };
+  return drafts()[codingId] || { code: CODE_SPECS[codingId]?.starter || "", stdin: "" };
+}
+
+function caseCount(s) {
+  return (s.program ? s.cases : s.tests).length;
 }
 
 // Interrompe a execução e esquece o resultado e a ajuda da oficina. Usado ao trocar de
@@ -49,19 +53,23 @@ function codingPage() {
       "Escreva. Execute. Confira.",
       "Aqui você programa de verdade. A avaliação executa seu código em casos de teste.",
     ) +
-    `<div class="code-layout"><section class="panel"><label>Exercício<select id="code-exercise" ${codeBusy ? "disabled" : ""}>${EXERCISES.map((e) => `<option value="${e.id}" ${e.id === codingId ? "selected" : ""}>${esc(e.title)}</option>`).join("")}</select></label><span class="tag ${e.priority ? "warm" : ""}">${e.priority ? "Anunciada verbalmente" : e.supplied ? "Lista " + e.list + " · " + e.letter : "Treino complementar autoral"}</span><h2 class="margin">${esc(e.title)}</h2><p>${esc(s.task)}</p>${s.notes ? `<div class="notice"><b>Nota sobre o material:</b> ${esc(s.notes)}</div>` : ``}<p>Escreva a função <code>${esc(s.signature)}</code>. Use <b>return</b> para entregar o resultado; apenas imprimir não atende ao contrato.</p><p class="muted">${s.tests.length} testes, incluindo casos de borda. Passar neles confirma esses casos, não prova que todo código possível está correto.</p><div class="notice">Primeiro escreva sua tentativa. Dicas e solução completa só ficam disponíveis depois de clicar em Verificar meu código.</div><small>Python roda no seu navegador. É necessária internet para carregar o interpretador. Seu código não é enviado a um serviço de correção ou IA.</small>${
+    `<div class="code-layout"><section class="panel"><label>Exercício<select id="code-exercise" ${codeBusy ? "disabled" : ""}>${EXERCISES.map((e) => `<option value="${e.id}" ${e.id === codingId ? "selected" : ""}>${esc(e.title)}</option>`).join("")}</select></label><span class="tag ${e.priority ? "warm" : ""}">${e.priority ? "Anunciada verbalmente" : e.supplied ? "Lista " + e.list + " · " + e.letter : "Treino complementar autoral"}</span><h2 class="margin">${esc(e.title)}</h2><p>${esc(s.task)}</p>${s.notes ? `<div class="notice"><b>Nota sobre o material:</b> ${esc(s.notes)}</div>` : ``}${
+      s.program
+        ? `<p>Escreva um programa completo: leia os dados com <b>input()</b> e mostre o resultado com <b>print()</b>. O texto em volta dos números é livre.</p><p class="muted">${s.cases.length} ${s.cases.length === 1 ? "caso" : "casos"}. O corretor digita as entradas de cada caso por você e procura na saída os números e palavras esperados; o texto dos input() não conta. Passar confirma esses casos, não prova que todo programa possível está correto.</p>`
+        : `<p>Escreva a função <code>${esc(s.signature)}</code>. Use <b>return</b> para entregar o resultado; apenas imprimir não atende ao contrato.</p><p class="muted">${s.tests.length} testes, incluindo casos de borda. Passar neles confirma esses casos, não prova que todo código possível está correto.</p>`
+    }<div class="notice">Primeiro escreva sua tentativa. Dicas e solução completa só ficam disponíveis depois de clicar em Verificar meu código.</div><small>Python roda no seu navegador. É necessária internet para carregar o interpretador. Seu código não é enviado a um serviço de correção ou IA.</small>${
       codeAttempted
         ? `<div class="actions"><button id="code-hint" ${codeHelp >= e.hint.length ? "disabled" : ""}>Pedir dica (${codeHelp}/${e.hint.length})</button><button id="code-solution" ${codeSolution ? "disabled" : ""}>Quero ver a solução completa</button></div>${e.hint
             .slice(0, codeHelp)
             .map((h) => `<p class="notice">${esc(h)}</p>`)
             .join("")}${codeSolution ? `<pre>${esc(s.solution)}</pre>` : ""}`
         : ""
-    }</section><section><div class="panel"><div class="row"><h2>Seu código</h2><small>Salvo automaticamente · Tab = 4 espaços</small></div><label class="sr" for="python-editor">Código Python</label><textarea id="python-editor" class="python-editor" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="# Escreva sua função aqui. Você pode começar do zero." ${codeBusy ? "readonly" : ""}>${esc(d.code)}</textarea><label class="margin" style="display:block">Entradas para input() · uma por linha<textarea id="python-input" rows="2" placeholder="Opcional, usado em Executar livremente" ${codeBusy ? "readonly" : ""}>${esc(d.stdin)}</textarea></label><div class="actions"><button class="primary" id="check-code" ${codeBusy ? "disabled" : ""}>Verificar meu código</button><button id="run-code" ${codeBusy ? "disabled" : ""}>Executar livremente</button><button id="stop-code" ${codeBusy ? "" : "disabled"}>Parar</button></div><small>Na verificação, os testes chamam sua função com argumentos. Use input() somente na execução livre. Cada envio começa em um ambiente Python novo.</small></div><div id="code-status" class="panel margin" aria-live="polite">${codingResults()}</div></section></div>`
+    }</section><section><div class="panel"><div class="row"><h2>Seu código</h2><small>Salvo automaticamente · Tab = 4 espaços</small></div><label class="sr" for="python-editor">Código Python</label><textarea id="python-editor" class="python-editor" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="${s.program ? "# Escreva seu programa aqui, com input() e print()." : "# Escreva sua função aqui. Você pode começar do zero."}" ${codeBusy ? "readonly" : ""}>${esc(d.code)}</textarea><label class="margin" style="display:block">Entradas para input() · uma por linha<textarea id="python-input" rows="2" placeholder="Opcional, usado em Executar livremente" ${codeBusy ? "readonly" : ""}>${esc(d.stdin)}</textarea></label><div class="actions"><button class="primary" id="check-code" ${codeBusy ? "disabled" : ""}>Verificar meu código</button><button id="run-code" ${codeBusy ? "disabled" : ""}>Executar livremente</button><button id="stop-code" ${codeBusy ? "" : "disabled"}>Parar</button></div><small>${s.program ? "Na verificação, cada caso roda seu programa do zero com as próprias entradas; o campo acima vale só para Executar livremente." : "Na verificação, os testes chamam sua função com argumentos. Use input() somente na execução livre. Cada envio começa em um ambiente Python novo."}</small></div><div id="code-status" class="panel margin" aria-live="polite">${codingResults()}</div></section></div>`
   );
 }
 
 function codingResults() {
-  return `${codeBusy ? "<h3>Preparando / executando Python…</h3><p>O primeiro carregamento pode levar alguns segundos.</p>" : ""}${codeResult ? `<h3>${esc(codeResult.title)}</h3>${codeResult.error ? `<pre class="error-output">${esc(codeResult.error)}</pre>` : ""}${codeResult.rows ? `<p>${codeResult.rows.filter((r) => r.ok).length}/${codeResult.rows.length} testes passaram. ${codeResult.rows.every((r) => r.ok) ? "Boa! Seu código atende a estes testes." : "Revise os casos abaixo e tente novamente."}</p>${codeResult.rows.map((r, i) => `<details class="test-row" ${r.ok ? "" : "open"}><summary>${r.ok ? "✓" : "✗"} Teste ${i + 1} · ${esc(r.label)}</summary><p>Entrada: <code>${esc(r.input)}</code><br>Esperado: <code>${esc(r.expected)}</code><br>Recebido: <code>${esc(r.actual)}</code></p>${r.error ? `<pre class="error-output">${esc(r.error)}</pre>` : ""}</details>`).join("")}` : ""}` : !codeBusy ? "<h3>Seu resultado aparece aqui</h3><p>Escreva a função e clique em Verificar meu código. Não precisa acertar de primeira.</p>" : ""}${codeOutput ? `<h3 class="margin">Saída do programa</h3><pre>${esc(codeOutput)}</pre>` : ""}`;
+  return `${codeBusy ? "<h3>Preparando / executando Python…</h3><p>O primeiro carregamento pode levar alguns segundos.</p>" : ""}${codeResult ? `<h3>${esc(codeResult.title)}</h3>${codeResult.error ? `<pre class="error-output">${esc(codeResult.error)}</pre>` : ""}${codeResult.rows ? `<p>${codeResult.rows.filter((r) => r.ok).length}/${codeResult.rows.length} ${CODE_SPECS[codingId].program ? "casos passaram" : "testes passaram"}. ${codeResult.rows.every((r) => r.ok) ? "Boa! Seu código atende a estes testes." : "Revise os casos abaixo e tente novamente."}</p>${codeResult.rows.map((r, i) => `<details class="test-row" ${r.ok ? "" : "open"}><summary>${r.ok ? "✓" : "✗"} ${CODE_SPECS[codingId].program ? "Caso" : "Teste"} ${i + 1} · ${esc(r.label)}</summary><p>Entrada: <code>${esc(r.input)}</code><br>Esperado: <code>${esc(r.expected)}</code><br>Recebido: <code>${esc(r.actual)}</code></p>${r.error ? `<pre class="error-output">${esc(r.error)}</pre>` : ""}</details>`).join("")}` : ""}` : !codeBusy ? `<h3>Seu resultado aparece aqui</h3><p>Escreva ${CODE_SPECS[codingId].program ? "o programa" : "a função"} e clique em Verificar meu código. Não precisa acertar de primeira.</p>` : ""}${codeOutput ? `<h3 class="margin">Saída do programa</h3><pre>${esc(codeOutput)}</pre>` : ""}`;
 }
 
 function bindCoding() {
@@ -149,12 +157,12 @@ function runCode(check) {
     if (check && recordResult) {
       codeAttempted = true;
       const correct =
-        !!result.rows && result.rows.length === s.tests.length && result.rows.every((r) => r.ok);
+        !!result.rows && result.rows.length === caseCount(s) && result.rows.every((r) => r.ok);
       state.attempts.push({
         id,
         variant: 0,
         answer: result.rows
-          ? `${result.rows.filter((r) => r.ok).length}/${s.tests.length} testes`
+          ? `${result.rows.filter((r) => r.ok).length}/${caseCount(s)} ${s.program ? "casos" : "testes"}`
           : "Erro ao executar",
         correct,
         assisted: codeHelp > 0 || codeSolution,
@@ -218,6 +226,9 @@ function runCode(check) {
     code: d.code,
     stdin: check ? "" : d.stdin,
     check,
+    program: check && !!s.program,
+    cases: s.cases || null,
+    grader: s.program ? PROGRAM_GRADER : null,
     fn: s.fn,
     tests: s.tests,
     unchanged: !!s.unchanged,

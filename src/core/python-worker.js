@@ -24,6 +24,20 @@ function pythonWorker() {
         index = 0;
       py.setStdin({ stdin: () => (index < lines.length ? lines[index++] : undefined) });
       self.postMessage({ type: "ready" });
+      if (data.program) {
+        // Listas 1–5: o corretor de programas (src/core/program-grader.js) vem na mensagem.
+        py.globals.set("__request_json", JSON.stringify(data));
+        const out = JSON.parse(
+          await py.runPythonAsync(
+            data.grader +
+              "\nimport json as __json\n__req = __json.loads(__request_json)\ngrade_program_json(__req['code'], __req['cases'], __req.get('rules') or {})",
+          ),
+        );
+        self.postMessage(
+          out.error ? { type: "error", error: out.error } : { type: "result", rows: out.rows },
+        );
+        return;
+      }
       py.globals.set("__request_json", JSON.stringify(data));
       const result = await py.runPythonAsync(`
 import json, traceback, math, copy, ast
