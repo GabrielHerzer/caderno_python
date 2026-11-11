@@ -1,6 +1,6 @@
 # Materiais recebidos e alterações
 
-Lista 10: arquivo fornecido pelo usuário, com atribuição a Nick Parlante (CodingBat). Cópia recebida preservada em `lista-10-recebida.py`.
+Listas 6, 7, 9 e 10: arquivos fornecidos pelo usuário, com atribuição a Nick Parlante (CodingBat). Cópias recebidas preservadas em `lista-06-recebida.py`, `lista-07-recebida.py`, `lista-09-recebida.py` e `lista-10-recebida.py` (nas listas 6, 7 e 9, as soluções de referência do site foram escritas do zero, sem usar as resoluções do material).
 
 Listas 11 a 14: trechos fornecidos pelo usuário de Google's Python Class.
 

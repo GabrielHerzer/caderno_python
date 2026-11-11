@@ -6,18 +6,16 @@ function sources() {
     heading(
       "MATERIAIS E CONFERÊNCIA",
       "Listas recebidas e referências",
-      "As pastas agora correspondem aos cinco blocos enviados, na ordem que você confirmou.",
+      "Cada pasta do catálogo corresponde a uma lista enviada: CodingBat nas listas 6, 7, 9 e 10 e Google’s Python Class nas listas 11 a 14.",
     ) +
-    `<section class="panel"><h2>33 exercícios das listas 10–14</h2><div class="table-wrap"><table><thead><tr><th>Lista</th><th>Quantidade</th><th>Exercícios recebidos</th></tr></thead><tbody>${[
-      10, 11, 12, 13, 14,
-    ]
-      .map((n) => {
+    `<section class="panel"><h2>${SUPPLIED_LISTS.length} exercícios das listas ${SUPPLIED_LIST_RANGE}</h2><div class="table-wrap"><table><thead><tr><th>Lista</th><th>Quantidade</th><th>Exercícios recebidos</th></tr></thead><tbody>${SUPPLIED_LIST_NUMBERS.map(
+      (n) => {
         const rows = SUPPLIED_LISTS.filter((s) => s.list === n);
         return `<tr><td>Lista ${n}</td><td>${rows.length}</td><td>${rows.map((s) => `${s.letter}. ${esc(s.fn)}`).join(" · ")}</td></tr>`;
-      })
-      .join(
-        "",
-      )}</tbody></table></div><p class="margin">Todos os testes fornecidos foram incorporados. Acrescentamos casos de borda, preservando tuplas e inteiros grandes sem perda de precisão. Treinos autorais anteriores continuam no painel e na revisão, fora das pastas das listas.</p><p>Lista 10: arquivo enviado, atribuído a Nick Parlante / CodingBat. Listas 11–14: trechos enviados da Google’s Python Class, Copyright 2010 Google Inc., Apache License 2.0. <a href="fontes/LICENSE-2.0.txt" target="_blank">Ler licença incluída</a>.</p></section><h2 class="margin">Ajustes explicados, sem esconder divergências</h2><div class="grid">${SUPPLIED_LISTS.filter(
+      },
+    ).join(
+      "",
+    )}</tbody></table></div><p class="margin">Todos os testes fornecidos foram incorporados. Acrescentamos casos de borda, preservando tuplas e inteiros grandes sem perda de precisão. Treinos autorais anteriores continuam no painel e na revisão, fora das pastas das listas.</p><p>Listas 6, 7, 9 e 10: arquivos enviados, atribuídos a Nick Parlante / CodingBat. Listas 11–14: trechos enviados da Google’s Python Class, Copyright 2010 Google Inc., Apache License 2.0. <a href="fontes/LICENSE-2.0.txt" target="_blank">Ler licença incluída</a>.</p></section><h2 class="margin">Ajustes explicados, sem esconder divergências</h2><div class="grid">${SUPPLIED_LISTS.filter(
       (s) => s.notes,
     )
       .map(

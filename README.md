@@ -7,7 +7,7 @@ Listas, exercícios e simulados para estudar Python. Todas as listas da Fatec fe
 ## O que tem no site
 
 - **Meu painel**: acompanhe seu progresso e comece um ciclo de revisão.
-- **Catálogo**: encontre os 33 exercícios das listas 10 a 14 e os treinos do ENADE. Filtre por tema e veja os exercícios destacados pelo professor.
+- **Catálogo**: encontre os 62 exercícios das listas 6, 7, 9 e 10 a 14 e os treinos do ENADE. Filtre por tema e veja os exercícios destacados pelo professor.
 - **Prática**: responda a questões objetivas ou escreva seu próprio código Python. Envie sua tentativa para ver a correção e os casos de teste. A solução completa só aparece quando você pede.
 - **Revisão adaptativa**: reveja os temas em que mais errou, com explicações de sintaxe, exemplos e exercícios para praticar.
 - **Simulado**: escreva as funções pedidas e receba a nota quando finalizar. Você pode retomar a rodada ou recomeçar antes de finalizar.
@@ -40,7 +40,7 @@ src/
     exercises.js        treinos autorais e ENADE (EXERCISES)
     lessons.js          guias de revisão por tema (LESSONS)
     code-specs.js       contratos de função e casos de teste (CODE_SPECS)
-    supplied-lists.js   listas 10–14 recebidas (SUPPLIED_LISTS)
+    supplied-lists.js   listas 6–14 recebidas (SUPPLIED_LISTS)
     merge-lists.js      junta as listas recebidas ao catálogo, lições e contratos
   core/                 base compartilhada
     utils.js            $, esc, byId, toast, shuffle
@@ -70,9 +70,9 @@ tools/iniciar.py        servidor local usado pelo INICIAR.cmd
 
 ## Catálogo em pastas
 
-As pastas são listas 10, 11, 12, 13, 14 e ENADE. Todos os 33 exercícios recebidos estão liberados, com escrita de código e questões objetivas: lista 10 (13), lista 11 (6), lista 12 (6), lista 13 (3), lista 14 (5). Dentro de uma pasta, filtre por tema ou busque por texto. Lista 9 excluída.
+As pastas são as listas 6, 7, 9, 10, 11, 12, 13, 14 e ENADE (o material recebido não tem lista 8). Todos os 62 exercícios recebidos estão liberados, com escrita de código e questões objetivas: lista 6 (9), lista 7 (10), lista 9 (10), lista 10 (13), lista 11 (6), lista 12 (6), lista 13 (3), lista 14 (5). Dentro de uma pasta, filtre por tema ou busque por texto.
 
-Os cinco blocos foram associados às listas 10–14 na ordem confirmada pelo usuário. As pastas contêm somente exercícios desses materiais. Os 12 treinos anteriores de ENADE/preparação e complementos continuam disponíveis no painel e na revisão, totalizando 45 contratos de programação. Os conteúdos ENADE mantêm seus estados próprios de verificação; receber as listas não valida seus enunciados pendentes.
+As listas 6, 7, 9 e 10 vêm do CodingBat e as listas 11 a 14, da Google’s Python Class. As pastas contêm somente exercícios desses materiais. Os 12 treinos anteriores de ENADE/preparação e complementos continuam disponíveis no painel e na revisão, totalizando 74 contratos de programação. Os conteúdos ENADE mantêm seus estados próprios de verificação; receber as listas não valida seus enunciados pendentes.
 
 Atribuições dos originais e licença estão na pasta `fontes`. Ajustes editoriais ficam visíveis em cada exercício e em **Listas e fontes**. Os testes originais foram preservados e complementados com casos de borda.
 
@@ -84,7 +84,7 @@ Abra um tema e clique em **Treinar este tema** para um ciclo focado. O ciclo ger
 
 ## Programar e verificar
 
-Abra **Escrever código**, escolha o exercício e siga a assinatura. Escreva sua tentativa e clique em **Verificar meu código**. O site executa casos de teste e mostra entrada, resultado esperado, recebido e erros. São 303 casos nos 45 contratos de programação: 257 casos pertencem aos 33 exercícios recebidos, incluindo os testes fornecidos e casos adicionais.
+Abra **Escrever código**, escolha o exercício e siga a assinatura. Escreva sua tentativa e clique em **Verificar meu código**. O site executa casos de teste e mostra entrada, resultado esperado, recebido e erros. São 556 casos nos 74 contratos de programação: 510 casos pertencem aos 62 exercícios recebidos, incluindo os testes fornecidos e casos adicionais.
 
 O editor começa em branco. Código e entradas são salvos automaticamente. Use `return` para entregar o resultado; `print` sozinho não substitui o retorno. Para testar `input()` e `print()`, use **Executar livremente** e preencha as entradas, uma por linha. A execução livre não recebe nota.
 
@@ -128,6 +128,10 @@ Verificados: 1.000 sorteios com composição 4+2+1 sem duplicatas, recuperação
 
 ## Regras e divergências do material recebido
 
+- `multstring` (lista 7): o texto pede n positivo, mas os testes incluem n = 0, que devolve a string vazia.
+- `make_tags`, `sem_pontas`, `roda2` (lista 7): o arquivo usa nomes antigos (`tab`, `without_end`, `left2`); valem os nomes das assinaturas.
+- `pego_correndo` (lista 9): o texto deixa 81 km/h sem regra (“entre 61 e 80”, “maior que 81”). Seguimos o CodingBat: acima de 80 a multa é grave.
+- `alarm_clock` (lista 9): o texto diz `'07:00'`, mas os testes esperam `'7:00'`.
 - `near_ten`: a frase “pelo menos dois” contradiz os testes. A correção segue distância **no máximo 2**.
 - `lucky_sum`: usamos o nome da assinatura e dos testes, corrigindo o cabeçalho `luck_sum`.
 - `busca`: os testes exigem ocorrências sobrepostas. `str.count` sozinho não resolve.

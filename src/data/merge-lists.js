@@ -241,3 +241,7 @@ LESSONS.find((l) => l.topic === "anagramas").pitfall =
 // Destaques da postagem Dicas P2 enviada pelo aluno; não alteram as quatro fixas.
 const TEACHER_LIKED_IDS = ["count_code", "busca", "zf", "sort_last"];
 for (const e of EXERCISES) e.teacherLiked = TEACHER_LIKED_IDS.includes(e.id);
+
+// Números das listas recebidas, em ordem (as pastas do catálogo). Não há lista 8 no material.
+const SUPPLIED_LIST_NUMBERS = [...new Set(SUPPLIED_LISTS.map((s) => s.list))].sort((a, b) => a - b);
+const SUPPLIED_LIST_RANGE = `${SUPPLIED_LIST_NUMBERS[0]}–${SUPPLIED_LIST_NUMBERS.at(-1)}`;
