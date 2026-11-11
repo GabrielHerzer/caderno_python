@@ -7,7 +7,7 @@ Listas, exercícios e simulados para estudar Python. Todas as listas da Fatec fe
 ## O que tem no site
 
 - **Meu painel**: acompanhe seu progresso e comece um ciclo de revisão.
-- **Catálogo**: encontre os 62 exercícios das listas 6, 7, 9 e 10 a 14 e os treinos do ENADE. Filtre por tema e veja os exercícios destacados pelo professor.
+- **Catálogo**: encontre os 62 exercícios das listas 6, 7, 9 e 10 a 14 e os treinos do ENADE. Filtre por tema e veja os exercícios destacados pelo professor. Cada lista mostra as aulas do professor no YouTube (Python para Zumbis) para assistir antes; os vídeos de dicas e resolução liberam depois da sua primeira tentativa na lista.
 - **Prática**: responda a questões objetivas ou escreva seu próprio código Python. Envie sua tentativa para ver a correção e os casos de teste. A solução completa só aparece quando você pede.
 - **Revisão adaptativa**: reveja os temas em que mais errou, com explicações de sintaxe, exemplos e exercícios para praticar.
 - **Simulado**: escreva as funções pedidas e receba a nota quando finalizar. Você pode retomar a rodada ou recomeçar antes de finalizar.
@@ -42,6 +42,7 @@ src/
     code-specs.js       contratos de função e casos de teste (CODE_SPECS)
     supplied-lists.js   listas 6–14 recebidas (SUPPLIED_LISTS)
     merge-lists.js      junta as listas recebidas ao catálogo, lições e contratos
+    videos.js           aulas do Python para Zumbis no YouTube, por lista (antes/depois)
   core/                 base compartilhada
     utils.js            $, esc, byId, toast, shuffle
     state.js            estado salvo no localStorage e estatísticas de progresso

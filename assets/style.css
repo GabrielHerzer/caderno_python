@@ -825,3 +825,53 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+/* Aulas do professor nas pastas das listas */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 10px;
+  margin: 10px 0 4px;
+}
+.video-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--white);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.4;
+}
+a.video-card:hover,
+a.video-card:focus-visible {
+  border-color: var(--green);
+  background: #f3f8ef;
+}
+.video-card b {
+  display: block;
+  color: var(--green);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+.video-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--lime);
+  font-size: 13px;
+}
+.video-card.locked {
+  background: var(--paper);
+  color: var(--muted);
+}
+.video-card.locked .video-icon {
+  background: var(--line);
+}

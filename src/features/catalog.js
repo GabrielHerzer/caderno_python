@@ -26,7 +26,7 @@ function catalog() {
       })
       .join("")}</div>${
       folder
-        ? `<div class="row margin"><h2>${folder === "enade" ? "Treinos de preparação" : `Exercícios disponíveis · lista ${folder}`}</h2><button data-folder="">Ver todas as pastas</button></div><section class="filters"><label>Buscar nesta pasta<input id="search" type="search" value="${esc(filters.search)}" placeholder="Título ou tema…"></label><label>Tema<select id="topic"><option value="">Todos</option>${[
+        ? `<div class="row margin"><h2>${folder === "enade" ? "Treinos de preparação" : `Exercícios disponíveis · lista ${folder}`}</h2><button data-folder="">Ver todas as pastas</button></div>${listVideos(folder)}<section class="filters"><label>Buscar nesta pasta<input id="search" type="search" value="${esc(filters.search)}" placeholder="Título ou tema…"></label><label>Tema<select id="topic"><option value="">Todos</option>${[
             ...new Set(EXERCISES.flatMap((e) => e.topics)),
           ]
             .sort()
@@ -50,4 +50,27 @@ function catalogResults() {
           .includes(filters.search.toLocaleLowerCase("pt-BR"))),
   ).sort((a, b) => (a.letter || "").localeCompare(b.letter || ""));
   return `<p class="muted">${items.length} exercícios disponíveis · todos liberados</p><div class="grid three">${items.map(card).join("")}</div>${items.length ? "" : '<div class="empty">Nenhum exercício com esses filtros. Limpe a busca ou escolha outro tema.</div>'}`;
+}
+
+// Aulas do professor para a lista aberta. As de dicas/resolução só aparecem como link depois que
+// o aluno enviar uma tentativa em algum exercício da lista, como acontece com as soluções.
+function listVideos(folder) {
+  const videos = LIST_VIDEOS[folder];
+  if (!videos) return "";
+  const n = Number(folder);
+  const tried = state.attempts.some((a) => byId(a.id)?.list === n);
+  const after = tried
+    ? videos.depois.map(videoLink).join("")
+    : videos.depois.map(lockedVideo).join("") +
+      `<p class="muted">Libera depois que você enviar uma tentativa em qualquer exercício da lista ${n}.</p>`;
+  return `<section class="panel margin videos" aria-label="Aulas do professor"><div class="row"><h2>Aulas do professor Massanori</h2><small>Python para Zumbis · abrem no YouTube</small></div><h3>Assista antes</h3><div class="video-grid" data-videos="antes">${videos.antes.map(videoLink).join("")}</div><h3 class="margin">Depois da tentativa · dicas e resolução</h3><div class="video-grid" data-videos="depois">${after}</div></section>`;
+}
+
+function videoLink(code) {
+  const v = VIDEOS[code];
+  return `<a class="video-card" href="https://www.youtube.com/watch?v=${v.youtube}" target="_blank" rel="noopener noreferrer"><span class="video-icon" aria-hidden="true">▶</span><span><b>${code}</b> ${esc(v.title)}</span><span class="sr"> (abre no YouTube)</span></a>`;
+}
+
+function lockedVideo(code) {
+  return `<div class="video-card locked"><span class="video-icon" aria-hidden="true">🔒</span><span><b>${code}</b> ${esc(VIDEOS[code].title)}</span></div>`;
 }
