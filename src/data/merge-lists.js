@@ -10,7 +10,67 @@ function pythonRepr(v) {
     return (
       "(" + v.__tuple__.map(pythonRepr).join(", ") + (v.__tuple__.length === 1 ? "," : "") + ")"
     );
-  return typeof v === "string" ? JSON.stringify(v) : String(v);
+  return typeof v === "string" ? pythonStr(v) : String(v);
+}
+
+// Como o repr() do Python mostra uma string: aspas simples, ou duplas se ela contiver ' e não ".
+function pythonStr(s) {
+  const quote = s.includes("'") && !s.includes('"') ? '"' : "'";
+  const body = s
+    .replace(/\\/g, "\\\\")
+    .replace(/\n/g, "\\n")
+    .replace(/\t/g, "\\t")
+    .replaceAll(quote, "\\" + quote);
+  return quote + body + quote;
+}
+
+// Alternativas erradas das questões geradas. Imitam erros comuns e têm o mesmo tipo da resposta
+// certa, para a questão não se resolver só pelo tipo. None (esqueceu o return) entra no fim.
+// outputs: todas as respostas esperadas nos testes da função.
+function wrongAnswers(expected, args, outputs) {
+  if (typeof expected === "boolean") return [!expected, null];
+  // Função que classifica a entrada em poucas saídas (ex.: 0/1/2, '7:00'/'10:00'/'off', cada uma
+  // repetida nos testes): a confusão real é trocar uma saída pela outra.
+  const distinct = [...new Map(outputs.map((o) => [pythonRepr(o), o])).values()];
+  const others = distinct.length <= 3 && outputs.length >= 2 * distinct.length ? distinct : [];
+  if (typeof expected === "number") {
+    const inputs = args.filter((a) => typeof a === "number");
+    return [...others, expected + 1, expected - 1, ...inputs, expected * 2, null];
+  }
+  if (typeof expected === "string") {
+    const inputs = args.filter((a) => typeof a === "string");
+    return [
+      ...others,
+      ...inputs, // devolveu a entrada sem transformar
+      expected.slice(0, -1), // perdeu o último caractere no fatiamento
+      expected.slice(1), // perdeu o primeiro
+      expected + expected.slice(-1), // repetiu o último
+      [...expected].reverse().join(""), // inverteu
+      null,
+    ];
+  }
+  if (Array.isArray(expected)) {
+    const inputs = args.filter(Array.isArray);
+    return [
+      ...inputs,
+      [...expected].reverse(),
+      expected.slice(0, -1),
+      [...expected, expected.at(-1)],
+      expected.slice(1),
+      null,
+    ];
+  }
+  return [null];
+}
+
+function quizChoices(expected, args, outputs) {
+  const choices = [pythonRepr(expected)];
+  for (const wrong of wrongAnswers(expected, args, outputs)) {
+    const text = pythonRepr(wrong);
+    if (!choices.includes(text)) choices.push(text);
+    if (choices.length === 4) break;
+  }
+  return choices;
 }
 EXERCISES.forEach((e) => {
   e.enade = ["arroz", "alturas", "matriz"].includes(e.id);
@@ -23,23 +83,12 @@ EXERCISES.forEach((e) => {
 SUPPLIED_LISTS.forEach((s) => {
   const old = EXERCISES.find((e) => e.id === s.id);
   const quiz = s.tests.slice(0, 2).map(([args, expected]) => {
-    const correct = pythonRepr(expected),
-      choices = [correct];
-    const alternatives = [
-      typeof expected === "boolean" ? !expected : null,
-      typeof expected === "number" ? expected + 1 : 0,
-      typeof expected === "number" ? expected - 1 : 1,
-      "",
-      [],
-      false,
-      true,
-      "Resultado inválido",
-    ];
-    for (const a of alternatives) {
-      const text = pythonRepr(a);
-      if (!choices.includes(text)) choices.push(text);
-      if (choices.length === 4) break;
-    }
+    const choices = quizChoices(
+        expected,
+        args,
+        s.tests.map((t) => t[1]),
+      ),
+      correct = choices[0];
     return {
       q: `Segundo o enunciado, qual é o retorno de ${s.fn}(${args.map(pythonRepr).join(", ")})?`,
       choices,
