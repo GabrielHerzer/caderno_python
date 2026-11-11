@@ -138,6 +138,10 @@ function action(name) {
       exportBackup();
       break;
     case "import":
+      if (examGrading) {
+        toast("Aguarde ou cancele a correção antes de importar um backup.");
+        return;
+      }
       $("#import-file").click();
       break;
     case "reset":
@@ -151,7 +155,7 @@ function action(name) {
         )
       ) {
         state = { version: 1, attempts: [], cycles: 0, exams: [] };
-        stopCode(false);
+        resetCodingSession();
         active = cycle = exam = null;
         save();
         render();

@@ -5,15 +5,73 @@ const KEY = "massanori-python-v1";
 
 let storageOK = true,
   state = { version: 1, attempts: [], cycles: 0, exams: [] };
-try {
-  const raw = localStorage.getItem(KEY);
-  if (raw) {
+loadState();
+
+// Carrega o histórico salvo. Registros de exercícios que não existem mais são descartados
+// (sem isso, uma atualização de conteúdo invalidaria tudo e a próxima gravação apagaria o
+// histórico). Sempre que algo é descartado, o conteúdo original fica guardado em outra chave.
+function loadState() {
+  let raw;
+  try {
+    raw = localStorage.getItem(KEY);
+  } catch {
+    storageOK = false;
+    return;
+  }
+  if (!raw) return;
+  try {
     const s = JSON.parse(raw);
+    const removed = repairState(s);
     validateState(s);
     state = s;
+    if (removed) {
+      keepOriginal(raw);
+      toast(
+        `${removed} registro(s) de exercícios que não existem mais foram removidos do histórico.`,
+      );
+    }
+  } catch {
+    keepOriginal(raw);
+    storageOK = false;
   }
-} catch (e) {
-  storageOK = false;
+}
+
+function keepOriginal(raw) {
+  try {
+    localStorage.setItem(`${KEY}-original-${Date.now()}`, raw);
+  } catch {
+    // sem espaço: o aviso de armazenamento já orienta a exportar um backup
+  }
+}
+
+function validAttempt(a) {
+  return (
+    !!a &&
+    !!byId(a.id) &&
+    typeof a.correct === "boolean" &&
+    typeof a.assisted === "boolean" &&
+    Number.isFinite(a.time) &&
+    Number.isInteger(a.variant) &&
+    a.variant >= 0 &&
+    a.variant < byId(a.id).variants.length &&
+    typeof a.answer === "string" &&
+    typeof a.mode === "string"
+  );
+}
+
+// Remove tentativas e rascunhos que não correspondem mais ao conteúdo. Devolve quantos saíram.
+function repairState(s) {
+  if (!s || !Array.isArray(s.attempts)) return 0;
+  const before = s.attempts.length;
+  s.attempts = s.attempts.filter(validAttempt);
+  let removed = before - s.attempts.length;
+  if (s.codeDrafts && typeof s.codeDrafts === "object" && !Array.isArray(s.codeDrafts))
+    for (const id of Object.keys(s.codeDrafts))
+      if (!byId(id)) {
+        delete s.codeDrafts[id];
+        removed++;
+      }
+  return removed;
 }
 
 function validateState(s) {
@@ -26,21 +84,7 @@ function validateState(s) {
     s.cycles < 0
   )
     throw Error("Formato inválido");
-  if (
-    s.attempts.some(
-      (a) =>
-        !byId(a.id) ||
-        typeof a.correct !== "boolean" ||
-        typeof a.assisted !== "boolean" ||
-        !Number.isFinite(a.time) ||
-        !Number.isInteger(a.variant) ||
-        a.variant < 0 ||
-        a.variant >= byId(a.id).variants.length ||
-        typeof a.answer !== "string" ||
-        typeof a.mode !== "string",
-    )
-  )
-    throw Error("Tentativas inválidas");
+  if (!s.attempts.every(validAttempt)) throw Error("Tentativas inválidas");
   if (
     s.codeDrafts &&
     (typeof s.codeDrafts !== "object" ||

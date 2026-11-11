@@ -62,6 +62,7 @@ tools/iniciar.py        servidor local usado pelo INICIAR.cmd
 - **Sem build e sem módulos ES.** Os scripts são clássicos e compartilham o escopo global, para o site continuar abrindo com dois cliques no `index.html` (o navegador bloqueia `import`/`export` em `file://`). Por isso, a ordem dos `<script>` no `index.html` importa: dados → core → telas → `main.js`.
 - **Cache:** ao alterar qualquer arquivo, aumente o `?v=` de todos os `<script>` e do CSS no `index.html`.
 - **Formatação:** `npm install` e depois `npm run format` (Prettier). `npm run format:check` só confere.
+- **Testes:** `npm test` carrega o site no jsdom (`tests/helpers.js`), com um Worker falso no lugar do Pyodide. Ao corrigir um bug, escreva primeiro um teste que falhe.
 - **Nova tela:** crie `src/features/<tela>.js` com uma função que devolve o HTML, registre a rota em `render()` (`src/core/router.js`), ligue os eventos em `bind()`/`action()` (`src/main.js`) e adicione o `<script>` antes do `main.js`.
 - **Progresso salvo:** fica no `localStorage`, na chave `massanori-python-v1`. Mudanças no formato precisam continuar aceitando os backups antigos (`validateState` em `src/core/state.js`).
 

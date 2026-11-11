@@ -20,15 +20,22 @@ function codeDraft() {
   return drafts()[codingId] || { code: "", stdin: "" };
 }
 
-function openCoding(id) {
+// Interrompe a execução e esquece o resultado e a ajuda da oficina. Usado ao trocar de
+// exercício e sempre que o histórico é substituído: codeRecord aponta para um índice de
+// state.attempts, e dica/solução só podem voltar depois de uma nova tentativa.
+function resetCodingSession() {
   stopCode(false);
-  codingId = id;
   codeResult = null;
   codeOutput = "";
   codeAttempted = false;
   codeHelp = 0;
   codeSolution = false;
   codeRecord = null;
+}
+
+function openCoding(id) {
+  resetCodingSession();
+  codingId = id;
   go("codigo");
 }
 

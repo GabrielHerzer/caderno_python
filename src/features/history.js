@@ -60,12 +60,19 @@ function exportBackup() {
 async function importBackup(ev) {
   const file = ev.target.files[0];
   if (!file) return;
+  // A correção em andamento gravaria o resultado (ou apagaria o simulado pendente) no
+  // histórico recém-importado.
+  if (examGrading) {
+    toast("Aguarde ou cancele a correção antes de importar um backup.");
+    ev.target.value = "";
+    return;
+  }
   try {
     if (file.size > 5000000) throw Error("Arquivo maior que 5 MB");
     const next = JSON.parse(await file.text());
     validateState(next);
     if (confirm(`Substituir seu histórico por ${next.attempts.length} tentativas deste backup?`)) {
-      stopCode(false);
+      resetCodingSession();
       state = next;
       active = cycle = exam = null;
       save();
