@@ -14,7 +14,7 @@ if __name__ == '__main__':
         print('Nao foi possivel usar a porta 8765. Feche uma abertura anterior do site e tente novamente.')
         input('Pressione Enter para sair.')
         raise SystemExit(1)
-    print('Python em pratica: http://127.0.0.1:8765')
+    print('Python Para Zumbis: http://127.0.0.1:8765')
     print('Mantenha esta janela aberta. Use Ctrl+C para encerrar.')
     Timer(0.5, lambda: webbrowser.open('http://127.0.0.1:8765')).start()
     try:
