@@ -11,6 +11,6 @@ Origem indicada nos cabeçalhos: http://code.google.com/edu/languages/google-pyt
 
 O texto da licença acompanha este pacote em `LICENSE-2.0.txt`.
 
-Alterações desta integração: remoção de numeração/escape do texto colado, enunciados normalizados para a interface, testes originais incorporados e casos adicionais, soluções de referência revisadas, notas de divergência e verificações didáticas de restrições. O código-fonte de conteúdo é `supplied-lists.js`; as alterações de semântica são explicitadas no campo `notes` de cada exercício e na página Listas e fontes.
+Alterações desta integração: remoção de numeração/escape do texto colado, enunciados normalizados para a interface, testes originais incorporados e casos adicionais, soluções de referência revisadas, notas de divergência e verificações didáticas de restrições. O código-fonte de conteúdo é `src/data/supplied-lists.js`; as alterações de semântica são explicitadas no campo `notes` de cada exercício e na página Listas e fontes.
 
 Principais divergências: near_ten segue distância máxima de 2 conforme testes; lucky_sum segue o nome da assinatura; busca conta sobreposições; inip2 usa startswith; sort_last retorna lista de tuplas; remove_iguais usa ordenação determinística; derivada de constante usa lista vazia; soma invertida corrige o transporte em cascata. As restrições de anagrama e soma invertida foram acrescentadas ao corretor.

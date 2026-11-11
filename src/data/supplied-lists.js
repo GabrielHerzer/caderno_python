@@ -1,3 +1,4 @@
+"use strict";
 /* Listas fornecidas pelo usuário. Listas 11–14: Copyright 2010 Google Inc., Apache-2.0.
 Lista 10: exercícios atribuídos a Nick Parlante / CodingBat no arquivo enviado.
 Enunciados normalizados, correções editoriais explicitadas; soluções de referência revisadas. */

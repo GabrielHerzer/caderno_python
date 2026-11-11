@@ -6,7 +6,7 @@ from threading import Timer
 import webbrowser
 
 if __name__ == '__main__':
-    pasta = Path(__file__).resolve().parent
+    pasta = Path(__file__).resolve().parent.parent  # raiz do repositório
     handler = partial(SimpleHTTPRequestHandler, directory=str(pasta))
     try:
         server = ThreadingHTTPServer(('127.0.0.1', 8765), handler)

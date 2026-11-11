@@ -1,8 +1,15 @@
+"use strict";
+// Simulado Massanori: oito funções em Python corrigidas no navegador.
+
+let exam = null;
+
 let examGrading = false,
   examProgress = 0,
   examMessage = "",
   examCancel = null;
+
 const LEGACY_FIXED = ["fixa", "anagrama", "arroz", "alturas"];
+
 const EXAM_FIXED = [
   "arroz",
   "alturas",
@@ -13,7 +20,9 @@ const EXAM_FIXED = [
   "sort_last",
   "anagrama",
 ];
+
 const TRACE_IDS = ["mesa_for", "mesa_while", "matriz", "alias"];
+
 function traceSpec(item) {
   const t = item.seed % 5;
   let source, expected, task;
@@ -77,9 +86,11 @@ function traceSpec(item) {
       "Leia os comandos em ordem e use os valores atualizados. A tabela deve representar exatamente o ponto solicitado (fim da volta ou após a atribuição), não o estado anterior.",
   };
 }
+
 function examSpec(item) {
   return item.kind === "trace" ? traceSpec(item) : CODE_SPECS[item.id];
 }
+
 function validLegacyExam(e, finished = false) {
   if (
     !e ||
@@ -139,6 +150,7 @@ function validLegacyExam(e, finished = false) {
     return false;
   return true;
 }
+
 function validExam(e, finished = false) {
   if (e?.format === "codigo-v3") return validLegacyExam(e, finished);
   if (!e || e.format !== "codigo-v4" || !Array.isArray(e.items) || e.items.length !== 8)
@@ -182,15 +194,18 @@ function validExam(e, finished = false) {
   }
   return true;
 }
+
 function validStoredExam(e) {
   return ["codigo-v3", "codigo-v4"].includes(e?.format) && validExam(e.detail, true);
 }
+
 function persistExam() {
   if (exam && !exam.finished && validExam(exam))
     state.pendingExam = JSON.parse(JSON.stringify(exam));
   else delete state.pendingExam;
   save();
 }
+
 function restoreExam() {
   if (!exam && state.pendingExam) {
     if (validExam(state.pendingExam) && !state.pendingExam.finished) {
@@ -202,7 +217,8 @@ function restoreExam() {
     }
   }
 }
-startExam = function () {
+
+function startExam() {
   if (examGrading) return;
   exam = {
     format: "codigo-v4",
@@ -216,8 +232,9 @@ startExam = function () {
   examMessage = "";
   persistExam();
   render();
-};
-examPage = function () {
+}
+
+function examPage() {
   restoreExam();
   if (!exam)
     return (
@@ -241,7 +258,8 @@ examPage = function () {
     ) +
     `<div class="actions"><button data-action="refresh-exam" ${examGrading ? "disabled" : ""}>↻ Reiniciar simulado</button><small>Recomeça sem corrigir ou registrar nota para esta rodada.</small></div><div class="exam-nav">${exam.items.map((item, i) => `<button data-exam-index="${i}" ${examGrading ? "disabled" : ""} aria-label="Questão ${i + 1}${exam.answers[i]?.trim() ? ", respondida" : ""}" class="${exam.index === i ? "current" : ""} ${exam.answers[i]?.trim() ? "answered" : ""}">${i + 1}</button>`).join("")}</div><div class="panel"><span class="tag ${e.priority ? "warm" : ""}">${x.kind === "trace" ? "Teste de mesa" : e.priority ? "Alta probabilidade de cair na prova" : "Questão fixa do simulado"}</span>${importantBadge(e)}<p class="question">${esc(s.task)}</p>${s.notes ? `<div class="notice">${esc(s.notes)}</div>` : ``}${s.source ? `<h3>Algoritmo para acompanhar</h3><pre>${esc(s.source)}</pre>` : ""}<p>Assinatura: <code>${esc(s.signature)}</code>. Use <code>return</code> no formato pedido.</p><label for="exam-code"><b>Sua resposta em Python</b></label><textarea id="exam-code" class="python-editor" spellcheck="false" autocapitalize="off" ${examGrading ? "readonly" : ""} placeholder="Escreva sua função aqui, sem consultar a solução…">${esc(exam.answers[exam.index] || "")}</textarea><small>Tab insere 4 espaços. O código será testado no envio final; não haverá dica ou gabarito durante a rodada.</small><div class="actions"><button data-action="exam-prev" ${exam.index === 0 || examGrading ? "disabled" : ""}>← Anterior</button><button data-action="exam-next" ${exam.index === exam.items.length - 1 || examGrading ? "disabled" : ""}>Próxima →</button><button class="primary" data-action="finish-exam" ${count !== exam.items.length || examGrading ? "disabled" : ""}>Finalizar e corrigir as ${exam.items.length} questões</button>${examGrading ? '<button id="cancel-exam-grade">Cancelar correção</button>' : ""}</div><div id="exam-status" aria-live="polite">${examGrading ? `<p class="notice">Corrigindo questão ${examProgress + 1}/${exam.items.length}. Aguarde o resultado completo.</p>` : ""}${examMessage ? `<p class="notice">${esc(examMessage)}</p>` : ""}</div></div>`
   );
-};
+}
+
 function evaluateCode(spec, code) {
   return new Promise((resolve, reject) => {
     let started = false,
@@ -268,7 +286,7 @@ function evaluateCode(spec, code) {
     } catch (e) {
       finish(
         null,
-        Error("O navegador não iniciou Python. Tente abrir pelo servidor local do LEIA-ME."),
+        Error("O navegador não iniciou Python. Tente abrir pelo servidor local do README."),
       );
       return;
     }
@@ -326,7 +344,8 @@ function evaluateCode(spec, code) {
     });
   });
 }
-finishExam = async function () {
+
+async function finishExam() {
   if (
     examGrading ||
     !exam ||
@@ -386,8 +405,9 @@ finishExam = async function () {
     examCancel = null;
     render();
   }
-};
-examResult = function () {
+}
+
+function examResult() {
   return (
     heading(
       "SIMULADO MASSANORI · CONCLUÍDO",
@@ -403,7 +423,8 @@ examResult = function () {
       })
       .join("")}</div>`
   );
-};
+}
+
 function bindExam() {
   const el = $("#exam-code");
   if (el) {
@@ -432,6 +453,23 @@ function bindExam() {
         exam.index = Number(b.dataset.examIndex);
         persistExam();
         render();
+      }),
+  );
+  document.querySelectorAll("[data-exam-solution]").forEach(
+    (b) =>
+      (b.onclick = () => {
+        exam.revealed.push(Number(b.dataset.examSolution));
+        render();
+      }),
+  );
+  document.querySelectorAll("[data-exam-history]").forEach(
+    (b) =>
+      (b.onclick = () => {
+        const stored = state.exams[Number(b.dataset.examHistory)];
+        if (validStoredExam(stored)) {
+          exam = JSON.parse(JSON.stringify(stored.detail));
+          go("simulado");
+        }
       }),
   );
 }

@@ -1,3 +1,5 @@
+"use strict";
+// Junta as listas recebidas (supplied-lists.js) ao catálogo, às lições e aos contratos de código.
 function pythonRepr(v) {
   if (v === null) return "None";
   if (v === true) return "True";
@@ -239,10 +241,3 @@ LESSONS.find((l) => l.topic === "anagramas").pitfall =
 // Destaques da postagem Dicas P2 enviada pelo aluno; não alteram as quatro fixas.
 const TEACHER_LIKED_IDS = ["count_code", "busca", "zf", "sort_last"];
 for (const e of EXERCISES) e.teacherLiked = TEACHER_LIKED_IDS.includes(e.id);
-function importantBadge(e) {
-  if (e.priority)
-    return '<p class="notice"><strong>Massanori gostou muito dessa questão.</strong><br><small>Alta probabilidade segundo seu relato sobre a aula; não é confirmação da prova.</small></p>';
-  return e.teacherLiked
-    ? '<p class="notice">★ <strong>Importante.</strong> Massanori falou que gostou do exercício.<br><small>Indicado como importante na postagem “Dicas P2”. Não é garantia de cair na prova.</small></p>'
-    : "";
-}

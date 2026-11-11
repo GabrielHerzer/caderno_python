@@ -1,3 +1,5 @@
+"use strict";
+// Guias de revisão por tema. merge-lists.js acrescenta lições e vincula exercícios.
 const LESSONS = [
   {
     topic: "endswith",
@@ -267,18 +269,3 @@ const LESSONS = [
     ids: ["matriz", "arroz"],
   },
 ];
-const EXTRA_TOPICS = {
-  mesa_for: ["for"],
-  mesa_while: ["while"],
-  arroz: ["for", "matrizes"],
-  alturas: ["for"],
-  repetidos: ["for"],
-  derivada: ["for"],
-  invertida: ["for"],
-  fixa: ["funções e return"],
-  anagrama: ["funções e return"],
-  ends: ["funções e return"],
-};
-EXERCISES.forEach((e) => {
-  e.topics = [...new Set([...e.topics, ...(EXTRA_TOPICS[e.id] || [])])];
-});

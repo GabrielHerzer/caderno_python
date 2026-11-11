@@ -1,3 +1,4 @@
+"use strict";
 // Contratos autorais para avaliação por execução, independentes da questão objetiva.
 const CODE_SPECS = {
   fixa: {

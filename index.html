@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#162f2b" />
     <title>Python em prática · Massanori</title>
-    <link rel="stylesheet" href="style.css?v=7" />
+    <link rel="stylesheet" href="assets/style.css?v=8" />
   </head>
   <body>
     <aside class="sidebar">
@@ -40,17 +40,30 @@
       </footer>
     </div>
     <div id="toast" role="status"></div>
-    <script src="data.js?v=7"></script>
-    <script src="lessons.js?v=7"></script>
-    <script src="code-specs.js?v=7"></script>
-    <script src="supplied-lists.js?v=7"></script>
-    <script src="lists-content.js?v=7"></script>
-    <script src="coding.js?v=7"></script>
-    <script src="app.js?v=7"></script>
-    <script src="exam.js?v=7"></script>
-    <script src="study.js?v=7"></script>
-    <script>
-      render();
-    </script>
+    <!--
+      Scripts clássicos (sem import/export) para o site abrir direto do arquivo, com dois cliques.
+      Todos compartilham o escopo global; a ordem importa: dados → core → telas → main.
+      Ao alterar qualquer arquivo, aumente o ?v= em todos para evitar cache antigo.
+    -->
+    <script src="src/data/sources.js?v=8"></script>
+    <script src="src/data/exercises.js?v=8"></script>
+    <script src="src/data/lessons.js?v=8"></script>
+    <script src="src/data/code-specs.js?v=8"></script>
+    <script src="src/data/supplied-lists.js?v=8"></script>
+    <script src="src/data/merge-lists.js?v=8"></script>
+    <script src="src/core/utils.js?v=8"></script>
+    <script src="src/core/state.js?v=8"></script>
+    <script src="src/core/components.js?v=8"></script>
+    <script src="src/core/python-worker.js?v=8"></script>
+    <script src="src/core/router.js?v=8"></script>
+    <script src="src/features/dashboard.js?v=8"></script>
+    <script src="src/features/catalog.js?v=8"></script>
+    <script src="src/features/review.js?v=8"></script>
+    <script src="src/features/practice.js?v=8"></script>
+    <script src="src/features/coding.js?v=8"></script>
+    <script src="src/features/exam.js?v=8"></script>
+    <script src="src/features/history.js?v=8"></script>
+    <script src="src/features/sources.js?v=8"></script>
+    <script src="src/main.js?v=8"></script>
   </body>
 </html>
