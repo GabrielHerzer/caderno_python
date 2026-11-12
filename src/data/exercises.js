@@ -5,7 +5,7 @@ const EXERCISES = [
     id: "fixa",
     title: "fixa_primeiro",
     list: 11,
-    ref: "Lista 11 · C (relato da conversa)",
+    ref: "Lista 11 · C (indicada em aula)",
     topics: ["strings", "slicing", "replace"],
     priority: true,
     summary: "Preserve a primeira letra. Substitua apenas as suas repetições.",
@@ -51,7 +51,7 @@ const EXERCISES = [
     id: "anagrama",
     title: "Verificar anagramas",
     list: 14,
-    ref: "Lista 14 · H (relato da conversa)",
+    ref: "Lista 14 · H (indicada em aula)",
     topics: ["anagramas", "strings", "lógica"],
     priority: true,
     summary: "Compare duas palavras, incluindo a multiplicidade das letras.",
@@ -94,7 +94,7 @@ const EXERCISES = [
     topics: ["listas", "lógica", "testes de mesa"],
     priority: true,
     summary:
-      "16 casas, começando em 1 grão e dobrando a cada casa. Adaptação do relato; PDF não conferido nesta sessão.",
+      "16 casas numeradas por linha, começando em 1 grão e dobrando a cada casa. Enunciado conferido no PDF oficial do INEP.",
     hint: [
       "Numere as casas a partir de zero.",
       "A casa de índice k recebe 2 ** k; acumule as 16 quantidades.",

@@ -16,7 +16,7 @@ function dashboard() {
       .map(card)
       .join(
         "",
-      )}</div></section><section><div class="panel"><span class="kicker">SEU MAPA DE REVISÃO</span><h2 class="margin">Onde concentrar energia</h2>${weakList()}<button class="text" data-action="cycle">Revisar esses pontos ${icon("arrow-right")}</button></div><div class="notice">“Alta probabilidade de cair na prova” registra seu relato sobre a aula. Não é garantia de que uma questão aparecerá na prova.</div><div class="panel"><span class="badge-num">01</span><h3>Treine o raciocínio no papel</h3><p class="muted">Acompanhe cada variável antes de executar mentalmente a próxima linha.</p><button data-practice="mesa_for">Fazer um teste de mesa</button></div></section></div>`
+      )}</div></section><section><div class="panel"><span class="kicker">SEU MAPA DE REVISÃO</span><h2 class="margin">Onde concentrar energia</h2>${weakList()}<button class="text" data-action="cycle">Revisar esses pontos ${icon("arrow-right")}</button></div><div class="notice">“Alta probabilidade de cair na prova” registra o que o professor disse em aula. Não é garantia de que uma questão aparecerá na prova.</div><div class="panel"><span class="badge-num">01</span><h3>Treine o raciocínio no papel</h3><p class="muted">Acompanhe cada variável antes de executar mentalmente a próxima linha.</p><button data-practice="mesa_for">Fazer um teste de mesa</button></div></section></div>`
   );
 }
 
