@@ -14,7 +14,7 @@ function historyPage() {
           .reverse()
           .map(
             ({ x, i }) =>
-              `<tr><td>${new Date(x.time).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" })}</td><td><strong>${x.score}/${x.total}</strong> · ${Math.round((x.score / x.total) * 100)}%</td><td>${x.format === "codigo-v4" ? "8 questões fixas" : x.format === "codigo-v3" ? "5 funções + 2 testes de mesa" : "Objetivo · versão anterior"}</td><td>${validStoredExam(x) ? `<button data-exam-history="${i}">Ver correção</button>` : "Resultado preservado"}</td></tr>`,
+              `<tr><td>${new Date(x.time).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" })}</td><td><strong>${x.score}/${x.total}</strong> · ${Math.round((x.score / x.total) * 100)}%</td><td>${x.format === "sorteio-v1" ? `Sorteio ${esc(EXAM_PLANS[x.detail?.plan]?.title || "")} · ${x.total} questões` : x.format === "codigo-v4" ? "Dicas da P2 · 8 questões" : x.format === "codigo-v3" ? "5 funções + 2 testes de mesa" : "Objetivo · versão anterior"}</td><td>${validStoredExam(x) ? `<button data-exam-history="${i}">Ver correção</button>` : "Resultado preservado"}</td></tr>`,
           )
           .join("")}</tbody></table></div>`
       : '<p class="muted">Seus acertos aparecerão aqui depois do primeiro simulado finalizado.</p>'

@@ -113,7 +113,7 @@ function action(name) {
         )
       )
         return;
-      startExam();
+      startExam(exam?.plan); // rodada sorteada: sorteia de novo
       return;
     case "exam-prev":
     case "exam-next":
@@ -127,6 +127,21 @@ function action(name) {
       break;
     case "finish-exam":
       finishExam();
+      break;
+    case "leave-exam":
+      if (examGrading || !exam) return;
+      if (
+        !exam.finished &&
+        Object.values(exam.answers).some((a) => a.trim()) &&
+        !confirm(
+          "Sair deste simulado? As respostas desta rodada serão descartadas, sem correção ou nota. Seu histórico de simulados concluídos será preservado.",
+        )
+      )
+        return;
+      exam = null;
+      delete state.pendingExam;
+      save();
+      render();
       break;
     case "new-exam":
       if (examGrading) return;

@@ -133,11 +133,11 @@ Na primeira vez que uma resposta entra no histórico, o site oferece **Entrar co
 
 ## Origem e limites
 
-As quatro prioridades foram anunciadas verbalmente segundo seu relato. Sua presença é garantida apenas no simulado do site, nunca na prova real. O simulado, seus contratos de função e testes são adaptações autorais, não uma reprodução confirmada da avaliação do professor.
+As quatro prioridades foram anunciadas pelo professor em aula. Sua presença é garantida apenas no simulado do site, nunca na prova real. O simulado, seus contratos de função e testes são adaptações autorais, não uma reprodução confirmada da avaliação do professor.
 
 Verificar anagramas e contar arranjos são problemas distintos. O anúncio sobre contagem permanece ambíguo; o simulado usa a verificação do par, enquanto a contagem fica como extensão no catálogo.
 
-ENADE 2021 D3: tema conferido no padrão oficial. 2011 D5: treino 4×4 conforme relato, com PDF ainda não conferido. 2008 D40: referência e treino preparatório autoral, sem transcrição validada do algoritmo. 2011 D4, 2014 D5 e 2017 D3 têm pendências. Fontes estão na pasta ENADE e em **Listas e fontes**.
+ENADE 2021 D3: tema conferido no padrão oficial. 2011 D5: enunciado conferido no PDF oficial (tabuleiro 4×4 numerado por linha, grãos de cada casa e total); o treino segue o enunciado. 2008 D40: referência e treino preparatório autoral, sem transcrição validada do algoritmo. 2011 D4, 2014 D5 e 2017 D3 têm pendências. Fontes estão na pasta ENADE e em **Listas e fontes**.
 
 O corretor é automático por testes, não uma IA conversacional. Passar nos testes não prova correção para todas as entradas e não avalia estilo nem comprova a abordagem de todo programa possível. Há checagens específicas das restrições de laços e de soma por dígitos, descritas abaixo. Python roda localmente via Pyodide 0.27.7, carregado de `cdn.jsdelivr.net`. O site não envia seu código a uma IA. As soluções existem nos arquivos locais: ocultá-las na interface é um recurso de estudo, não uma proteção para prova sigilosa.
 

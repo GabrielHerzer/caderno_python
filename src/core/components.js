@@ -14,7 +14,7 @@ function card(e) {
 
 function importantBadge(e) {
   if (e.priority)
-    return '<p class="notice"><strong>Massanori gostou muito dessa questão.</strong><br><small>Alta probabilidade segundo seu relato sobre a aula; não é confirmação da prova.</small></p>';
+    return '<p class="notice"><strong>Massanori gostou muito dessa questão.</strong><br><small>Alta probabilidade segundo o que o professor disse em aula; não é confirmação da prova.</small></p>';
   return e.teacherLiked
     ? `<p class="notice">${icon("star", "star")} <strong>Importante.</strong> Massanori falou que gostou do exercício.<br><small>Indicado como importante na postagem “Dicas P2”. Não é garantia de cair na prova.</small></p>`
     : "";
