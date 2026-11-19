@@ -7,10 +7,10 @@ Listas, exercícios e simulados para estudar Python. Todas as listas da Fatec fe
 ## O que tem no site
 
 - **Meu painel**: acompanhe seu progresso e comece um ciclo de revisão.
-- **Catálogo**: encontre os 95 exercícios das listas 1 a 7 e 9 a 14 e os treinos do ENADE. Filtre por tema e veja os exercícios destacados pelo professor. Cada lista mostra as aulas do professor no YouTube (Python para Zumbis) para assistir antes; os vídeos de dicas e resolução liberam depois da sua primeira tentativa na lista.
+- **Catálogo**: encontre os 95 exercícios das listas 1 a 7 e 9 a 14 e os treinos do ENADE, além das 28 questões da P0, P1 e P2 na pasta **Provas**. Filtre por tema e veja os exercícios destacados pelo professor. Cada lista mostra as aulas do professor no YouTube (Python para Zumbis) para assistir antes; os vídeos de dicas e resolução liberam depois da sua primeira tentativa na lista.
 - **Prática**: responda a questões objetivas ou escreva seu próprio código Python. Envie sua tentativa para ver a correção e os casos de teste. A solução completa só aparece quando você pede.
 - **Revisão adaptativa**: reveja os temas em que mais errou, com explicações de sintaxe, exemplos e exercícios para praticar.
-- **Simulado**: escreva as funções pedidas e receba a nota quando finalizar. Você pode retomar a rodada ou recomeçar antes de finalizar.
+- **Simulado**: escreva as funções pedidas e receba a nota quando finalizar. Você pode retomar a rodada ou recomeçar antes de finalizar. As rodadas sorteadas também incluem questões das provas anteriores correspondentes.
 - **Meu histórico**: consulte seus acertos, erros e notas dos simulados. Você pode exportar ou importar um backup do seu progresso.
 - **Listas e fontes**: consulte a origem dos exercícios e o que já foi conferido nas referências do ENADE.
 
@@ -44,6 +44,7 @@ src/
     supplied-lists.js   listas 6–14 recebidas, com funções (SUPPLIED_LISTS)
     program-lists.js    listas 1–5 recebidas, programas com input()/print() (PROGRAM_LISTS)
     merge-lists.js      junta as listas recebidas ao catálogo, lições e contratos
+    past-exams.js       provas P0, P1 e P2 (DSM), com soluções e testes
     videos.js           aulas do Python para Zumbis no YouTube, por lista (antes/depois)
   core/                 base compartilhada
     utils.js            $, esc, byId, toast, shuffle
