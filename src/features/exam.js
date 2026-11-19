@@ -33,39 +33,42 @@ const EXAM_PLANS = {
     title: "Sub",
     when: "sexta, 4/dez, 9h10, sala 304",
     about:
-      "O professor avisou que a Sub tem questões parecidas com as da P1 e da P2, e que a P0 não cai. Por isso a rodada mistura as listas 5 a 14, ENADE e teste de mesa.",
+      "O professor avisou que a Sub tem questões parecidas com as da P1 e da P2, e que a P0 não cai. Por isso a rodada mistura as listas 5 a 14, questões da P1 e P2, ENADE e teste de mesa.",
     pools: [
-      { label: "P1 · listas 5, 6, 7 e 9", lists: [5, 6, 7, 9], n: 4 },
-      { label: "P2 · listas 10 a 14", lists: [10, 11, 12, 13, 14], n: 3 },
+      { label: "P1 · listas 5, 6, 7 e 9", lists: [5, 6, 7, 9], pastExam: "p1", n: 4 },
+      { label: "P2 · listas 10 a 14", lists: [10, 11, 12, 13, 14], pastExam: "p2", n: 3 },
       { label: "ENADE", ids: ENADE_IDS, n: 2 },
       { label: "Teste de mesa", trace: ["mesa_for", "mesa_while", "alias"], n: 1 },
     ],
   },
   p2: {
     title: "P2",
-    about: "Listas 10 a 14, as questões do ENADE e teste de mesa (Lista XIV).",
+    about: "Listas 10 a 14, questões da P2, ENADE e teste de mesa (Lista XIV).",
     pools: [
-      { label: "Listas 10 a 14", lists: [10, 11, 12, 13, 14], n: 6 },
+      { label: "Listas 10 a 14", lists: [10, 11, 12, 13, 14], pastExam: "p2", n: 6 },
       { label: "ENADE", ids: ENADE_IDS, n: 2 },
       { label: "Teste de mesa", trace: ["mesa_for", "mesa_while", "alias"], n: 2 },
     ],
   },
   p1: {
     title: "P1",
-    about: "Listas 5, 6, 7 e 9.",
-    pools: [{ label: "Listas 5, 6, 7 e 9", lists: [5, 6, 7, 9], n: 10 }],
+    about: "Listas 5, 6, 7 e 9 e questões da P1.",
+    pools: [{ label: "Listas 5, 6, 7 e 9", lists: [5, 6, 7, 9], pastExam: "p1", n: 10 }],
   },
   p0: {
     title: "P0",
-    about: "Listas 1 a 5: programas com input() e print().",
-    pools: [{ label: "Listas 1 a 5", lists: [1, 2, 3, 4, 5], n: 10 }],
+    about: "Listas 1 a 5 e questões da P0.",
+    pools: [{ label: "Listas 1 a 5", lists: [1, 2, 3, 4, 5], pastExam: "p0", n: 10 }],
   },
 };
 
 const poolIds = (pool) =>
   pool.trace ||
   pool.ids ||
-  EXERCISES.filter((e) => pool.lists.includes(e.list) && CODE_SPECS[e.id]).map((e) => e.id);
+  EXERCISES.filter(
+    (e) =>
+      (pool.lists.includes(e.list) || (pool.pastExam && e.exam === pool.pastExam)) && CODE_SPECS[e.id],
+  ).map((e) => e.id);
 
 const planSize = (plan) => EXAM_PLANS[plan].pools.reduce((n, pool) => n + pool.n, 0);
 
