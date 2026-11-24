@@ -24,11 +24,11 @@ function catalog() {
     `<div class="notice">Listas recebidas, uma por pasta: ${SUPPLIED_LIST_NUMBERS.join(", ")} (o material não tem lista 8). Os ${LIST_ITEMS.length} exercícios enviados estão disponíveis; nas listas 1 a 5, você escreve programas completos com input() e print(). Ajustes em comentários ou soluções inconsistentes são explicados nos respectivos enunciados. A conferência das referências ENADE continua indicada separadamente.</div><div class="folder-grid" aria-label="Pastas de exercícios">${folders
       .map((f) => {
         const count = EXERCISES.filter((e) => (inCatalogFolder(e, f))).length;
-        return `<button class="folder ${folder === String(f) ? "selected" : ""}" data-folder="${f}" aria-pressed="${folder === String(f)}"><span aria-hidden="true">${icon("folder")}</span><strong>${f === "enade" ? "ENADE" : f === "provas" ? "Provas" : `Lista ${f}`}</strong><small>${count} exercícios disponíveis${f === "enade" ? " · 6 referências" : f === "provas" ? " · P0, P1 e P2" : ""}</small></button>`;
+        return `<button class="folder ${folder === String(f) ? "selected" : ""}" data-folder="${f}" aria-pressed="${folder === String(f)}"><span aria-hidden="true">${icon("folder")}</span><strong>${f === "enade" ? "ENADE" : f === "provas" ? "Provas" : `Lista ${f}`}</strong><small>${count} exercícios disponíveis${f === "enade" ? " · 6 referências" : f === "provas" ? " · P0, P1 e P2 · 14 PDFs" : ""}</small></button>`;
       })
       .join("")}</div>${
       folder
-        ? `<div class="row margin"><h2>${folder === "enade" ? "Treinos de preparação" : folder === "provas" ? "Provas anteriores · DSM" : `Exercícios disponíveis · lista ${folder}`}</h2><button data-folder="">Ver todas as pastas</button></div>${listVideos(folder)}<section class="filters"><label>Buscar nesta pasta<input id="search" type="search" value="${esc(filters.search)}" placeholder="Título ou tema…"></label><label>Tema<select id="topic"><option value="">Todos</option>${[
+        ? `<div class="row margin"><h2>${folder === "enade" ? "Treinos de preparação" : folder === "provas" ? "Provas anteriores · DSM" : `Exercícios disponíveis · lista ${folder}`}</h2><button data-folder="">Ver todas as pastas</button></div>${listVideos(folder)}${folder === "provas" ? pastExamDownloads() : ""}<section class="filters"><label>Buscar nesta pasta<input id="search" type="search" value="${esc(filters.search)}" placeholder="Título ou tema…"></label><label>Tema<select id="topic"><option value="">Todos</option>${[
             ...new Set(EXERCISES.flatMap((e) => e.topics)),
           ]
             .sort()
@@ -64,6 +64,26 @@ function catalogResults() {
     }).join("");
   }
   return `<p class="muted">${items.length} exercícios disponíveis · todos liberados</p><div class="grid three">${items.map(card).join("")}</div>${items.length ? "" : '<div class="empty">Nenhum exercício com esses filtros. Limpe a busca ou escolha outro tema.</div>'}`;
+}
+
+function pastExamDownloads() {
+  return (
+    '<section class="panel margin" aria-label="Provas completas em PDF"><h2>Provas completas em PDF</h2><p>Material compartilhado pelo professor Massanori para estudo. Abra uma prova para consultar o arquivo original.</p>' +
+    ["P0", "P1", "P2", "Sub"]
+      .map((exam) => {
+        const files = PAST_EXAM_PDFS.filter((pdf) => pdf.exam === exam);
+        return files.length
+          ? `<h3 class="margin">${exam}</h3><div class="grid three">${files
+              .map(
+                (pdf) =>
+                  `<article class="card"><h3>${esc(pdf.title)}</h3><a href="${esc(pdf.path)}" target="_blank" rel="noopener noreferrer">Abrir prova em PDF ${icon("external-link")}</a></article>`,
+              )
+              .join("")}</div>`
+          : "";
+      })
+      .join("") +
+    "</section>"
+  );
 }
 
 // Aulas do professor para a lista aberta. As de dicas/resolução só aparecem como link depois que
