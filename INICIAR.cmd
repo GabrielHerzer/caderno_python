@@ -1,4 +1,4 @@
 @echo off
 cd /d "%~dp0"
-python iniciar.py
+python tools\iniciar.py
 if errorlevel 1 pause
