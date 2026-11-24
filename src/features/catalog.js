@@ -67,23 +67,23 @@ function catalogResults() {
 }
 
 function pastExamDownloads() {
-  return (
-    '<section class="panel margin" aria-label="Provas completas em PDF"><h2>Provas completas em PDF</h2><p>Material compartilhado pelo professor Massanori para estudo. Abra uma prova para consultar o arquivo original.</p>' +
-    ["P0", "P1", "P2", "Sub"]
-      .map((exam) => {
-        const files = PAST_EXAM_PDFS.filter((pdf) => pdf.exam === exam);
-        return files.length
-          ? `<h3 class="margin">${exam}</h3><div class="grid three">${files
-              .map(
-                (pdf) =>
-                  `<article class="card"><h3>${esc(pdf.title)}</h3><a href="${esc(pdf.path)}" target="_blank" rel="noopener noreferrer">Abrir prova em PDF ${icon("external-link")}</a></article>`,
-              )
-              .join("")}</div>`
-          : "";
-      })
-      .join("") +
-    "</section>"
-  );
+  const years = [...new Set(PAST_EXAM_PDFS.map((pdf) => pdf.year))].sort((a, b) => a - b);
+  return `<section class="panel margin" aria-label="Provas antigas organizadas por ano e semestre"><h2>Provas antigas</h2><p>Escolha o ano, abra um semestre e selecione P0, P1, P2 ou Sub.</p>${years
+    .map((year) => {
+      const semesters = [...new Set(PAST_EXAM_PDFS.filter((pdf) => pdf.year === year).map((pdf) => pdf.semester))].sort((a, b) => a - b);
+      return `<details class="exam-year margin"><summary><strong>${year}</strong></summary>${semesters
+        .map((semester) => {
+          const exams = PAST_EXAM_PDFS.filter((pdf) => pdf.year === year && pdf.semester === semester);
+          return `<details class="exam-semester margin"><summary>Semestre ${semester}</summary><div class="grid three">${exams
+            .map(
+              (pdf) =>
+                `<article class="card"><h3>${esc(pdf.exam)}</h3><a href="${esc(pdf.path)}" target="_blank" rel="noopener noreferrer">Abrir prova em PDF ${icon("external-link")}</a></article>`,
+            )
+            .join("")}</div></details>`;
+        })
+        .join("")}</details>`;
+    })
+    .join("")}</section>`;
 }
 
 // Aulas do professor para a lista aberta. As de dicas/resolução só aparecem como link depois que
