@@ -98,6 +98,12 @@ else:
             result = func(*values)
             row['actual'] = concise(result)
             row['ok'] = equal(result, expected)
+            if rules.get('unorderedLetters'):
+                row['ok'] = isinstance(result,str) and len(result)==len(set(args[0])) and set(result)==set(args[0])
+                row['expected'] = 'Uma ocorrência de cada letra, em qualquer ordem'
+            if rules.get('randomLetters') and 1 <= args[0] <= 26:
+                row['ok'] = isinstance(result,str) and len(result)==args[0] and len(set(result))==args[0] and all('a'<=c<='z' for c in result)
+                row['expected'] = f'{args[0]} letras minúsculas distintas'
             if req.get('returnType') == 'list' and not isinstance(result, list):
                 row['ok'] = False
                 row['error'] = 'O retorno deve ser uma lista, conforme os testes do enunciado.'

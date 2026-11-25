@@ -24,11 +24,13 @@ function catalog() {
     `<div class="notice">Listas recebidas, uma por pasta: ${SUPPLIED_LIST_NUMBERS.join(", ")} (o material não tem lista 8). Os ${LIST_ITEMS.length} exercícios enviados estão disponíveis; nas listas 1 a 5, você escreve programas completos com input() e print(). Ajustes em comentários ou soluções inconsistentes são explicados nos respectivos enunciados. A conferência das referências ENADE continua indicada separadamente.</div><div class="folder-grid" aria-label="Pastas de exercícios">${folders
       .map((f) => {
         const count = EXERCISES.filter((e) => (inCatalogFolder(e, f))).length;
-        return `<button class="folder ${folder === String(f) ? "selected" : ""}" data-folder="${f}" aria-pressed="${folder === String(f)}"><span aria-hidden="true">${icon("folder")}</span><strong>${f === "enade" ? "ENADE" : f === "provas" ? "Provas" : `Lista ${f}`}</strong><small>${count} exercícios disponíveis${f === "enade" ? " · 6 referências" : f === "provas" ? " · P0, P1 e P2" : ""}</small></button>`;
+        return `<button class="folder ${folder === String(f) ? "selected" : ""}" data-folder="${f}" aria-pressed="${folder === String(f)}"><span aria-hidden="true">${icon("folder")}</span><strong>${f === "enade" ? "ENADE" : f === "provas" ? "Provas" : `Lista ${f}`}</strong><small>${count} exercícios disponíveis${f === "enade" ? " · 6 referências" : f === "provas" ? " · P0, P1 e P2 · 14 PDFs" : ""}</small></button>`;
       })
       .join("")}</div>${
-      folder
-        ? `<div class="row margin"><h2>${folder === "enade" ? "Treinos de preparação" : folder === "provas" ? "Provas anteriores · DSM" : `Exercícios disponíveis · lista ${folder}`}</h2><button data-folder="">Ver todas as pastas</button></div>${listVideos(folder)}<section class="filters"><label>Buscar nesta pasta<input id="search" type="search" value="${esc(filters.search)}" placeholder="Título ou tema…"></label><label>Tema<select id="topic"><option value="">Todos</option>${[
+      folder === "provas"
+        ? `<div class="row margin"><h2>Provas anteriores · DSM</h2><button data-folder="">Ver todas as pastas</button></div>${pastExamDownloads()}`
+        : folder
+        ? `<div class="row margin"><h2>${folder === "enade" ? "Treinos de preparação" : `Exercícios disponíveis · lista ${folder}`}</h2><button data-folder="">Ver todas as pastas</button></div>${listVideos(folder)}<section class="filters"><label>Buscar nesta pasta<input id="search" type="search" value="${esc(filters.search)}" placeholder="Título ou tema…"></label><label>Tema<select id="topic"><option value="">Todos</option>${[
             ...new Set(EXERCISES.flatMap((e) => e.topics)),
           ]
             .sort()
@@ -57,13 +59,33 @@ function catalogResults() {
           .toLocaleLowerCase("pt-BR")
           .includes(filters.search.toLocaleLowerCase("pt-BR"))),
   ).sort((a, b) => (a.letter || "").localeCompare(b.letter || "", "pt-BR", { numeric: true }));
-  if (folder === "provas" && items.length) {
-    return ["p0", "p1", "p2"].map((exam) => {
-      const questions = items.filter((item) => item.exam === exam);
-      return questions.length ? `<h3 class="margin">${exam.toUpperCase()}</h3><div class="grid three">${questions.map(card).join("")}</div>` : "";
-    }).join("");
-  }
   return `<p class="muted">${items.length} exercícios disponíveis · todos liberados</p><div class="grid three">${items.map(card).join("")}</div>${items.length ? "" : '<div class="empty">Nenhum exercício com esses filtros. Limpe a busca ou escolha outro tema.</div>'}`;
+}
+
+function pastExamDownloads() {
+  const examsByTerm = [
+    ...PAST_EXAM_PDFS,
+    ...["P0", "P1", "P2"].map(exam => ({ year: 2026, semester: 2, exam })),
+  ];
+  const previewYear = location.hash === "#provas-2026-2" ? 2026 :
+    location.hash === "#provas-2025-2-p1" ? 2025 : null;
+  const years = [...new Set(examsByTerm.map((pdf) => pdf.year))].sort((a, b) => a - b);
+  return `<section class="panel margin" aria-label="Provas antigas organizadas por ano e semestre"><h2>Provas antigas</h2><p>Escolha o ano, abra um semestre e selecione P0, P1, P2 ou Sub.</p>${years
+    .map((year) => {
+      const semesters = [...new Set(examsByTerm.filter((pdf) => pdf.year === year).map((pdf) => pdf.semester))].sort((a, b) => a - b);
+      return `<details class="exam-year margin" ${year === previewYear ? "open" : ""}><summary><strong>${year}</strong></summary>${semesters
+        .map((semester) => {
+          const exams = examsByTerm.filter((pdf) => pdf.year === year && pdf.semester === semester);
+          return `<details class="exam-semester margin" ${year === previewYear && semester === 2 ? "open" : ""}><summary>Semestre ${semester}</summary><div class="grid three">${exams
+            .map(
+              (pdf) =>
+                `<details class="card" ${location.hash === "#provas-2025-2-p1" && pdf.path === pilotExam ? "open" : ""}><summary class="folder"><span aria-hidden="true">${icon("folder")}</span><strong>${esc(pdf.exam)}</strong></summary>${EXERCISES.filter(e => pdf.path ? e.archive === pdf.path : e.exam === pdf.exam.toLowerCase()).map((e,i) => `<p><button data-code="${e.id}">Questão ${i+1} · ${esc(e.title)}</button></p>`).join("")}${pdf.path ? `<a href="${esc(pdf.path)}" target="_blank" rel="noopener noreferrer">Abrir prova em PDF</a>` : ""}</details>`,
+            )
+            .join("")}</div></details>`;
+        })
+        .join("")}</details>`;
+    })
+    .join("")}</section>`;
 }
 
 // Aulas do professor para a lista aberta. As de dicas/resolução só aparecem como link depois que

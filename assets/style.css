@@ -295,6 +295,28 @@ small {
   display: flex;
   flex-direction: column;
 }
+.exam-year,
+.exam-semester {
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #fff;
+}
+.exam-year > summary,
+.exam-semester > summary {
+  cursor: pointer;
+  padding: 14px 18px;
+  font-weight: 650;
+}
+.exam-year > summary {
+  font-size: 18px;
+}
+.exam-semester {
+  margin: 0 14px 12px;
+  background: var(--paper);
+}
+.exam-semester .grid {
+  padding: 0 14px 14px;
+}
 .card p {
   font-size: 13px;
   color: var(--muted);
