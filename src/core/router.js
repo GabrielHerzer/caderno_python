@@ -16,6 +16,9 @@ function render() {
   const pages = {
     inicio: dashboard,
     catalogo: catalog,
+    provas: pastExamDownloads,
+    "provas-2026-2": pastExamDownloads,
+    "provas-2025-2-p1": pastExamDownloads,
     revisao: review,
     simulado: examPage,
     historico: historyPage,
